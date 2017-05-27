@@ -15,7 +15,7 @@
 	<title>Perfil</title>
 	
         <%@ include file="include.jspf" %>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvv3hZ7Hc3_qD2r1o8ltYxQ7rEGkSmxPA&callback=myMap"></script> 
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmlKfsQUOudExqzvnqoEOb0D8cYodsBag&callback=myMap"></script> 
         
 </head>
 
@@ -109,9 +109,14 @@
                                 <tr>
                                     <td colspan="6">
                                         &nbsp;&nbsp;&nbsp;&nbsp;
-                                        <input type="submit" class="boton15" value="Registrar" id="registrar"> 
+                                        <input type="submit" class="boton15" value="Actualizar" id="registrar" onclick="doPerfil1()"> 
                                         &nbsp;&nbsp;&nbsp;&nbsp;
-                                        <input type="button" class="boton15" value="Ubicarme" id="registrar" onclick="getLocation()"> </td>
+                                        <input type="button" class="boton15" value="Editar" id="registrar" onclick="enableInput()"> 
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="button" class="boton15" value="Mostrar Mapa" id="registrar" onclick="myMap()">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="button" class="boton15" value="Ubicarme" id="registrar" onclick="getLocation()"> 
+                                    </td>
                                 </tr>
                             </tfoot>
                         </table>

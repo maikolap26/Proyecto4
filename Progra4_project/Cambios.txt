@@ -69,3 +69,8 @@ Se agregaron los metodos updateCliente y updateAdminis
 // ---------------------------------- CAMBIO NUMERO ONCE  --------------------------------
 
 Se agregaron las clases localizaion.js y localizacion.java
+
+// ---------------------------------- CAMBIO NUMERO DOCE  --------------------------------
+
+Se agregaron los botonoes actualizar y editar en las paginas de los perfiles de usuario junto con su funcionalidad
+Exceptuando el update que Maikol dice que sabe como hacerlo ya que a mi no me sirvio. :P
