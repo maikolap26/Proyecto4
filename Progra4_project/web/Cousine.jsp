@@ -10,20 +10,9 @@
 
 <head>
 	<title>Cousine a bordo</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<link href="css/estilo1.css" rel="stylesheet" type="text/css" />
-	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="js/script.js" type="text/javascript"></script>
-
-	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
-	<link href="css/datepicker.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
-	<script src="js/funcionesJQuery.js" type="text/javascript"></script>
-		<script src="js/Metodos.js" type="text/javascript"></script>
-	<script src="js/Usuario.js" type="text/javascript"></script>
+           
+         <%@ include file="include.jspf" %>
+         
 </head>
 
 <body class="pagina">

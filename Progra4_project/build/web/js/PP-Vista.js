@@ -11,6 +11,9 @@ var asientosSelec;
 var asientos = [];
 var cantidad = 0;
 var orden = [];
+var map;
+var markers = [];
+
 function pageLoad(event) {
 
     model = new AAMModel();
@@ -38,14 +41,17 @@ function pageLoad(event) {
         document.getElementById("terminarOrden2").addEventListener("click", cancelarOrden);
     }
 }
+
 function deshabilitarRegreso() {
     normalizar();
     document.getElementById("datepicker2").disabled = true;
 }
+
 function habilitarRegreso() {
     normalizar();
     document.getElementById("datepicker2").disabled = false;
 }
+
 function llenarDescuentos() {
     for (var i = 1; i < 6; i++) {
         var imagen = document.createElement("img");
@@ -60,6 +66,7 @@ function llenarDescuentos() {
             actual.appendChild(imagen);
     }
 }
+
 function llenarSelects() {
     var origen = document.getElementById("origen");
     var destino = document.getElementById("destino");
@@ -77,6 +84,7 @@ function llenarSelects() {
         destino.appendChild(option);
     }
 }
+
 function goAsientos() {
     document.getElementById("info").style.display = "none";
     document.getElementById("goTi").style.color = "gray";
@@ -130,6 +138,7 @@ function goAsientos() {
     }
     avionAsi.appendChild(div2);
 }
+
 function mostrarAsientos() {
     var numero = numeroVuelo;
     var avion = model.buscados[numero].avion;
@@ -172,6 +181,7 @@ function mostrarAsientos() {
         avionAsi.appendChild(fila);
     }
 }
+
 function crearBotones() {
 
     var divB = document.createElement("div");
@@ -190,6 +200,7 @@ function crearBotones() {
     divB.appendChild(boton2);
     asientos.appendChild(divB);
 }
+
 function cancelarOrden() {
     var compra = document.getElementById("avionAsientos");
     // compra.classList.remove("popupComprar");
@@ -198,6 +209,7 @@ function cancelarOrden() {
     document.getElementById("cuerpo").style.opacity = 1;
 
 }
+
 function ordenCompletada() {
     if (asientos.length < cantidad) {
         alert("Selecciones los " + cantidad + " asiento(s).");
@@ -225,6 +237,7 @@ function ordenCompletada() {
     }
 
 }
+
 function agregaAsiento() {
     if (asientos.length === cantidad) {
         while (asientos.length > 0) {
@@ -236,11 +249,13 @@ function agregaAsiento() {
     asientos.push(this);
 
 }
+
 function cancelOrden() {
     var compra = document.getElementById("compra");
     compra.style.display = "none";
     document.getElementById("cuerpo").style.opacity = 1;
 }
+
 function showBuscados() {
     //controller.buscar();
     if (!fechaVacia())
@@ -289,6 +304,7 @@ function showBuscados() {
         s.appendChild(t);
     }
 }
+
 function fechaVacia() {
     var fecPar = document.getElementById("datepicker1").value;
     var fecLle = document.getElementById("datepicker2").value;
@@ -306,10 +322,12 @@ function fechaVacia() {
 
     return true;
 }
+
 function normalizar() {
     document.getElementById("datepicker1").classList.remove("bordeRojo");
     document.getElementById("datepicker2").classList.remove("bordeRojo");
 }
+
 function openInfo() {
     // if(document.getElementById("uar") === null){
     //     alert("Debe iniciar sesión para hacer una compra");
@@ -338,20 +356,21 @@ function openInfo() {
     orden.push(model.buscados[index]);
     return true;
 }
+
 function diaSemana(dia, mes, anio) {
     var dias = ["domingo", "lunes", "martes", "miercoles", "jueves", "vieenes", "sabados"];
     var dt = new Date(mes + ' ' + dia + ', ' + anio + ' 12:00:00');
     return dias[dt.getUTCDay()];
 }
+
 function doFocus(event) {
     event.target.className = "focus";
 }
+
 function doBlur(event) {
     event.target.className = "nofocus";
 }
-function redireccionar() {
-    location = "Registro.jsp";
-}
+
 function doValidate(event) {
     var user = document.getElementById("usuario");
     var contraseña = document.getElementById("contraseña");
@@ -439,6 +458,7 @@ function doValidate(event) {
     }
 
 }
+
 function doSubmit() {
     var user = document.getElementById("usuario");
     var contraseña = document.getElementById("contraseña");
@@ -467,6 +487,7 @@ function doSubmit() {
     }
     //formulario.reset();
 }
+
 function doSubmitAvion() {
     var codigo = document.getElementById("cod_Avion");
     var cantAsF = document.getElementById("cant_Asientos");
@@ -487,6 +508,7 @@ function doSubmitAvion() {
         }
     });
 }
+
 function doSubmitCiudades() {
     var codigo = document.getElementById("codigo");
     var nombre = document.getElementById("nombre");
@@ -504,6 +526,7 @@ function doSubmitCiudades() {
         }
     });
 }
+
 function doSubmitRutas() {
     var codigo = document.getElementById("codigo");
     var origen = document.getElementById("origen");
@@ -523,6 +546,7 @@ function doSubmitRutas() {
         }
     });
 }
+
 function doSubmitVuelos() {
     var codigo = document.getElementById("codigo_vuelo");
     var codigo1 = document.getElementById("codigo_ruta");
@@ -546,6 +570,7 @@ function doSubmitVuelos() {
         }
     });
 }
+
 function listAvion(listado, av) {
     var tr = document.createElement("tr");
     var td;
@@ -576,6 +601,7 @@ function listAvion(listado, av) {
     listado.appendChild(tr);
 
 }
+
 function listAviones(ps) {
     var listado = document.getElementById("listado");
     listado.innerHTML = "";
@@ -583,10 +609,13 @@ function listAviones(ps) {
         listAvion(listado, ps[i]);
     }
 }
+
 function llenarAviones() {
     listAviones(model.buscados);
 }
+
 /*------------------------------------------------------------------------*/
+
 function listCiudad(listado, av) {
     var tr = document.createElement("tr");
     var td;
@@ -605,6 +634,7 @@ function listCiudad(listado, av) {
     listado.appendChild(tr);
 
 }
+
 function listCiudades(ps) {
     var listado = document.getElementById("listado");
     listado.innerHTML = "";
@@ -612,6 +642,7 @@ function listCiudades(ps) {
         listCiudad(listado, ps[i]);
     }
 }
+
 function llenarCiudades() {
     listCiudades(model.buscados);
 }
@@ -639,6 +670,7 @@ function listRuta(listado, av) {
     listado.appendChild(tr);
 
 }
+
 function listRutas(ps) {
     var listado = document.getElementById("listado");
     listado.innerHTML = "";
@@ -646,10 +678,13 @@ function listRutas(ps) {
         listRuta(listado, ps[i]);
     }
 }
+
 function llenarRutas() {
     listRutas(model.buscados);
 }
+
 /*----------------------------------------------------------------*/
+
 function listVuelo(listado, av) {
     var tr = document.createElement("tr");
     var td;
@@ -683,6 +718,7 @@ function listVuelo(listado, av) {
     listado.appendChild(tr);
 
 }
+
 function listVuelos(ps) {
     var listado = document.getElementById("listado");
     listado.innerHTML = "";
@@ -690,7 +726,159 @@ function listVuelos(ps) {
         listVuelo(listado, ps[i]);
     }
 }
+
 function llenarVuelos() {
     listVuelos(model.buscados);
 }
+
+/* ******************************************************************************************************** */
+
+/* ******************************* CAMBIOS HECHOS POR ANDRES CASCANTE SALAS ******************************* */
+
+/* ******************************************************************************************************** */
+
+// ------------------------------- ACTUALIZAR DATOS DEL PERFIL DE USUARIO CLIENTE -------------------------------
+function doPerfil1(){
+    var user = document.getElementById("usuario");
+    var contraseña = document.getElementById("contraseña");
+    var cedula = document.getElementById("cedula");
+    var nombre = document.getElementById("nombre");
+    var apellido = document.getElementById("apellidos");
+    var correo = document.getElementById("correo");
+    var telefono = document.getElementById("telefono");
+    var celular = document.getElementById("celular");
+
+    usuario = new Usuario(user.value, cedula.value, nombre.value, apellido.value, correo.value, telefono.value, celular.value, "1996-11-08", contraseña.value);
+    var formulario = document.getElementById("formulario");
+    if (formulario != null) {
+        formulario.addEventListener("submit", doValidate);
+        Proxy.perfil1(usuario, function (result) {
+        });
+    }
+}
+
+// ------------------------------- ACTUALIZAR DATOS DEL PERFIL DE USUARIO ADMINISTRADOR -------------------------
+function doPerfil2(){
+    var user = document.getElementById("usuario");
+    var contraseña = document.getElementById("contraseña");
+    var cedula = document.getElementById("cedula");
+    var nombre = document.getElementById("nombre");
+    var apellido = document.getElementById("apellidos");
+    var correo = document.getElementById("correo");
+    var telefono = document.getElementById("telefono");
+    var celular = document.getElementById("celular");
+
+    usuario = new Usuario(user.value, cedula.value, nombre.value, apellido.value, correo.value, telefono.value, celular.value, "1996-11-08", contraseña.value);
+    var formulario = document.getElementById("formulario");
+    if (formulario != null) {
+        formulario.addEventListener("submit", doValidate);
+        Proxy.perfil2(usuario, function (result) {
+        });
+    }
+}
+
+// ------------------------------- REDIRECCIONA A REGISTRO -------------------------------
+function redireccionar() {
+    location = "Registro.jsp";
+}
+
+// ------------------------------- REDIRECCIONA A ERFIL DEL CLIENTE -------------------------------
+function redireccionar1() {
+    location = "UsuarioCliente.jsp";
+}
+
+// ------------------------------- REDIRECCIONA A PERFIL ADMINISTRADOR  -------------------------------
+function redireccionar2() {
+    location = "UsuarioAdmin.jsp";
+}
+
+// ------------------------------- HABILITA LOS CAMPOS A MODIFICAR -------------------------------
+function enableInput(){
+    document.getElementById("correo").disabled = false;
+    document.getElementById("contraseña").disabled = false;
+    document.getElementById("contraseña1").disabled = false;
+    document.getElementById("nombre").disabled = false;
+    document.getElementById("apellidos").disabled = false;
+    document.getElementById("cedula").disabled = false;
+    document.getElementById("telefono").disabled = false;
+    document.getElementById("celular").disabled = false;
+}
+
+/* ------------------------------------------------------------------- */
+/* ---------------------------    MAPA   ----------------------------- */
+/* ------------------------------------------------------------------- */
+
+ function saveGeolocation(position) {
+    positionGeoMarker({ lat: position.coords.latitude, lng: position.coords.longitude });   
+}
+
+function getLocation() {
+    if (navigator.geolocation) {
+	if (navigator.geolocation.getCurrentPosition(saveGeolocation));            
+    }
+}
+
+function positionGeoMarker(coordenates) {
+	mapProp = {
+		center: new google.maps.LatLng(coordenates.lat, coordenates.lng),
+		zoom: 20
+	};
+	var marker = new google.maps.Marker({
+		position: mapProp.center,
+		map: map
+	});
+	markers.push(marker);
+}
+
+function myMap() {
+	mapProp = {
+		center: new google.maps.LatLng(10.0000000, -84.0000000),
+		zoom: 7
+	};
+	map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+	// This event listener will call addMarker() when the map is clicked.
+	map.addListener('click', function (event) {
+		addMarker(event.latLng);
+	});      
+}
+
+// Adds a marker to the map and push to the array.
+function addMarker(location) {
+	deleteMarkers();
+	var marker = new google.maps.Marker({
+		position: location,
+		map: map
+	});
+	markers.push(marker);
+	controller.savePosition();
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(map);
+	}
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+	setMapOnAll(null);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+	clearMarkers();
+	markers = [];
+}
+
+/* ------------------------------------------------------------------- */
+/* ------------------------------------------------------------------- */
+/* ------------------------------------------------------------------- */
+
+/* ******************************************************************************************************** */
+/* ******************************************************************************************************** */
+/* ******************************************************************************************************** */
+
 document.addEventListener("DOMContentLoaded", pageLoad);
+

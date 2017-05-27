@@ -43,7 +43,7 @@
                                 <div class="Log">
                                     <div id="Log" style="font-family:Papyrus,fantasy; font-size:15px; font-weight:700; color:white;">
                                         <p class="Log"> Usuario: <%=user.getUsuario()%></p>
-                                        <p class="Log" ><input class="boton" type="submit" value="Logout"> <input class="boton" type="button" value="Perfil"></p>
+                                        <p class="Log" ><input class="boton" type="submit" value="Logout"> <input class="boton" type="button" value="Perfil" onclick="redireccionar2()"></p>
                                     </div>
                                 </div>
                             </form>                           

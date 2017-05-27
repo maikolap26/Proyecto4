@@ -1,0 +1,71 @@
+// ---------------------------------- CAMBIO NUMERO UNO ---------------------------------- 
+
+Se agrego el jspf de los include 
+
+Archivos involucrados: Todos los jsp, en el Head
+
+// ---------------------------------- CAMBIO NUMERO DOS ---------------------------------- 
+
+PaginaPrincipal.jsp
+
+Se quito el table foot en la linea 126 
+
+
+// ---------------------------------- CAMBIO NUMERO TRES ---------------------------------
+
+Estilos
+
+Se cambiaron varias cosas en el estilo
+
+
+// ---------------------------------- CAMBIO NUMERO CUATRO -------------------------------
+
+Se cambiaron las imagenes del carousel
+
+// ---------------------------------- CAMBIO NUMERO CINCO --------------------------------
+
+Pagina de Registro.jsp
+
+Se agrego el mapa
+
+// ---------------------------------- CAMBIO NUMERO SEIS --------------------------------
+
+PP-Vista
+
+Se agregaron lo metodos del mapa 
+
+Se agregaron los metodos doPerfil para el update de los usuarios
+
+Se agregaron los metodos redireccionar, redireccion 1 y redireccionar 2, para editar el perfil
+
+// ---------------------------------- CAMBIO NUMERO SIETE -------------------------------
+
+Se agregaron las paginas de perfil del cliente y el administrador 
+
+// ---------------------------------- CAMBIO NUMERO OCHO  --------------------------------
+
+PROXY
+
+Se agregaron los metodos perfil1 y perfil2 para hacer el update despues en el modelo
+
+// ---------------------------------- CAMBIO NUMERO NUEVE --------------------------------
+
+Service
+
+Se agrego la siguiente linea: 
+            String name, lastname, id, tel, tel2, fecha,cont1,cont2,email,usua;
+
+En la linea 110 en el if del login se asignaron valores a las variables declaradad anteriormente con el fin 
+de usarlas para meter la informacion en los campos del registro
+
+Se agregaron los case Perfil1 y Perfil2 para usarlos en el update del usuario
+
+// ---------------------------------- CAMBIO NUMERO DIEZ  --------------------------------
+
+AAMAirlineModel.java
+
+Se agregaron los metodos updateCliente y updateAdminis
+
+// ---------------------------------- CAMBIO NUMERO ONCE  --------------------------------
+
+Se agregaron las clases localizaion.js y localizacion.java

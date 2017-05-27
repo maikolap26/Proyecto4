@@ -439,5 +439,64 @@ public class AAMAirlineModel {
         }
         return aviones;
     }
+    /* ******************************************************************************************************** */
 
+    /* ******************************* CAMBIOS HECHOS POR ANDRES CASCANTE SALAS ******************************* */
+
+    /* ******************************************************************************************************** */
+                    
+    public static int updateCliente(Usuario us) throws Exception{
+        String sql = "update usuario set"
+                + " cedula='%s',apèllidos='%s',celular='%s',email='%s',nombre='%s',telefono='%s',contraseña='%s'"
+                + " where cedula = '%s'";
+        sql = String.format(sql, us.getCedula(), us.getApellidos(), us.getCelular(), us.getEmail(),
+                us.getNombre(), us.getTelefono(), us.getContraseña(),us.getCedula());
+        
+        String sql2 = "update usuario set" + " contraseña='%s'" + " where usuario = '%s'";
+        sql2 = String.format(sql2, us.getContraseña(), us.getCedula());
+        
+        ResultSet rs = BD.executeUpdateWithKeys(sql);
+
+        if (rs != null) {
+            ResultSet rs2 = BD.executeUpdateWithKeys(sql2);
+            if (rs2 == null) {
+                return 1;
+            }
+        } else {
+            return 1;
+        }
+
+        if (rs.next()) {
+            return rs.getInt(1);
+        } else {
+            return 0;
+        }
+    }
+    
+    public static int updateAdminis(Usuario us) throws Exception{
+        String sql = "update usuario set cedula='%s',apèllidos='%s',celular='%s',email='%s',nombre='%s',telefono='%s',contraseña='%s'"
+                + "where cedula = '%s'";
+        sql = String.format(sql, us.getCedula(), us.getApellidos(), us.getCelular(), us.getEmail(),
+                us.getNombre(), us.getTelefono(), us.getContraseña(),us.getCedula());
+        
+        String sql2 = "update login set contraseña='%s' " + "where usuario = '%s'";
+        sql2 = String.format(sql2, us.getContraseña(), us.getCedula());
+        
+        int rs = BD.executeUpdate(sql);
+
+        if (rs != 0) {
+            int rs2 = BD.executeUpdate(sql2);
+            if (rs2 == 0) {
+                return 1;
+            }
+            else
+                return 0;
+        } else {
+            return 1;
+        }
+    }
+    /* ******************************************************************************************************** */
+    /* ******************************************************************************************************** */
+    /* ******************************************************************************************************** */
+    
 }

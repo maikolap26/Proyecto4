@@ -231,3 +231,31 @@ Proxy.vueloSearch = function (callback) {
     };
     AJAX_req.send();
 }
+
+/* ******************************************************************************************************** */
+
+/* ******************************* CAMBIOS HECHOS POR ANDRES CASCANTE SALAS ******************************* */
+
+/* ******************************************************************************************************** */
+
+Proxy.perfil1 = function (user, callBack) {
+    var enviar;
+    var AJAX_req = new XMLHttpRequest();
+    url = "/Progra4_project/AAMAirlinesService?action=Perfil1";
+    AJAX_req.open("POST", url, true);
+    AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    enviar = JsonUtils.enviar(user);
+    
+    AJAX_req.send("us1=" + enviar);
+}
+
+Proxy.perfil2 = function (user, callBack) {
+    var enviar;
+    var AJAX_req = new XMLHttpRequest();
+    url = "/Progra4_project/AAMAirlinesService?action=Perfil2";
+    AJAX_req.open("POST", url, true);
+    AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    enviar = JsonUtils.enviar(user);
+    
+    AJAX_req.send("us2=" + enviar);
+}

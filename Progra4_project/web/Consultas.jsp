@@ -10,12 +10,9 @@
 
 <head>
     <title>Consultas</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/estilo1.css" rel="stylesheet" type="text/css" />
-    <script src="js/Metodos.js" type="text/javascript"></script>
-    <script src="js/Usuario.js" type="text/javascript"></script>
+             
+         <%@ include file="include.jspf" %>
+         
 </head>
 
 <body class="pagina">
@@ -24,8 +21,11 @@
         
         <%@ include file="Header.jspf" %>
 	
-	<!------------------------------- TERMINA ENCABEZADO ------------------------------->
-
+    <!------------------------------- TERMINA ENCABEZADO ------------------------------->
+    
+    <br>
+    <br>
+    
     <!------------------------------- CUERPO ------------------------------->
     <div class="container_cuerpo">
         <form id="claro">

@@ -178,7 +178,7 @@
 	    background: #ffffe6;
 	    border: inherit;
 	    text-align: center;
-	    background-image: url(../fonts/fondo1.png);
+	    background-image: url(../fonts/fondo3.png);
 	    border-radius: 10px;
 	}
 	
@@ -283,6 +283,13 @@
 	    color: white;
 	    text-align: center;
 	}
+        .boton15 {
+	    border: 2px solid #006400;
+	    border-radius: 10px;
+	    background-color: #006400;
+	    color: white;
+	    text-align: center;
+	}
         #i{
             border: 2px solid #0066ff;
 	    border-radius: 10px;
@@ -295,7 +302,7 @@
 	    height: 100%;
             border: 2px solid #006400;
 	    border-radius: 10px;
-	    background-color: #7FFF00;
+	    background-color: #006400;
 	    color: white;
 	    text-align: center;
         }
@@ -859,3 +866,27 @@
 	    border-radius: 10px;
             color:grey;
 	}
+        
+/* ----------------------  MAPA ---------------------- */
+        .mapa{
+            background: #cc9900;
+	    border: inherit;
+	    text-align: center;
+	    background-image: url(../fonts/fondo3.png);
+	    border-radius: 10px;
+            margin-left: 22.5%;
+            margin-right: 31.5%;
+        }
+        .local{
+	    border: inherit;
+	    text-align: center;
+	    border-radius: 10px;
+            color:white;
+        }
+        #local{
+	    border: inherit;
+	    text-align: center;
+	    border-radius: 10px;
+            color:white;
+            background-image: url(../fonts/fondo3.png);
+        }

@@ -41,6 +41,7 @@ public class AAMAirlinesService extends HttpServlet {
             Gson gson = new GsonBuilder().registerTypeAdapterFactory(rta).setDateFormat("dd/MM/yyyy").create();
             String json;
             String accion = request.getParameter("action");
+            String name, lastname, id, tel, tel2, fecha,cont1,cont2,email,usua;
             System.out.println(accion);
             List<Ciudad> ciudades;
             List<Vuelo> vuelos;
@@ -103,14 +104,54 @@ public class AAMAirlinesService extends HttpServlet {
                         switch (us.getTipo()) {
                             case "1": // client
                                 Usuario client = model.clientGet(us.getUsuario());
-                                request.getSession().setAttribute("client", client);
+                                // MANDAR AL SESSION 
+                                name=client.getNombre();
+                                request.getSession().setAttribute("nombre",name);
+                                lastname=client.getApellidos();     
+                                request.getSession().setAttribute("apellido",lastname);
+                                id=client.getCedula(); 
+                                request.getSession().setAttribute("cedula",id);
+                                tel=client.getTelefono();
+                                request.getSession().setAttribute("telefono",tel);
+                                tel2=client.getCelular();
+                                request.getSession().setAttribute("celular",tel2);
+                                cont1=client.getContraseña();
+                                request.getSession().setAttribute("cont1",cont1);
+                                email=client.getEmail();
+                                request.getSession().setAttribute("email",email);
+                                usua=client.getUsuario();
+                                request.getSession().setAttribute("usuario",usua);
+                                
+                                request.getSession().setAttribute("client", client);                                
                                 request.getRequestDispatcher("/PaginaPrincipal.jsp").forward(request, response);
                                 break;
                             case "2": // manager
+                                Usuario client2 = model.clientGet(us.getUsuario());
+                                // MANDAR AL SESSION 
+                                name=client2.getNombre();
+                                request.getSession().setAttribute("nombre",name);
+                                lastname=client2.getApellidos();     
+                                request.getSession().setAttribute("apellido",lastname);
+                                id=client2.getCedula(); 
+                                request.getSession().setAttribute("cedula",id);
+                                tel=client2.getTelefono();
+                                request.getSession().setAttribute("telefono",tel);
+                                tel2=client2.getCelular();
+                                request.getSession().setAttribute("celular",tel2);
+                                cont1=client2.getContraseña();
+                                request.getSession().setAttribute("cont1",cont1);
+                                email=client2.getEmail();
+                                request.getSession().setAttribute("email",email);
+                                usua=client2.getUsuario();
+                                request.getSession().setAttribute("usuario",usua);
+                                
+                                request.getSession().setAttribute("client", client2);  
+                                
                                 request.getRequestDispatcher("/Administracion.jsp").forward(request, response);
                                 break;
                         }
                     }
+                    
                     break;
                 case "userLogout":
                     request.getSession().removeAttribute("user");
@@ -189,6 +230,28 @@ public class AAMAirlinesService extends HttpServlet {
                     json = gson.toJson(vuelos);
                     out.write(json);
                     break;
+                    /* ******************************************************************************************************** */
+
+                    /* ******************************* CAMBIOS HECHOS POR ANDRES CASCANTE SALAS ******************************* */
+
+                    /* ******************************************************************************************************** */
+                    
+                case "Perfil1":
+                    String ac1 = request.getParameter("us1");
+                    Usuario us2 = gson.fromJson(ac1, Usuario.class);
+                    if (model.updateCliente(us2) == 1) {
+                        request.getSession().setAttribute("error", "error");
+                        request.getRequestDispatcher("/Registro.jsp").forward(request, response);
+                    }
+                    break;
+                case "Perfil2":
+                    String ac2 = request.getParameter("us2");
+                    Usuario us3 = gson.fromJson(ac2, Usuario.class);
+                    if (model.updateAdminis(us3) == 1) {
+                        request.getSession().setAttribute("error", "error");
+                        request.getRequestDispatcher("/Registro.jsp").forward(request, response);
+                    }
+                    break;                    
             }
         } catch (Exception e) {
             System.out.println(e);
