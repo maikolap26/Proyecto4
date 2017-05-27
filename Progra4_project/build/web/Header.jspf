@@ -1,0 +1,93 @@
+<%@page import="AAMAirline.model.Usuario"%>
+<%@page import="AAMAirline.model.Login"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<div class="container-fluid">
+                <div class="row encabezado">
+                    <div class="col-md-12">
+                        <img alt="" class="image1" src="img/Captura.PNG" style="float:left;">
+                        <img alt="" class="image" src="img/Header.PNG" style="float:left;">
+                        <% Login user = (Login) request.getSession().getAttribute("user"); %>
+                        <% String error = (String) request.getSession().getAttribute("error1"); %>
+                        <% if (user == null) {%>
+                            <form method="post" action="/Progra4_project/AAMAirlinesService?action=userLogin"><span class="inicioSesion" id="inicioSesion">
+                                    <span class="campoUs1">
+                                        Usuario:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input class="campoUs" name="user" id="user" type="text">
+                                        <br>
+                                        Contraseña:
+                                        <input class="campoUs" name="pass" id="pass" type="text"/>
+                                        </br>
+                                        </input>
+                                    </span>
+                                    <div>
+                                        <br>
+                                        <span class="boton1">
+                                            <input class="boton" id="login" type="submit" value="Login">
+                                            <input class="boton" id="signup" type="button" value="SignUp" onclick="redireccionar()">
+                                            </input>
+                                            </input>
+                                        </span>
+                                        </br>
+                                        <% if (error != null){ %>
+                                        <p> <h3 style="color: red;text-align: center;"> Error usuario o contraseña incorrecto</h3> </p>
+                                        <%}%>
+                                    </div>
+                                </span>
+                            </form>                            
+                        <%}%> 
+                            <!-- ---------------------- USUARIO LOGUEADO ----------------------- -->
+                        <% if (user != null) {%>                            
+                            <form method="post" action="/Progra4_project/AAMAirlinesService?action=userLogout">
+                                <div class="Log">
+                                    <div id="Log" style="font-family:Papyrus,fantasy; font-size:15px; font-weight:700; color:white;">
+                                        <p class="Log"> Usuario: <%=user.getUsuario()%></p>
+                                        <p class="Log" ><input class="boton" type="submit" value="Logout"> <input class="boton" type="button" value="Perfil"> </p>
+                                    </div>
+                                </div>
+                            </form>                           
+                        <%}%>   
+                            <!-- --------------------------------------------------------------- -->
+                    </div>
+                </div>
+            </div>
+            <!-- ---------------------- NAVEGACION ----------------------- -->
+            <div class="menuP">
+                <ul class="MyMenu">
+                    <li>
+                        <a href="PaginaPrincipal.jsp" title="Inicio">
+                            <image border="0" src="">
+                            Inicio
+                            </image>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="QuienesSomos.jsp" title="Quienes Somos">
+                            <image border="0" src="">
+                            Quienes somos
+                            </image>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Cousine.jsp" title="Cousine a bordo">
+                            <image border="0" src="">
+                            Cousine a bordo
+                            </image>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="ExperienciaABordo.jsp" title="Experiencia">
+                            <image border="0" src="">
+                            Experiencia
+                            </image>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Consultas.jsp" title="Consultas">
+                            <image border="0" src="">
+                            Consultas
+                            </image>
+                        </a>
+                    </li>
+                </ul>
+            </div>

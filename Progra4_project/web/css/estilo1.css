@@ -1,0 +1,861 @@
+/* ----------------------  MENU CLIENTES ---------------------- */
+        ul.MyMenu {
+	    font-size: 0px;
+	    /* Sin espacio entre opciones */
+	}
+        .seleccionado{
+            background-color: greenyellow;
+        }
+	ul.MyMenu li {
+	    /* Establece tamaño letra */
+	    font-size: 20px;
+	}
+	/*Estilo de las listas del menu y submenues*/
+	
+	ul.MyMenu, ul.MyMenu li ul {
+	    padding: 0;
+	    list-style: none;
+	}
+	/* Ancho del menu y del submenu */
+	
+	ul.MyMenu li a, ul.MyMenu li ul {
+	    width: 11em;
+	    text-align: center;
+	}
+	/* Opciones (y sus bloques)  horizontalmente*/
+	
+	ul.MyMenu li {
+	    display: inline-block;
+	    vertical-align: top;
+	}
+	/*MENU NORMAL*/
+	
+	ul.MyMenu li a {
+	    text-decoration: none;
+	    padding: 4.5px 18.5px 4.5px 12.5px;
+	    color: white;
+	    background: #993333;
+	    display: block;
+	    box-shadow: 8px 7px 5px 0px rgba(0, 0, 0, 0.37);
+	    font-family: "Comic Sans MS", cursive, sans-serif;
+	}
+	
+	ul.MyMenu li a:hover {
+	    background: grey;
+	}
+        
+/* ----------------------  PIE DE PAGINA ---------------------- */	
+
+	.container_pie {
+	    background-color: #cc6600;
+	    color: white;
+	}
+	
+	#pie {
+	    background-color: grey;
+	}
+/* ----------------------  IMAGENES ---------------------- */	
+	.image {
+	    display: block;
+	    margin: 0 auto 0 auto;
+	    width: 34%;
+	    height: 34%;
+	    padding-left: 2.5%;
+	}
+	
+	.image1 {
+	    display: block;
+	    margin: 0 auto 0 auto;
+	    width: 22%;
+	    height: 22%;
+	    padding-left: 9.2%;
+	}
+	.image2 {
+	    width: 88%;
+	    height: 88%;
+	    padding-right: 20%;
+	}
+	
+	.menuP {
+	    padding-left: 10%;
+	}
+	
+	.container-fluid {
+	    background-image: url(../fonts/sky.jpg);
+	}
+	
+	.col-md-12 {
+	    background-image: url(../fonts/sky.jpg);
+	}
+/* ----------------------  OTROS ---------------------- */		
+	#Negrita {
+	    font-size: 20px;
+	}
+	
+	#contactenos {
+	    background-color: #cc9900;
+	    font-size: 20px;
+	    font-weight: bold;
+	    text-align: center;
+	    background-image: url(../fonts/fondo3.png);
+	    border-radius: 10px;
+            color: white;
+	}
+	
+	#claro {
+	    background-color: #ffffe6;
+	    font-family: "Comic Sans MS", cursive, sans-serif;
+	    background-image: url(../fonts/fondo1.png);
+	    color: white;
+	}
+	
+	.pagina {
+	    width: 100%;
+	    background-image: url(../fonts/fondo2.png);
+	    background-size: 100%;
+	    z-index: 1;
+	}
+	
+	.tableVuelos {
+	    padding-left: 20%;
+	    padding-top: 2%;
+	    padding-bottom: 2%;
+	    font-size: 20px;
+	    font-family: "Comic Sans MS", cursive, sans-serif;
+            color: white;
+	}
+	
+	.servicio {
+	    padding-left: 10%;
+	    padding-top: 2%;
+	    padding-bottom: 2%;
+	}
+	
+	#busqueda {
+	    clear: left;
+	    width: 100%;
+            margin-right: 10%;
+            color: white;
+	}
+        
+/* ----------------------  DISTINTAS TABLAS ---------------------- */	
+
+	table.grid {
+	    background: #ffffe6;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color: black;
+	}
+	
+	table.grid {
+	    border: 1px;
+	    border-collapse: collapse;
+	    border-radius: 10px;
+	}
+	
+	table.grid thead tr {
+	    background: #cc9900;
+            background-image: url(../fonts/fondo3.png);
+	    border-radius: 10px;
+            color: white;
+	}
+	
+	table.grid thead tr th {
+	    background: #cc9900;
+	    border: inherit;
+	    text-align: center;
+	    background-image: url(../fonts/fondo3.png);
+	    border-radius: 10px;
+	}
+	
+	table.grid tfoot tr {
+	    background: #ffffe6;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+	}
+	
+	table.grid tfoot tr td {
+	    background: #ffffe6;
+	    border: inherit;
+	    text-align: center;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+	}
+	
+	table.grid tbody tr {
+	    background: #99ff99;
+	    border-radius: 10px;
+            color:black;
+	}
+	
+	table.grid tbody tr:nth-child(odd) {
+	    background: #ffffe6;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:black;
+	}
+	
+	table.grid tbody tr:nth-child(even) {
+	    background: #ffffe6;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:black;
+	}
+	
+	table.grid tbody tr td {
+	    border: inherit;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:black;
+	}
+	
+	.container_pie {
+	    clear: both;
+	}
+        
+/* ----------------------  CAROUSEL  ---------------------- */	
+
+	#carousel-1 {
+	    width: 100%;
+	    height: 100%;
+	}
+	
+	#row1 {
+	    margin-top: 5%;
+	    margin-left: 5%;
+	    width: 210%;
+	}
+	
+	.der {
+	    float: right;
+	    width: 50%;
+            margin-right: 0%;
+	}
+	
+	.derAv {
+	    position: relative;
+	    margin: 1%;
+	    display: block;
+	    float: center;
+	    width: 50%;
+	    background: black;
+	}
+	
+	#imagen {
+	    width: 100%;
+	    position: relative;
+	}
+	
+	.iz {
+	    float: left;
+	    width: 50%;
+	}
+	
+	.container {
+	    width: 50%;
+	    float: left;
+	}
+	
+	.bo {
+	    width: 80%;
+	    margin-left: 8%;
+	    margin-right: 15%;
+	    margin-top: 5%;
+	}
+	
+	.cantidad {
+	    margin-left: 8%;
+	    margin-right: 15%;
+	    margin-top: 5%;
+	}
+	
+	.datepicker {
+	    width: 80%;
+	    margin-left: 8%;
+	    margin-right: 15%;
+	    margin-top: 5%;
+	}
+/* ----------------------  BOTON  ---------------------- */		
+	.boton {
+	    border: 2px solid #0066ff;
+	    border-radius: 10px;
+	    background-color: #0066ff;
+	    color: white;
+	    text-align: center;
+	}
+        #i{
+            border: 2px solid #0066ff;
+	    border-radius: 10px;
+	    background-color: #0066ff;
+	    color: white;
+	    text-align: center;
+        }
+        .COMPRAR{
+            width: 50%;
+	    height: 100%;
+            border: 2px solid #006400;
+	    border-radius: 10px;
+	    background-color: #7FFF00;
+	    color: white;
+	    text-align: center;
+        }
+        #COMPRAR{
+            width: 50%;
+	    height: 25%;
+	    padding-left: 12%;
+            padding-bottom:5%;
+        }
+	
+	.fila {
+	    padding-top: 5%;
+	    padding-left: 3%;
+	}
+	
+	.sign {
+	    font-size: 20px;
+	    font-weight: bold;
+	    text-align: center;
+	    background-color: #cc9900;
+	    background-image: url(../fonts/fondo3.png);
+	    border-radius: 10px;
+	}
+	
+	#filabusq {
+	    border-radius: 10px 10px 10px 10px;
+	    -moz-border-radius: 10px 10px 10px 10px;
+	    -webkit-border-radius: 10px 10px 10px 10px;
+	    border: 30px solid transparent;
+	    padding: 50px;
+	}
+	
+	#tablaBusqueda {
+	    margin-left: 0%;
+            margin-right: 10%;
+	    margin-top: 5%;
+	    margin-bottom: 5%;
+	    width: 100%;
+            color: white;
+	}
+        
+	.formulario {
+	    font-size: 20px;
+	    margin-left: 90%;
+	    margin-top: 2%;
+	    margin-bottom: 5%;
+            color: white;
+	}
+	
+	.imagenR {
+	    width: 70%;
+	    height: 70%;
+	    margin-top: 5%;
+	    margin-bottom: 4%;
+	}
+/* ----------------------  LOG IN ---------------------- */
+
+        #Log{
+            padding-left: 68%;
+        }
+        
+	.inicioSesion {
+	    display: block;
+            color: white;
+	}
+        
+	.campoUs {
+	    margin-left: 1%;
+	    margin-top: 2%;
+	    margin-right: 1%;
+            color: black;
+	}
+	
+	.campoUs1 {
+	    margin-left: 0%;
+	    margin-top: 2%;
+	    margin-right: 1%;
+	    font-family: "Comic Sans MS", cursive, sans-serif;
+	}
+	
+	.boton1 {
+	    margin-left: 10%;
+	    margin-top: 2%;
+	    margin-right: 1%;
+	    font-family: "Comic Sans MS", cursive, sans-serif;
+            color: white;
+	}
+	
+	#inicioSesion {
+	    padding-left: 68%;
+	}
+	
+	.logueado {
+	    display: block;
+	}
+	.anchor {
+	    text-decoration: none;
+	    background: black;
+	    margin-left: 30%;
+	}
+	
+	.user {
+	    margin-left: 40%;
+	    margin-top: 2%;
+	    margin-right: 1%;
+	}
+	
+	.focus {
+	    background: antiquewhite;
+	}
+	
+	.blur {
+	    background: white;
+	}
+	
+	#user {
+	    margin-left: 1%;
+	    margin-top: 2%;
+	    margin-right: 1%;
+	}
+	
+	#pass {
+	    margin-left: 1%;
+	    margin-top: 2%;
+	    margin-right: 1%;
+	}
+	
+	.popupComprar {
+	    position: absolute;
+	    top: 10%;
+	    left: 10%;
+	    width: 100%;
+	    height: 100%;
+	    z-index: 2;
+	}
+	
+	#compra {
+	    display: none;
+	    width: 80%;
+	}
+	
+	.divAvionAsientos {
+	    position: absolute;
+	}
+	
+	.asiento {
+	     width: 85%;
+	    height: 100%;
+	    margin-top: 6%;
+	    margin-left: 20%;
+	    text-align: center;
+	}
+        .seleccionado{
+            background-color: greenyellow;
+        }
+        .bordeRojo{
+            border:1px solid red;
+        }
+	
+	.asientoV {
+	    width: 85%;
+	    height: 100%;
+	    margin-left: 20%;
+	    text-align: center;
+	    background-color: transparent;
+	    border-style: none;
+	}
+	
+	#asientosAvion {
+	    position: absolute;
+	    top: 60%;
+	    left: 10%;
+	}
+	
+	#imag {
+	    width: 220%;
+	    height: 220%
+	}	
+        .error{
+            border-color: red;
+	}
+	.cerrar{
+		text-decoration:none;
+		margin-left:50%;
+	}
+	.container_cuerpo{
+		padding-left:12%;
+		padding-right:15%;
+	}
+        .u1{
+	    margin-left: 40%;
+	    margin-top: 0%;
+	    margin-right: 0%;
+	    font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+        
+/* ----------------------  PAGINAS ADMINISTRATIVAS ---------------------- */    
+  
+        /* MENU ADMINISTRATIVO*/
+        ul.MyMenuAdmi {
+	    font-size: 0px;
+	    /* Sin espacio entre opciones */
+	}
+	
+	ul.MyMenuAdmi li {
+	    /* Establece tamaño letra */
+	    font-size: 20px;
+	}
+	/*Estilo de las listas del menu y submenues*/
+	
+	ul.MyMenuAdmi, ul.MyMenuAdmi li ul {
+	    padding: 0;
+	    list-style: none;
+	}
+	/* Ancho del menu y del submenu */
+	
+	ul.MyMenuAdmi li a, ul.MyMenuAdmi li ul {
+	    width: 11em;
+	    text-align: center;
+	}
+	/* Opciones (y sus bloques)  horizontalmente*/
+	
+	ul.MyMenuAdmi li {
+	    display: inline-block;
+	    vertical-align: top;
+	}
+	/*MENU NORMAL*/
+	
+	ul.MyMenuAdmi li a {
+	    text-decoration: none;
+	    padding: 4.5px 18.5px 4.5px 12.5px;
+	    color: white;
+	    background: #993333;
+	    display: block;
+	    box-shadow: 8px 7px 5px 0px rgba(0, 0, 0, 0.37);
+	    font-family: "Comic Sans MS", cursive, sans-serif;
+	}
+	
+	ul.MyMenuAdmi li a:hover {
+	    background: grey;
+	}
+        
+        .Admin{
+            margin-top: 0%;
+            margin-left: 15%;
+            margin-bottom: 2%;
+        }
+        
+        .ImgAdmi{
+            margin-top: 0%;
+            margin-left: 15%;
+            margin-bottom: 5%;
+        }
+        
+        /* SUBMENU ADMINISTRATIVO*/
+        ul.MyMenuSubAdmi {
+	    font-size: 0px;
+	    /* Sin espacio entre opciones */
+	}
+	
+	ul.MyMenuSubAdmi li {
+	    /* Establece tamaño letra */
+	    font-size: 20px;
+	}
+	/*Estilo de las listas del menu y submenues*/
+	
+	ul.MyMenuSubAdmi, ul.MyMenuSubAdmi li ul {
+	    padding: 0;
+	    list-style: none;
+	}
+	/* Ancho del menu y del submenu */
+	
+	ul.MyMenuSubAdmi li a, ul.MyMenuSubAdmi li ul {
+	    width: 11em;
+	    text-align: center;
+	}
+	/* Opciones (y sus bloques)  horizontalmente*/
+	
+	ul.MyMenuSubAdmi li {
+	    display: inline-block;
+	    vertical-align: top;
+	}
+	/*MENU NORMAL*/
+	
+	ul.MyMenuSubAdmi li a {
+	    text-decoration: none;
+	    padding: 4.5px 18.5px 4.5px 12.5px;
+	    color: white;
+	    background: #94b8b8;
+	    display: block;
+	    box-shadow: 8px 7px 5px 0px rgba(0, 0, 0, 0.37);
+	    font-family: "Comic Sans MS", cursive, sans-serif;
+	}
+	
+	ul.MyMenuSubAdmi li a:hover {
+	    background: #339966;
+	}
+        
+        .SubAdmin{
+            margin-top: 0%;
+            margin-left: 29%;
+            margin-bottom: 2%;
+        }
+        
+       #IngAdm {
+	    font-size: 20px;
+	    font-weight: bold;
+	    text-align: center;
+            color: white;
+	    background-image: url(../fonts/fondo3.png);
+	    border-radius: 5px;
+	}
+        
+        .prueba{
+            margin-top: 30%;
+            margin-bottom: 5%;
+            margin-right: 50%;
+        }
+        #Ad{
+            text-align: center;
+            margin-bottom: 5%;
+            margin-left:26%
+        }
+/* ----------------------  AVIONES ---------------------- */
+        .admi{
+            margin-top: 0%;
+            margin-bottom: 5%;
+            margin-left: 13.5%;
+        }
+        
+        table.admi{
+            padding-left: 20%;
+	    padding-top: 0%;
+	    padding-bottom: 2%;
+	    font-size: 20px;
+            color: white;
+	    font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+	
+	table.admi thead tr {
+	    background: #cc9900;
+            background-image: url(../fonts/fondo3.png);
+	    border-radius: 10px;
+            color: white;
+	}
+	
+	table.admi thead tr th {
+	    background: #cc9900;
+	    border: inherit;
+	    text-align: center;
+	    background-image: url(../fonts/fondo3.png);
+	    border-radius: 10px;
+	}
+	
+	
+	table.admi tbody tr {
+	    background: #99ff99;
+	    border-radius: 10px;
+            color:black;
+            text-align: center;
+	}
+		
+	table.admi tbody tr td {
+	    border: inherit;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:black;
+            text-align: center;
+	}
+        
+	table.admi tbody tr:nth-child(odd) {
+	    background: #ffffe6;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:black;
+	}
+	
+	table.admi tbody tr:nth-child(even) {
+	    background: #ffffe6;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:grey;
+	}
+/* ----------------------  CIUDADES ---------------------- */
+        .admi1{
+            margin-top: 0%;
+            margin-bottom: 5%;
+            margin-left: 27.5%;
+        }
+        
+        table.admi1{
+            padding-left: 20%;
+	    padding-top: 0%;
+	    padding-bottom: 2%;
+	    font-size: 20px;
+            color: white;
+	    font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+	
+	table.admi1 thead tr {
+	    background: #cc9900;
+            background-image: url(../fonts/fondo3.png);
+	    border-radius: 10px;
+            color: white;
+	}
+	
+	table.admi1 thead tr th {
+	    background: #cc9900;
+	    border: inherit;
+	    text-align: center;
+	    background-image: url(../fonts/fondo3.png);
+	    border-radius: 10px;
+	}
+	
+	
+	table.admi1 tbody tr {
+	    background: #99ff99;
+	    border-radius: 10px;
+            color:black;
+            text-align: center;
+	}
+		
+	table.admi1 tbody tr td {
+	    border: inherit;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:black;
+            text-align: center;
+	}
+        
+	table.admi1 tbody tr:nth-child(odd) {
+	    background: #ffffe6;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:black;
+	}
+	
+	table.admi1 tbody tr:nth-child(even) {
+	    background: #ffffe6;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:grey;
+	}
+/* ----------------------  RUTAS ---------------------- */
+        .admi2{
+            margin-top: 0%;
+            margin-bottom: 5%;
+            margin-left: 23%;
+        }
+        
+        table.admi2{
+            padding-left: 20%;
+	    padding-top: 0%;
+	    padding-bottom: 2%;
+	    font-size: 20px;
+            color: white;
+	    font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+	
+	table.admi2 thead tr {
+	    background: #cc9900;
+            background-image: url(../fonts/fondo3.png);
+	    border-radius: 10px;
+            color: white;
+	}
+	
+	table.admi2 thead tr th {
+	    background: #cc9900;
+	    border: inherit;
+	    text-align: center;
+	    background-image: url(../fonts/fondo3.png);
+	    border-radius: 10px;
+	}
+	
+	
+	table.admi2 tbody tr {
+	    background: #99ff99;
+	    border-radius: 10px;
+            color:black;
+            text-align: center;
+	}
+		
+	table.admi2 tbody tr td {
+	    border: inherit;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:black;
+            text-align: center;
+	}
+        
+	table.admi2 tbody tr:nth-child(odd) {
+	    background: #ffffe6;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:black;
+	}
+	
+	table.admi2 tbody tr:nth-child(even) {
+	    background: #ffffe6;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:grey;
+	}
+/* ----------------------  VUELOS ---------------------- */
+        .admi3{
+            margin-top: 0%;
+            margin-bottom: 5%;
+            margin-left: 15%;
+        }
+        
+        table.admi3{
+            padding-left: 20%;
+	    padding-top: 0%;
+	    padding-bottom: 2%;
+	    font-size: 20px;
+            color: white;
+	    font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+	
+	table.admi3 thead tr {
+	    background: #cc9900;
+            background-image: url(../fonts/fondo3.png);
+	    border-radius: 10px;
+            color: white;
+	}
+	
+	table.admi3 thead tr th {
+	    background: #cc9900;
+	    border: inherit;
+	    text-align: center;
+	    background-image: url(../fonts/fondo3.png);
+	    border-radius: 10px;
+	}
+	
+	
+	table.admi3 tbody tr {
+	    background: #99ff99;
+	    border-radius: 10px;
+            color:black;
+            text-align: center;
+	}
+		
+	table.admi3 tbody tr td {
+	    border: inherit;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:black;
+            text-align: center;
+	}
+        
+	table.admi3 tbody tr:nth-child(odd) {
+	    background: #ffffe6;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:black;
+	}
+	
+	table.admi3 tbody tr:nth-child(even) {
+	    background: #ffffe6;
+	    background-image: url(../fonts/fondo1.png);
+	    border-radius: 10px;
+            color:grey;
+	}
