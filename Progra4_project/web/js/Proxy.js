@@ -280,7 +280,15 @@ Proxy.perfil1 = function (user, callBack) {
     AJAX_req.open("POST", url, true);
     AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     enviar = JsonUtils.enviar(user);
-    
+     AJAX_req.onreadystatechange = function () {
+        if (AJAX_req.readyState == 4 && AJAX_req.status === 200) {
+            if (parseInt(AJAX_req.responseText) == 1) {
+                callback(1);
+            } else {
+                callback(0);
+            }
+        }
+    };
     AJAX_req.send("us1=" + enviar);
 }
 
@@ -291,6 +299,14 @@ Proxy.perfil2 = function (user, callBack) {
     AJAX_req.open("POST", url, true);
     AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     enviar = JsonUtils.enviar(user);
-    
+     AJAX_req.onreadystatechange = function () {
+        if (AJAX_req.readyState == 4 && AJAX_req.status === 200) {
+            if (parseInt(AJAX_req.responseText) == 1) {
+                callback(1);
+            } else {
+                callback(0);
+            }
+        }
+    };
     AJAX_req.send("us2=" + enviar);
 }

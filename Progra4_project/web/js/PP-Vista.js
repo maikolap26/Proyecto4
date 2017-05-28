@@ -24,25 +24,25 @@ function pageLoad(event) {
     $("#buscar").click(function () {
         controller.buscar();
     });
-      $("#goTi").click(function(){
+    $("#goTi").click(function () {
         controller.getAsientos();
     });
     var a = document.getElementById("cancelOrder");
     var b = document.getElementById("goTi");
     var c = document.getElementById("goTi");
-    var d=  document.getElementById("terminarOrden2");
-    var e=  document.getElementById("terminarOrden");
+    var d = document.getElementById("terminarOrden2");
+    var e = document.getElementById("terminarOrden");
     document.getElementById("ida").addEventListener("click", deshabilitarRegreso);
     document.getElementById("idaYvuelta").addEventListener("click", habilitarRegreso);
 
     if (a != null) {
         e.addEventListener("click", doSubmitTiquete);
-        d.addEventListener("click",cancelarOrden);
+        d.addEventListener("click", cancelarOrden);
         a.addEventListener("click", cancelOrden);
     }
 
     document.getElementById("terminarOrden2").addEventListener("click", cancelarOrden);
-    
+
 }
 
 function deshabilitarRegreso() {
@@ -142,70 +142,69 @@ function goAsientos() {
     avionAsi.appendChild(div2);
 }
 
-function mostrarAsientos(){
-    var numero= numeroVuelo;
-    var avion = model.buscados[numero].avion; 
+function mostrarAsientos() {
+    var numero = numeroVuelo;
+    var avion = model.buscados[numero].avion;
     document.getElementById("info").style.display = "none";
     crearBotones();
     var avionAsi = document.getElementById("avionAsientos");
-    avionAsi.style.display="block";
-    var x= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    var bandera=0;
-    for(var i=0; i < avion.cant_filas; i++){
+    avionAsi.style.display = "block";
+    var x = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var bandera = 0;
+    for (var i = 0; i < avion.cant_filas; i++) {
         var fila = document.createElement("tr");
-        fila.id=i.toString();
-        for(var j=0; j < avion.cant_asiento_fila; j++){
+        fila.id = i.toString();
+        for (var j = 0; j < avion.cant_asiento_fila; j++) {
             var columna = document.createElement("td");
-            columna.id=j.toString();
+            columna.id = j.toString();
             var b = document.createElement("input");
-            if(Math.trunc(avion.cant_asiento_fila/2) === j && bandera === 0){
-                var c= document.createElement("input");
+            if (Math.trunc(avion.cant_asiento_fila / 2) === j && bandera === 0) {
+                var c = document.createElement("input");
                 c.type = "button";
                 c.classList.add("asientoV");
-                c.value="Pasillo";
-                c.id="pasillo";
-                columna.id=j.toString() + "p";
+                c.value = "Pasillo";
+                c.id = "pasillo";
+                columna.id = j.toString() + "p";
                 columna.appendChild(c);
                 fila.appendChild(columna);
-                bandera=1;
-                j=j-1;
-            }    
-            else{
+                bandera = 1;
+                j = j - 1;
+            } else {
                 b.type = "button";
                 b.value = x[i] + j.toString();
                 b.id = x[i] + j.toString();
                 b.classList.add("asiento");
-                columna.id=j.toString();
-                b.addEventListener("click",agregaAsiento);
+                columna.id = j.toString();
+                b.addEventListener("click", agregaAsiento);
                 columna.appendChild(b);
                 fila.appendChild(columna);
             }
         }
-        bandera =0;
+        bandera = 0;
         avionAsi.appendChild(fila);
     }
     llenarAsientos();
 }
 
-function llenarAsientos(){
-    var usados= model.asientosUsados;
-    for(var i = 0; i < usados.length ; i++){
+function llenarAsientos() {
+    var usados = model.asientosUsados;
+    for (var i = 0; i < usados.length; i++) {
         var as = document.getElementById(usados[i].numero);
         as.classList.add("ocupado");
         as.disabled = true;
     }
 }
 
-function crearBotones(){
-    
-    var divB= document.createElement("div");
-    var boton1= document.createElement("input");
-    boton1.type="button";
-    boton1.value="Continuar";
+function crearBotones() {
+
+    var divB = document.createElement("div");
+    var boton1 = document.createElement("input");
+    boton1.type = "button";
+    boton1.value = "Continuar";
     boton1.classList.add("boton");
-    var boton2= document.createElement("input");
-    boton2.type="button";
-    boton2.value="Cancelar";
+    var boton2 = document.createElement("input");
+    boton2.type = "button";
+    boton2.value = "Cancelar";
     boton2.classList.add("boton");
     var label = document.createElement("label");
     label.classList.add("ocupado");
@@ -213,9 +212,9 @@ function crearBotones(){
     var label2 = document.createElement("label");
     label2.classList.add("seleccionado");
     label2.innerHTML = "Asiento seleccionado";
-    var asientos= document.getElementById("avionAsientos");
-    boton1.addEventListener("click",ordenCompletada);
-    boton2.addEventListener("click",cancelarOrden);
+    var asientos = document.getElementById("avionAsientos");
+    boton1.addEventListener("click", ordenCompletada);
+    boton2.addEventListener("click", cancelarOrden);
     divB.appendChild(boton1);
     divB.appendChild(boton2);
     divB.appendChild(label);
@@ -223,20 +222,20 @@ function crearBotones(){
     asientos.appendChild(divB);
 }
 
-function cancelarOrden(){
+function cancelarOrden() {
     location.reload(true);
 }
 
-function ordenCompletada(){
-    if(asientos.length < cantidad){
-        alert("Selecciones los "+ cantidad +" asiento(s)." );
+function ordenCompletada() {
+    if (asientos.length < cantidad) {
+        alert("Selecciones los " + cantidad + " asiento(s).");
         return;
     }
     orden.push(asientos);
-    document.getElementById("avionAsientos").style.display="none";
-    var compra= document.getElementById("aquiOrden");
+    document.getElementById("avionAsientos").style.display = "none";
+    var compra = document.getElementById("aquiOrden");
     compra.classList.add("popupComprar");
-    compra.style.display="block";
+    compra.style.display = "block";
     document.getElementById("cuerpo").style.opacity = .70;
     var fecPar = document.getElementById("datepicker1").value;
     var fecLle = document.getElementById("datepicker2").value;
@@ -248,22 +247,21 @@ function ordenCompletada(){
     document.getElementById("destinoC2").innerHTML = dest;
     document.getElementById("cantidad2").innerHTML = cantidad.toString();
     document.getElementById("price2").innerHTML = " $ " + orden[0].precio;
-    var array= orden[1];
-    for (var i = 0;i < array.length; i++){
+    var array = orden[1];
+    for (var i = 0; i < array.length; i++) {
         document.getElementById("estosSon").innerHTML = document.getElementById("estosSon").textContent + "  " + array[i].id.toString();
     }
-    
+
 }
 
-function agregaAsiento(){
-    if(asientos.length === cantidad ){
-        while(asientos.length > 0){
-             var as= asientos.pop();
-              document.getElementById(as.id).classList.remove("seleccionado");
-          }
-    }
-    else{
-        if(!asientos.includes(this)){
+function agregaAsiento() {
+    if (asientos.length === cantidad) {
+        while (asientos.length > 0) {
+            var as = asientos.pop();
+            document.getElementById(as.id).classList.remove("seleccionado");
+        }
+    } else {
+        if (!asientos.includes(this)) {
             this.classList.add("seleccionado");
             asientos.push(this);
         }
@@ -278,9 +276,9 @@ function cancelOrden() {
 
 function showBuscados() {
     //controller.buscar();
-    if(!fechaVacia())
+    if (!fechaVacia())
         return;
-    else{
+    else {
         normalizar();
     }
     var s = document.getElementById("tablaBusqueda");
@@ -325,25 +323,25 @@ function showBuscados() {
     }
 }
 
-function fechaVacia(){
+function fechaVacia() {
     var fecPar = document.getElementById("datepicker1").value;
     var fecLle = document.getElementById("datepicker2").value;
-    if((fecPar === ""  || fecLle === "")&& (document.getElementById("datepicker2").disabled === false) ){
+    if ((fecPar === "" || fecLle === "") && (document.getElementById("datepicker2").disabled === false)) {
         document.getElementById("datepicker1").classList.add("bordeRojo");
         document.getElementById("datepicker2").classList.add("bordeRojo");
         alert("Debe indicar la fecha !!");
         return false;
     }
-     if((fecPar === "" )&& (document.getElementById("datepicker2").disabled === true) ){
+    if ((fecPar === "") && (document.getElementById("datepicker2").disabled === true)) {
         document.getElementById("datepicker1").classList.add("bordeRojo");
         alert("Debe indicar la fecha de ida!!");
         return false;
     }
-    
+
     return true;
 }
 
-function normalizar(){
+function normalizar() {
     document.getElementById("datepicker1").classList.remove("bordeRojo");
     document.getElementById("datepicker2").classList.remove("bordeRojo");
 }
@@ -351,7 +349,7 @@ function normalizar(){
 function openInfo() {
     numeroVuelo = this.id;
     var index = this.id;
-    if(document.getElementById("usr") === null){
+    if (document.getElementById("usr") === null) {
         alert("Debe iniciar sesión para hacer una compra");
         return;
     }
@@ -370,15 +368,15 @@ function openInfo() {
     document.getElementById("origenC").innerHTML = ori;
     document.getElementById("destinoC").innerHTML = dest;
     document.getElementById("cantidad").innerHTML = document.getElementById("combo").value;
-    cantidad=parseInt(document.getElementById("combo").value);
+    cantidad = parseInt(document.getElementById("combo").value);
     document.getElementById("price").innerHTML = " $ " + model.buscados[index].precio;
     var plane = model.buscados[index].avion;
     var variable = plane.cant_filas * plane.cant_asiento_fila;
-    if((model.asientosUsados.length >=  (variable - 1)) 
-            || (parseInt(document.getElementById("combo").value) 
-                >
-                ((variable - 1) - model.asientosUsados.length))
-            ){
+    if ((model.asientosUsados.length >= (variable - 1))
+            || (parseInt(document.getElementById("combo").value)
+                    >
+                    ((variable - 1) - model.asientosUsados.length))
+            ) {
         alert("Avion lleno !!");
         return;
     }
@@ -388,32 +386,32 @@ function openInfo() {
     return true;
 }
 
-function doSubmitTiquete(){
+function doSubmitTiquete() {
     var fecha = new Date();
     var vuelo = orden[0];
-    var cliente = new Usuario("",$("#usr").html() , "", "", "", "", "", "","");
-    var codigo_tiquete = vuelo.codigo_vuelo.toString() 
-            + vuelo.avion.codigo_avion.toString() 
-            + fecha.getDay().toString() 
+    var cliente = new Usuario("", $("#usr").html(), "", "", "", "", "", "", "");
+    var codigo_tiquete = vuelo.codigo_vuelo.toString()
+            + vuelo.avion.codigo_avion.toString()
+            + fecha.getDay().toString()
             + fecha.getHours().toString()
-            + fecha.getMinutes().toString() 
+            + fecha.getMinutes().toString()
             + fecha.getSeconds().toString();
-    var tiquete = new Tiquete(codigo_tiquete,cliente,vuelo);
-    var seats ="";
-    for(var i=0; i< asientos.length; i++){
-        if(i === 0)
-            seats = asientos[i].id ;
+    var tiquete = new Tiquete(codigo_tiquete, cliente, vuelo);
+    var seats = "";
+    for (var i = 0; i < asientos.length; i++) {
+        if (i === 0)
+            seats = asientos[i].id;
         else
             seats = seats + "-" + asientos[i].id;
-    }  
-    Proxy.saveTicket(tiquete,seats, function (result) {
-        if(result === "1")
+    }
+    Proxy.saveTicket(tiquete, seats, function (result) {
+        if (result === "1")
             alert("no se pudo guardar el tiquete");
         else
             alert("se ha guardado con exito !!");
-        });
-    Proxy.generarPDF(tiquete,seats, function (result){
-        
+    });
+    Proxy.generarPDF(tiquete, seats, function (result) {
+
     });
     location.reload(true);
 }
@@ -536,14 +534,14 @@ function doSubmit() {
     if (formulario != null) {
         formulario.addEventListener("submit", doValidate);
         Proxy.guardar(usuario, function (result) {
-            switch(result){
-            case 0: 
-                window.alert("Datos agregados");
-                break;
-            case 1:
-                window.alert("Error en el registro");
-                break;
-        }
+            switch (result) {
+                case 0:
+                    window.alert("Datos agregados");
+                    break;
+                case 1:
+                    window.alert("Error en el registro");
+                    break;
+            }
         });
     }
     //formulario.reset();
@@ -556,36 +554,42 @@ function doSubmitAvion() {
     var cantPas = document.getElementById("cant_Pasa");
     var marca = document.getElementById("marca");
     var modelo = document.getElementById("modelo");
-
-    var av1 = new Avion(codigo.value, modelo.value, marca.value, cantPas.value, cantFil.value, cantAsF.value);
-    Proxy.guardar1(av1, function (result) {
-        switch(result){
-            case 0: 
-                window.alert("Datos agregados");
-                break;
-            case 1:
-                window.alert("Error en el registro");
-                break;
-        }
-    });
+    if (codigo.value != "" && cantASF.value != "" && cantFil.value != "" && cantPas.value != "") {
+        var av1 = new Avion(codigo.value, modelo.value, marca.value, cantPas.value, cantFil.value, cantAsF.value);
+        Proxy.guardar1(av1, function (result) {
+            switch (result) {
+                case 0:
+                    window.alert("Datos agregados");
+                    break;
+                case 1:
+                    window.alert("Error en el registro");
+                    break;
+            }
+        });
+    } else {
+        window.alert("Complete los campos en blanco");
+    }
 }
 
 function doSubmitCiudades() {
     var codigo = document.getElementById("codigo");
     var nombre = document.getElementById("nombre");
     var pais = document.getElementById("pais");
-
-    var ciudad = new Ciudad(codigo.value, nombre.value, pais.value);
-    Proxy.guardar2(ciudad, function (result) {
-        switch(result){
-            case 0: 
-                window.alert("Datos agregados");
-                break;
-            case 1:
-                window.alert("Error en el registro");
-                break;
-        }
-    });
+    if (codigo.value != "" && nombre.value != "" && pais.value != "") {
+        var ciudad = new Ciudad(codigo.value, nombre.value, pais.value);
+        Proxy.guardar2(ciudad, function (result) {
+            switch (result) {
+                case 0:
+                    window.alert("Datos agregados");
+                    break;
+                case 1:
+                    window.alert("Error en el registro");
+                    break;
+            }
+        });
+    } else {
+        window.alert("Complete todos los campos");
+    }
 }
 
 function doSubmitRutas() {
@@ -593,19 +597,24 @@ function doSubmitRutas() {
     var origen = document.getElementById("origen");
     var destino = document.getElementById("destino");
     var duracion = document.getElementById("duracion");
-    var ciudadO= new Ciudad(origen.value,"","");
-    var ciudadD= new Ciudad(destino.value,"","");
-    var rutas = new Ruta(codigo.value, ciudadO, ciudadD, duracion.value);
-    Proxy.guardar3(rutas, function (result) {
-        switch(result){
-            case 0: 
-                window.alert("Datos agregados");
-                break;
-            case 1:
-                window.alert("Error en el registro");
-                break;
-        }
-    });
+    var ciudadO = new Ciudad(origen.value, "", "");
+    var ciudadD = new Ciudad(destino.value, "", "");
+    if (codigo.value != "" && origen.value != "" && destino.value != "") {
+        var rutas = new Ruta(codigo.value, ciudadO, ciudadD, duracion.value);
+        Proxy.guardar3(rutas, function (result) {
+            switch (result) {
+                case 0:
+                    window.alert("Datos agregados");
+                    break;
+                case 1:
+                    window.alert("Error en el registro");
+                    break;
+            }
+        });
+    }
+    else{
+        window.alert("Complete todos los campos");
+    }
 }
 
 function doSubmitVuelos() {
@@ -616,20 +625,23 @@ function doSubmitVuelos() {
     var horaS = document.getElementById("horaS");
     var horaL = document.getElementById("horaL");
     var precio = document.getElementById("precio");
-    var ruta= new Ruta(codigo1.value,new Ciudad("","",""),new Ciudad("","",""),"");
-    var avion= new Avion(codigo2.value,"","",0,0,0);
-
-    var vuelos = new Vuelo(codigo.value, salida.value, horaS.value, horaL.value, ruta, avion, parseFloat(precio.value));
-    Proxy.guardar4(vuelos, function (result) {
-        switch(result){
-            case 0: 
-                window.alert("Datos agregados");
-                break;
-            case 1:
-                window.alert("Error en el registro");
-                break;
-        }
-    });
+    var ruta = new Ruta(codigo1.value, new Ciudad("", "", ""), new Ciudad("", "", ""), "");
+    var avion = new Avion(codigo2.value, "", "", 0, 0, 0);
+    if (codigo.value != "" && codigo1.value != "" && salida.value != ""&& precio.value != "") {
+        var vuelos = new Vuelo(codigo.value, salida.value, horaS.value, horaL.value, ruta, avion, parseFloat(precio.value));
+        Proxy.guardar4(vuelos, function (result) {
+            switch (result) {
+                case 0:
+                    window.alert("Datos agregados");
+                    break;
+                case 1:
+                    window.alert("Error en el registro");
+                    break;
+            }
+        });
+    } else {
+        window.alert("Complete todos los campos");
+    }
 }
 
 function listAvion(listado, av) {
@@ -799,7 +811,7 @@ function llenarVuelos() {
 /* ******************************************************************************************************** */
 
 // ------------------------------- ACTUALIZAR DATOS DEL PERFIL DE USUARIO CLIENTE -------------------------------
-function doPerfil1(){
+function doPerfil1() {
     var user = document.getElementById("usuario");
     var contraseña = document.getElementById("contraseña");
     var cedula = document.getElementById("cedula");
@@ -814,12 +826,20 @@ function doPerfil1(){
     if (formulario != null) {
         formulario.addEventListener("submit", doValidate);
         Proxy.perfil1(usuario, function (result) {
+            switch (result) {
+                case 0:
+                    window.alert("Datos agregados");
+                    break;
+                case 1:
+                    window.alert("Error en el registro");
+                    break;
+            }
         });
     }
 }
 
 // ------------------------------- ACTUALIZAR DATOS DEL PERFIL DE USUARIO ADMINISTRADOR -------------------------
-function doPerfil2(){
+function doPerfil2() {
     var user = document.getElementById("usuario");
     var contraseña = document.getElementById("contraseña");
     var cedula = document.getElementById("cedula");
@@ -834,6 +854,14 @@ function doPerfil2(){
     if (formulario != null) {
         formulario.addEventListener("submit", doValidate);
         Proxy.perfil2(usuario, function (result) {
+            switch (result) {
+                case 0:
+                    window.alert("Datos agregados");
+                    break;
+                case 1:
+                    window.alert("Error en el registro");
+                    break;
+            }
         });
     }
 }
@@ -854,7 +882,7 @@ function redireccionar2() {
 }
 
 // ------------------------------- HABILITA LOS CAMPOS A MODIFICAR -------------------------------
-function enableInput(){
+function enableInput() {
     document.getElementById("correo").disabled = false;
     document.getElementById("contraseña").disabled = false;
     document.getElementById("contraseña1").disabled = false;
@@ -869,68 +897,69 @@ function enableInput(){
 /* ---------------------------    MAPA   ----------------------------- */
 /* ------------------------------------------------------------------- */
 
- function saveGeolocation(position) {
-    positionGeoMarker({ lat: position.coords.latitude, lng: position.coords.longitude });   
+function saveGeolocation(position) {
+    positionGeoMarker({lat: position.coords.latitude, lng: position.coords.longitude});
 }
 
 function getLocation() {
     if (navigator.geolocation) {
-	if (navigator.geolocation.getCurrentPosition(saveGeolocation));            
+        if (navigator.geolocation.getCurrentPosition(saveGeolocation))
+            ;
     }
 }
 
 function positionGeoMarker(coordenates) {
-	mapProp = {
-		center: new google.maps.LatLng(coordenates.lat, coordenates.lng),
-		zoom: 20
-	};
-	var marker = new google.maps.Marker({
-		position: mapProp.center,
-		map: map
-	});
-	markers.push(marker);
+    mapProp = {
+        center: new google.maps.LatLng(coordenates.lat, coordenates.lng),
+        zoom: 20
+    };
+    var marker = new google.maps.Marker({
+        position: mapProp.center,
+        map: map
+    });
+    markers.push(marker);
 }
 
 function myMap() {
-	mapProp = {
-		center: new google.maps.LatLng(10.0000000, -84.0000000),
-		zoom: 7
-	};
-	map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    mapProp = {
+        center: new google.maps.LatLng(10.0000000, -84.0000000),
+        zoom: 7
+    };
+    map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 
-	// This event listener will call addMarker() when the map is clicked.
-	map.addListener('click', function (event) {
-		addMarker(event.latLng);
-	});      
+    // This event listener will call addMarker() when the map is clicked.
+    map.addListener('click', function (event) {
+        addMarker(event.latLng);
+    });
 }
 
 // Adds a marker to the map and push to the array.
 function addMarker(location) {
-	deleteMarkers();
-	var marker = new google.maps.Marker({
-		position: location,
-		map: map
-	});
-	markers.push(marker);
-	controller.savePosition();
+    deleteMarkers();
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+    markers.push(marker);
+    controller.savePosition();
 }
 
 // Sets the map on all markers in the array.
 function setMapOnAll(map) {
-	for (var i = 0; i < markers.length; i++) {
-		markers[i].setMap(map);
-	}
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
 }
 
 // Removes the markers from the map, but keeps them in the array.
 function clearMarkers() {
-	setMapOnAll(null);
+    setMapOnAll(null);
 }
 
 // Deletes all markers in the array by removing references to them.
 function deleteMarkers() {
-	clearMarkers();
-	markers = [];
+    clearMarkers();
+    markers = [];
 }
 
 /* ------------------------------------------------------------------- */

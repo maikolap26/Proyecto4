@@ -344,14 +344,11 @@ public class AAMAirlineModel {
             if (rs2 == null) {
                 return 1;
             }
+            else{
+                return 0;
+            }
         } else {
             return 1;
-        }
-
-        if (rs.next()) {
-            return rs.getInt(1);
-        } else {
-            return 0;
         }
     }
 
@@ -363,9 +360,9 @@ public class AAMAirlineModel {
         ResultSet rs = BD.executeUpdateWithKeys(sql);
         if (rs != null) {
             if (rs.next()) {
-                return rs.getInt(1);
-            } else {
                 return 0;
+            } else {
+                return 1;
             }
         } else {
             return 1;
@@ -380,9 +377,9 @@ public class AAMAirlineModel {
         ResultSet rs = BD.executeUpdateWithKeys(sql);
         if (rs != null) {
             if (rs.next()) {
-                return rs.getInt(1);
-            } else {
                 return 0;
+            } else {
+                return 1;
             }
         } else {
             return 1;
@@ -415,9 +412,9 @@ public class AAMAirlineModel {
         ResultSet rs = BD.executeUpdateWithKeys(sql);
         if (rs != null) {
             if (rs.next()) {
-                return rs.getInt(1);
-            } else {
                 return 0;
+            } else {
+                return 1;
             }
         } else {
             return 1;
@@ -531,7 +528,7 @@ public class AAMAirlineModel {
                     
     public static int updateCliente(Usuario us) throws Exception{
         String sql = "update usuario set"
-                + " cedula='%s',apèllidos='%s',celular='%s',email='%s',nombre='%s',telefono='%s',contraseña='%s'"
+                + " cedula='%s',apellidos='%s',celular='%s',email='%s',nombre='%s',telefono='%s',contraseña='%s'"
                 + " where cedula = '%s'";
         sql = String.format(sql, us.getCedula(), us.getApellidos(), us.getCelular(), us.getEmail(),
                 us.getNombre(), us.getTelefono(), us.getContraseña(),us.getCedula());
@@ -546,19 +543,16 @@ public class AAMAirlineModel {
             if (rs2 == null) {
                 return 1;
             }
+            else{
+                return 0;
+            }
         } else {
             return 1;
-        }
-
-        if (rs.next()) {
-            return rs.getInt(1);
-        } else {
-            return 0;
         }
     }
     
     public static int updateAdminis(Usuario us) throws Exception{
-        String sql = "update usuario set cedula='%s',apèllidos='%s',celular='%s',email='%s',nombre='%s',telefono='%s',contraseña='%s'"
+        String sql = "update usuario set cedula='%s',apellidos='%s',celular='%s',email='%s',nombre='%s',telefono='%s',contraseña='%s'"
                 + "where cedula = '%s'";
         sql = String.format(sql, us.getCedula(), us.getApellidos(), us.getCelular(), us.getEmail(),
                 us.getNombre(), us.getTelefono(), us.getContraseña(),us.getCedula());
