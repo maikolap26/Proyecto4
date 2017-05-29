@@ -325,16 +325,17 @@ public class AAMAirlineModel {
         obj.setTelefono(rs.getString("telefono"));
         obj.setCelular(rs.getString("celular"));
         obj.setContraseña(rs.getString("contraseña"));
+        obj.setDireccion(rs.getString("direccion"));
         return obj;
     }
 
     public static int guardar1(Usuario us) throws Exception {
         String sql = "insert into "
-                + "usuario (cedula,apellidos,celular,email,fecha,nombre,telefono,usuario,contraseña)"
-                + "values('%s','%s','%s','%s','%s','%s','%s','%s','%s')";
+                + "usuario (cedula,apellidos,celular,email,fecha,nombre,telefono,usuario,contraseña,direccion)"
+                + "values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')";
         sql = String.format(sql, us.getCedula(), us.getApellidos(), us.getCelular(), us.getEmail(),
                 us.getFecha(), us.getNombre(), us.getTelefono(),
-                us.getUsuario(), us.getContraseña());
+                us.getUsuario(), us.getContraseña(),us.getDireccion());
         String sql2 = "insert into " + "login (usuario,contraseña,tipo)" + "values('%s','%s','%s')";
         sql2 = String.format(sql2, us.getUsuario(), us.getContraseña(), "1");
         ResultSet rs = BD.executeUpdateWithKeys(sql);

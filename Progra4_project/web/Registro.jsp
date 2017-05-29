@@ -96,7 +96,13 @@
                                     <td class="etiqueta"> Fecha de nacimiento: </td>
                                     <td> <input type="text" id="fechaNacimiento">&nbsp;&nbsp;</td>
                                     <td>&nbsp;&nbsp;</td>
-                                </tr>                                     
+                                    
+                                </tr>
+                                <tr> 
+                                <td class="etiqueta"> Dirección: </td>
+                                    <td> <input type="text" id="dir">&nbsp;&nbsp;</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                </tr>
                                 <tr>
                                     <td>&nbsp;&nbsp;</td>
                                 </tr> 

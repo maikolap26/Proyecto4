@@ -528,8 +528,9 @@ function doSubmit() {
     var telefono = document.getElementById("telefono");
     var celular = document.getElementById("celular");
     var fecha = document.getElementById("fechaNacimiento");
+    var dir= document.getElementById("dir");
 
-    usuario = new Usuario(user.value, cedula.value, nombre.value, apellido.value, correo.value, telefono.value, celular.value, fecha.value, contraseña.value);
+    usuario = new Usuario(user.value, cedula.value, nombre.value, apellido.value, correo.value, telefono.value, celular.value, fecha.value, contraseña.value,dir.value);
     var formulario = document.getElementById("formulario");
     if (formulario != null) {
         formulario.addEventListener("submit", doValidate);
@@ -611,8 +612,7 @@ function doSubmitRutas() {
                     break;
             }
         });
-    }
-    else{
+    } else {
         window.alert("Complete todos los campos");
     }
 }
@@ -627,7 +627,7 @@ function doSubmitVuelos() {
     var precio = document.getElementById("precio");
     var ruta = new Ruta(codigo1.value, new Ciudad("", "", ""), new Ciudad("", "", ""), "");
     var avion = new Avion(codigo2.value, "", "", 0, 0, 0);
-    if (codigo.value != "" && codigo1.value != "" && salida.value != ""&& precio.value != "") {
+    if (codigo.value != "" && codigo1.value != "" && salida.value != "" && precio.value != "") {
         var vuelos = new Vuelo(codigo.value, salida.value, horaS.value, horaL.value, ruta, avion, parseFloat(precio.value));
         Proxy.guardar4(vuelos, function (result) {
             switch (result) {
@@ -897,8 +897,25 @@ function enableInput() {
 /* ---------------------------    MAPA   ----------------------------- */
 /* ------------------------------------------------------------------- */
 
+
+
 function saveGeolocation(position) {
     positionGeoMarker({lat: position.coords.latitude, lng: position.coords.longitude});
+    var geocoder = new google.maps.Geocoder;
+    geocoder.geocode({
+        'location': {lat: position.coords.latitude, lng: position.coords.longitude}
+    }, function (results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+                var ad= document.getElementById("dir");
+                ad.value=results[1].formatted_address;
+            } else {
+                window.alert('No hay resultados');
+            }
+        } else {
+            window.alert('Geocoder failed due to: ' + status);
+        }
+    });
 }
 
 function getLocation() {
