@@ -1,5 +1,19 @@
 /* ----------------------  MENU CLIENTES ---------------------- */
-        ul.MyMenu {
+
+.ocupado{
+            background-color: red;
+        }
+        .seleccionado{
+            background-color: greenyellow;
+        }
+		   .seleccionado{
+            background-color: greenyellow;
+        }
+        .bordeRojo{
+            border:1px solid red;
+        }
+
+ul.MyMenu {
 	    font-size: 0px;
 	    /* Sin espacio entre opciones */
 	}

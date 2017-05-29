@@ -15,6 +15,41 @@ Proxy.getCiudades = function (callback) {
     AJAX_req.send();
 };
 
+Proxy.getAsientos = function (codigo_avion, callback) {
+    var AJAX_req = new XMLHttpRequest();
+    url = "/Progra4_project/AAMAirlinesService?action=getAsientos";
+    AJAX_req.open("POST", url, true);
+    AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    AJAX_req.onreadystatechange = function () {
+        if (AJAX_req.readyState === 4 && AJAX_req.status === 200) {
+            var object = JSON.parse(AJAX_req.responseText, JsonUtils.revive);
+            callback(object);
+        }
+    };
+    AJAX_req.send("codigo=" + codigo_avion.toString());
+};
+
+Proxy.saveTicket = function (tiquete,seats, callBack) {
+    var enviar;
+    var AJAX_req = new XMLHttpRequest();
+    url = "/Progra4_project/AAMAirlinesService?action=saveTicket";
+    AJAX_req.open("POST", url, true);
+    AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    enviar = JsonUtils.enviar(tiquete);
+
+    AJAX_req.send("tiquete=" + enviar +"&seats="+seats);
+};
+
+Proxy.generarPDF = function (tiquete,seats, callBack) {
+    var enviar;
+    var AJAX_req = new XMLHttpRequest();
+    url = "/Progra4_project/PdfServlet";
+    AJAX_req.open("POST", url, true);
+    AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    enviar = JsonUtils.enviar(tiquete);
+    window.location="/Progra4_project/PdfServlet?"+"tiquete=" + enviar +"&seats="+seats;
+};
+
 Proxy.getCiudad = function (cod, callback) {
     var AJAX_req = new XMLHttpRequest();
     url = "/Progra4_project/AAMAirlinesService?action=getCiudad";
@@ -64,7 +99,7 @@ Proxy.getPromo = function (callback) {
     AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     AJAX_req.send();
 };
-Proxy.vuelosSearch = function (origen, destino, diaIda, callback) {
+Proxy.vuelosSearch = function (origen, destino,diaIda, callback) {
     var AJAX_req = new XMLHttpRequest();
     url = "/Progra4_project/AAMAirlinesService?action=vueloListSearch";
     AJAX_req.open("POST", url, true);
@@ -75,7 +110,7 @@ Proxy.vuelosSearch = function (origen, destino, diaIda, callback) {
             callback(object);
         }
     };
-    AJAX_req.send("origenYdestino=" + origen + "-" + destino + "&diaIda=" + diaIda);
+    AJAX_req.send("origenYdestino=" + origen +"-"+ destino + "&diaIda=" + diaIda);
 };
 
 Proxy.userLogin = function (user, callBack) {

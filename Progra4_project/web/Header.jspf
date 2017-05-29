@@ -41,7 +41,7 @@
                             <form method="post" action="/Progra4_project/AAMAirlinesService?action=userLogout">
                                 <div class="Log">
                                     <div id="Log" style="font-family:Papyrus,fantasy; font-size:15px; font-weight:700; color:white;">
-                                        <p class="Log"> Usuario: <%=user.getUsuario()%></p>
+                                        <p class="Log" id="usr"> Usuario: <%=user.getUsuario()%></p>
                                         <p class="Log" ><input class="boton" type="submit" value="Logout"> <input class="boton" type="button" value="Perfil" onclick="redireccionar1()"> </p>
                                     </div>
                                 </div>

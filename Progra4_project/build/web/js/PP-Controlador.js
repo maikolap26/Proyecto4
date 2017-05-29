@@ -59,6 +59,23 @@ buscar: function () {
         } else {
             model.buscados = [];
         }
-    }
+    },
+getAsientos: function(){
+        var model = this.model;
+        var view = this.view;
+        var avion= view.orden[0].avion.codigo_avion;
+        Proxy.getAsientos(avion,function(result){
+            model.asientosUsados = result;
+            view.mostrarAsientos();
+        });
+},
+getAsientos1: function(){
+        var model = this.model;
+        var view = this.view;
+        var avion= view.orden[0].avion.codigo_avion;
+        Proxy.getAsientos(avion,function(result){
+            model.asientosUsados = result;
+        });
+}
     
 };

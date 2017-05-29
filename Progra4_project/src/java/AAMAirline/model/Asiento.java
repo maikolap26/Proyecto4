@@ -10,6 +10,10 @@ public class Asiento implements Jsonable {
         this.tiquete = tiquete;
     }
 
+    public Asiento() {
+        
+    }
+
     public String getNumero() {
         return numero;
     }

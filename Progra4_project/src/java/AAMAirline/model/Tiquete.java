@@ -17,6 +17,10 @@ public class Tiquete implements Jsonable{
         this.vuelo = vuelo;
     }
 
+    public Tiquete() {
+        
+    }
+
 
     public String getCodigo_Tiquete() {
         return codigo_Tiquete;

@@ -1,11 +1,13 @@
 package AAMAirline.service;
 
 import AAMAirline.model.AAMAirlineModel;
+import AAMAirline.model.Asiento;
 import AAMAirline.model.Avion;
 import AAMAirline.model.Ciudad;
 import AAMAirline.model.Jsonable;
 import AAMAirline.model.Login;
 import AAMAirline.model.Ruta;
+import AAMAirline.model.Tiquete;
 import AAMAirline.model.Usuario;
 import AAMAirline.model.Vuelo;
 import com.google.gson.Gson;
@@ -34,9 +36,11 @@ public class AAMAirlinesService extends HttpServlet {
             response.setContentType("text/xml");
             RuntimeTypeAdapterFactory<Jsonable> rta = RuntimeTypeAdapterFactory.of(Jsonable.class, "_class")
                     .registerSubtype(Ciudad.class, "Ciudad")
+                    .registerSubtype(Tiquete.class, "Tiquete")
                     .registerSubtype(Ruta.class, "Ruta")
                     .registerSubtype(Avion.class, "Avion")
                     .registerSubtype(Usuario.class, "Usuario")
+                    .registerSubtype(Asiento.class, "Asiento")
                     .registerSubtype(Vuelo.class, "Vuelo");
             Gson gson = new GsonBuilder().registerTypeAdapterFactory(rta).setDateFormat("dd/MM/yyyy").create();
             String json;
@@ -47,9 +51,30 @@ public class AAMAirlinesService extends HttpServlet {
             List<Vuelo> vuelos;
             List<Avion> aviones;
             List<Ruta> rutas;
+            List<Asiento> asientos;
             request.getSession().removeAttribute("error1");
             request.getSession().removeAttribute("error");
             switch (accion) {
+                case "getAsientos":
+                    String codigo_avion = request.getParameter("codigo");
+                    asientos = model.getAsientos(codigo_avion);
+                    json = gson.toJson(asientos);
+                    out.write(json);
+                    break;
+                case "saveTicket":
+                    String aux = request.getParameter("tiquete");
+                    String sea= request.getParameter("seats");
+                    String limiter="-";
+                    String[] tem;
+                    tem = sea.split(limiter);
+                    String[] seats = tem;
+                    Tiquete ticket = gson.fromJson(aux, Tiquete.class);
+                    if(model.saveTicket(ticket,seats)==1){
+                        out.write("1");
+                    }
+                    else
+                        out.write("0");
+                    break;
                 case "ciudadListAll":
                     ciudades = model.getCiudades1();
                     json = gson.toJson(ciudades);

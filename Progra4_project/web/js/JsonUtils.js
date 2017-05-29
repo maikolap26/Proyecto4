@@ -19,6 +19,12 @@ JsonUtils.revive = function (k, v) {
     if (v instanceof Object && v._class === 'Avion') {
         return new Avion(v.codigo_avion,v.modelo,v.marca,v.cant_pasajeros,v.cant_filas,v.cant_asiento_fila);
     } 
+    if (v instanceof Object && v._class === 'Asiento') {
+        return new Asiento(v.numero, v.tiquete, v.avion);
+    } 
+    if (v instanceof Object && v._class === 'Tiquete') {
+        return new Tiquete(v.codigo_Tiquete,v.cliente,v.vuelo);
+    }
 
     return v;
 };
@@ -37,6 +43,12 @@ JsonUtils.replacer = function (k, v) {
     }
     if(v instanceof Ruta){
         v._class = "Ruta";
+    }
+    if(v instanceof Asiento){
+        v._class = "Asiento";
+    }
+    if(v instanceof Tiquete){
+        v._class = "Tiquete";
     }
     return v;
 };

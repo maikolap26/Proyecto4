@@ -35,7 +35,91 @@ public class AAMAirlineModel {
         }
         return ciudades;
     }
+    
+    public int saveTicket(Tiquete ticket, String[] seats) throws SQLException {
+        String delimiter=": ";
+        String[] temp;
+        temp = ticket.getCliente().getCedula().split(delimiter);
+        String cedula= temp[1];
+        String sql = "insert into tiquete values ('%s','%s','%s')";
+        int rs2=0;
+        sql = String.format(sql, cedula,ticket.getVuelo().getCodigo_Vuelo(),ticket.getCodigo_Tiquete());
+        int rs = BD.executeUpdate(sql);
+        for (String seat : seats) {
+            String sql2 = "insert into asiento values ('%s', '%s', '%s')";
+            sql2 = String.format(sql2, seat, ticket.getCodigo_Tiquete(), ticket.getVuelo().getAvion().getCodigo_Avion());
+            rs2 = BD.executeUpdate(sql2);
+        }
+        if(rs==1 && rs2==1)
+            return 1;
+        else
+            return 0; 
+    }
 
+    public List<Asiento> getAsientos(String avion){
+        List<Asiento> asientos;
+        asientos = new ArrayList();
+        try{
+            String sql = "select * from asiento where codigo_avion = '%s'";
+            sql = String.format(sql, avion);
+            ResultSet rs = BD.executeQuery(sql);
+            while(rs.next()){
+                Asiento seat = new Asiento();
+                seat.setNumero(rs.getString("numero"));
+                String tiquete = rs.getString("codigo_tiquete");
+                String sql2 = "select * from tiquete where codigo_tiquete = '%s'";
+                sql2 = String.format(sql2, tiquete);
+                ResultSet rs2 = BD.executeQuery(sql2);
+                while(rs2.next()){
+                    Tiquete tiq = toTiquete(rs2);
+                    seat.setTiquete(tiq);
+                }
+                String avi = rs.getString("codigo_avion");
+                String sql3 = "select * from avion where codigo_avion = '%s'";
+                sql3 = String.format(sql3, avi);
+                ResultSet rs3 = BD.executeQuery(sql3);
+                while(rs3.next()){
+                    Avion plane = toAvion(rs3);
+                    seat.setAvion(plane);
+                }
+                asientos.add(seat);
+            }
+        }
+        catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        return asientos;
+    }
+    
+    private Tiquete toTiquete(ResultSet rs) throws SQLException{
+        Tiquete tiquete = new Tiquete();
+        String cliente = rs.getString("cedula_cliente");
+        String codigo_vuelo = rs.getString("codigo_vuelo");
+        String codigo_tiquete = rs.getString("codigo_tiquete");
+        String sql = "select * from usuario where cedula = '%s'";
+        sql = String.format(sql, cliente);
+        ResultSet rs1 = BD.executeQuery(sql);
+        List<Vuelo> vuelos = this.getVuelos1();
+        Vuelo vuelo = new Vuelo();
+        for(int i=0; i < vuelos.size() ; i++){
+            if(vuelos.get(i).getCodigo_Vuelo().contains(codigo_vuelo))
+                vuelo = vuelos.get(i);
+        }
+        while(rs1.next()){
+            try {
+                Usuario c  = toClient(rs1);
+                tiquete.setCliente(c);   
+                 } 
+            catch (Exception ex) 
+            {
+                System.err.println(ex.getMessage());
+            }
+        }
+        tiquete.setVuelo(vuelo);
+        tiquete.setCodigo_Tiquete(codigo_tiquete);
+        return tiquete;
+    }
+    
     private static Ciudad toCiudad(ResultSet rs) {
         try {
             Ciudad obj = new Ciudad();

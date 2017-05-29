@@ -13,7 +13,6 @@
         <title>
             Inicio
         </title>
-        
          <%@ include file="include.jspf" %>
          
     </head>
