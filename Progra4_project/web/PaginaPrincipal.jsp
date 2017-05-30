@@ -23,8 +23,26 @@
             <%@ include file="Header.jspf" %>
             <!-- ---------------------- Division ------------------------- -->
             <div>
+                <div class="derAv" id="avionAsientos">
+            </div>
                 <!-- -----------------------------BUSCAR VUELOS------------------------------- -->
-                <div class="iz">
+                <div class="iz" id="info" style="display: none;">
+                <div class="tableVuelos" >
+                    <table class="grid" id="datos">
+                        <thead>
+                            <tr>
+                                <th colspan="4">
+                                    Orden de Compra
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                <div class="iz" id="busc">
                     <div class="tableVuelos">
                         <section>
                             <table class="grid">
@@ -242,92 +260,8 @@
         </div>
         <!-- ------------------------ Parte de compras ---------------------- -->
         <div id="compra">
-            <div class="iz" id="info">
-                <div class="tableVuelos">
-                    <table class="grid">
-                        <thead>
-                            <tr>
-                                <th colspan="4">
-                                    Orden de Compra
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="fila">
-                                    Origen:
-                                </td>
-                                <td class="fila">
-                                    Destino:
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td>
-                                    <label class="bo" id="origenC">
-                                    </label>
-                                </td>
-                                <td>
-                                    <label class="bo" id="destinoC">
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr class="fila">
-                                <td class="fila">
-                                    Partida:
-                                </td>
-                                <td class="fila">
-                                    Regreso:
-                                </td>
-                            </tr>
-                            <tr class="fila">
-                            <tr>
-                                <td>
-                                    <label class="bo" id="partida">
-                                    </label>
-                                </td>
-                                <td>
-                                    <label class="bo" id="regreso">
-                                    </label>
-                                </td>
-                            </tr>
-                            </tr>
-                            <tr>
-                                <td class="fila">
-                                    Cantidad:
-                                </td>
-                                <td class="fila">
-                                    Precio:
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="cantidad">
-                                    <label class="bo" id="cantidad">
-                                    </label>
-                                </td>
-                                <td class="fila">
-                                    <label class="bo" id="price">
-                                    </label>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td class="fila">
-                                    <input class="boton" id="cancelOrder" type="button" value="Cancelar">
-                                    </input>
-                                </td>
-                                <td class="fila" colspan="2">
-                                    <input class="boton" id="goTi" type="button" value="Continuar">
-                                    </input>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-            <div class="derAv" id="avionAsientos">
-            </div>
+            
+            
             <div id ="aquiOrden" style="display: none;">
                          <table class="grid">
                         <thead>
