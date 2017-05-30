@@ -120,7 +120,7 @@ ul.MyMenu {
 	    background-color: #ffffe6;
 	    font-family: "Comic Sans MS", cursive, sans-serif;
 	    background-image: url(../fonts/fondo1.png);
-	    color: white;
+	    color: black;
 	}
 	
 	.pagina {
@@ -355,7 +355,7 @@ ul.MyMenu {
 	    margin-top: 5%;
 	    margin-bottom: 5%;
 	    width: 100%;
-            color: white;
+            color: black;
 	}
         
 	.formulario {

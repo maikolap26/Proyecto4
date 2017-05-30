@@ -320,7 +320,7 @@ function showBuscados() {
         t.appendChild(t1);
         var t2 = document.createElement("td");
         var boton = document.createElement("input");
-        boton.id = i;
+        boton.id = "i";
         boton.type = "button";
         boton.value = " Comprar ";
         boton.addEventListener("click", datos);
@@ -621,8 +621,9 @@ function doSubmit() {
     var telefono = document.getElementById("telefono");
     var celular = document.getElementById("celular");
     var fecha = document.getElementById("fechaNacimiento");
+	var dir=document.getElementById("dir");
 
-    usuario = new Usuario(user.value, cedula.value, nombre.value, apellido.value, correo.value, telefono.value, celular.value, fecha.value, contraseña.value);
+    usuario = new Usuario(user.value, cedula.value, nombre.value, apellido.value, correo.value, telefono.value, celular.value, fecha.value, contraseña.value, dir.value);
     var formulario = document.getElementById("formulario");
     if (formulario != null) {
         formulario.addEventListener("submit", doValidate);
