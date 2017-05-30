@@ -99,7 +99,7 @@
                                     
                                 </tr>
                                 <tr> 
-                                <td class="etiqueta"> Dirección: </td>
+                                <td class="etiqueta">&nbsp;&nbsp; Dirección: </td>
                                     <td> <input type="text" id="dir">&nbsp;&nbsp;</td>
                                     <td>&nbsp;&nbsp;</td>
                                 </tr>

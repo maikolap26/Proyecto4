@@ -10,6 +10,7 @@ CREATE TABLE `usuario` (
   `telefono` varchar(45) NOT NULL,
   `usuario` varchar(45) NOT NULL,
   `contraseña` varchar(45) NOT NULL,
+  'direccion' varchar(1000) NOT NULL,
   PRIMARY KEY (`cedula`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
