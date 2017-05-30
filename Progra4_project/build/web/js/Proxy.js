@@ -42,11 +42,17 @@ Proxy.saveTicket = function (tiquete,seats, callBack) {
     AJAX_req.send("tiquete=" + enviar +"&seats="+seats);
 };
 
-Proxy.cambioDolar = function (callBack) {
+Proxy.cambioDolar = function (callback) {
     var AJAX_req = new XMLHttpRequest();
     url = "/Progra4_project/AAMAirlinesService?action=cambioDolar";
     AJAX_req.open("GET", url, true);
     AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    AJAX_req.onreadystatechange = function () {
+        if (AJAX_req.readyState === 4 && AJAX_req.status === 200) {
+            var object = AJAX_req.responseText;
+            callback(object);
+        }
+    };
     AJAX_req.send();
 };
 

@@ -253,15 +253,16 @@ function ordenCompletada(){
     document.getElementById("cantidad2").innerHTML = cantidad.toString();
     var moneda = document.getElementById("moneda");
     var simbolo = "₡";
+    var precio = orden[0].precio;
     if(moneda.value === "Dolares"){
         simbolo = "$";
+        document.getElementById("price2").innerHTML = simbolo + " " + precio;
     }
     else{
-        var precio = orden[0].precio;
         precio = precio * cambio;
-        orden[0].precio= precio;
+        document.getElementById("price2").innerHTML = simbolo + " " + precio;
     }
-    document.getElementById("price2").innerHTML = simbolo + " " + orden[0].precio;
+    
     var array= orden[1];
     for (var i = 0;i < array.length; i++){
         document.getElementById("estosSon").innerHTML = document.getElementById("estosSon").textContent + "  " + array[i].id.toString();
@@ -387,15 +388,16 @@ function openInfo() {
     cantidad=parseInt(document.getElementById("combo").value);
     var moneda = document.getElementById("moneda");
     var simbolo = "₡";
+     var precio = orden[0].precio;
     if(moneda.value === "Dolares"){
         simbolo = "$";
+        document.getElementById("price").innerHTML = simbolo + " " + precio;
     }
     else{
-        var precio = orden[0].precio;
-        precio = precio * model.cambioDolar;
-        orden[0].precio= precio;
+        precio = precio * cambio;
+        document.getElementById("price").innerHTML = simbolo + " " + precio;
     }
-    document.getElementById("price").innerHTML = simbolo + " " + orden[0].precio;
+    
     var plane = model.buscados[index].avion;
     var variable = plane.cant_filas * plane.cant_asiento_fila;
     if((model.asientosUsados.length >=  (variable - 1)) 

@@ -325,7 +325,6 @@ public class AAMAirlineModel {
         obj.setTelefono(rs.getString("telefono"));
         obj.setCelular(rs.getString("celular"));
         obj.setContraseña(rs.getString("contraseña"));
-        obj.setDireccion(rs.getString("direccion"));
         return obj;
     }
 

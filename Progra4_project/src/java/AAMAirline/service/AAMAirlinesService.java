@@ -59,6 +59,7 @@ public class AAMAirlinesService extends HttpServlet {
                 case "cambioDolar":
                     Double dolar = new TipoCambio().getVenta();
                     out.write(dolar.toString());
+                    break;
                 case "getAsientos":
                     String codigo_avion = request.getParameter("codigo");
                     asientos = model.getAsientos(codigo_avion);
