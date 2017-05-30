@@ -1,6 +1,6 @@
 // funcion Usuario
-function Usuario(usuario, cedula, nombre, apellidos, email, telefono, celular, fecha,contrasena) {
-    this.Usuario(usuario,cedula, nombre, apellidos, email, telefono, celular, fecha,contrasena);
+function Usuario(usuario, cedula, nombre, apellidos, email, telefono, celular, fecha,contrasena,direccion) {
+    this.Usuario(usuario,cedula, nombre, apellidos, email, telefono, celular, fecha,contrasena,direccion);
 }
 function Usuario1(usuario) {
     this.Usuario1(usuario);
@@ -8,7 +8,7 @@ function Usuario1(usuario) {
 
 // solo metodos
 Usuario.prototype = {
-    Usuario: function (usuario, cedula, nombre, apellidos, email, telefono, celular, fecha,contrasena) {
+    Usuario: function (usuario, cedula, nombre, apellidos, email, telefono, celular, fecha,contrasena,direccion) {
         this.usuario = usuario;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -18,6 +18,7 @@ Usuario.prototype = {
         this.celular = celular;
         this.fecha = fecha;
         this.contrasena=contrasena;
+        this.direccion=direccion;
     },
     Usuario1: function (usuario) {
         this.usuario = usuario;

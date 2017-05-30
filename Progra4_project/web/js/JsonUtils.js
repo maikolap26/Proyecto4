@@ -14,7 +14,7 @@ JsonUtils.revive = function (k, v) {
         return new Login(v.usuario, v.contraseña, v.tipo);
     }
     if (v instanceof Object && v._class === 'Usuario') {
-        return new Usuario(v.usuario, v.cedula, v.nombre, v.apellidos, v.email, v.telefono, v.celular, v.fecha,v.contrasena);
+        return new Usuario(v.usuario, v.cedula, v.nombre, v.apellidos, v.email, v.telefono, v.celular, v.fecha,v.contrasena,v.direccion);
     }  
     if (v instanceof Object && v._class === 'Avion') {
         return new Avion(v.codigo_avion,v.modelo,v.marca,v.cant_pasajeros,v.cant_filas,v.cant_asiento_fila);

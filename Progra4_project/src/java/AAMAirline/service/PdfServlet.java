@@ -44,14 +44,14 @@ public class PdfServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            RuntimeTypeAdapterFactory<Jsonable> rta = RuntimeTypeAdapterFactory.of(Jsonable.class, "_class")
-                    .registerSubtype(Ciudad.class, "Ciudad")
-                    .registerSubtype(Tiquete.class, "Tiquete")
-                    .registerSubtype(Ruta.class, "Ruta")
-                    .registerSubtype(Avion.class, "Avion")
-                    .registerSubtype(Usuario.class, "Usuario")
-                    .registerSubtype(Asiento.class, "Asiento")
-                    .registerSubtype(Vuelo.class, "Vuelo");
+        RuntimeTypeAdapterFactory<Jsonable> rta = RuntimeTypeAdapterFactory.of(Jsonable.class, "_class")
+                .registerSubtype(Ciudad.class, "Ciudad")
+                .registerSubtype(Tiquete.class, "Tiquete")
+                .registerSubtype(Ruta.class, "Ruta")
+                .registerSubtype(Avion.class, "Avion")
+                .registerSubtype(Usuario.class, "Usuario")
+                .registerSubtype(Asiento.class, "Asiento")
+                .registerSubtype(Vuelo.class, "Vuelo");
         response.setContentType("aplication/pdf");
         response.setHeader("Content-Disposition", "inline;filename=\"report.pdf\"");
         PdfDocument pdf = new PdfDocument(new PdfWriter(response.getOutputStream()));
@@ -66,34 +66,35 @@ public class PdfServlet extends HttpServlet {
             document.add(p);
             String h = "Vuelo %s, %s - %s, %s %s";
             String aux = request.getParameter("tiquete");
-            String sea= request.getParameter("seats");
-            String limiter="-";
+            String sea = request.getParameter("seats");
+            String limiter = "-";
             String[] tem;
             tem = sea.split(limiter);
             String[] seats = tem;
             Tiquete ticket = gson.fromJson(aux, Tiquete.class);
             String hora = ticket.getVuelo().getHora_salida();
             String algo = "am";
-            int valor =Integer.parseInt(hora);
-            if(valor >= 12)
+            int valor = Integer.parseInt(hora);
+            if (valor >= 12) {
                 algo = "pm";
-            h = String.format(h, ticket.getVuelo().getCodigo_Vuelo()
-                    ,ticket.getVuelo().getRuta().getCiudadO().getNombre()
-                    ,ticket.getVuelo().getRuta().getCiudadD().getNombre()
-                    ,ticket.getVuelo().getDia_salida()
-                    ,hora + algo);
+            }
+            h = String.format(h, ticket.getVuelo().getCodigo_Vuelo(),
+                     ticket.getVuelo().getRuta().getCiudadO().getNombre(),
+                     ticket.getVuelo().getRuta().getCiudadD().getNombre(),
+                     ticket.getVuelo().getDia_salida(),
+                     hora + algo);
             p = new Paragraph(h);
             p.setTextAlignment(TextAlignment.LEFT);
             p.setBold();
             document.add(p);
-            String asientos ="";
+            String asientos = "";
             for (String seat : seats) {
                 asientos = asientos + " , " + seat;
             }
-            p = new Paragraph("------------- Asientos ------------- \n"+
-                    asientos);
+            p = new Paragraph("------------- Asientos ------------- \n"
+                    + asientos);
             document.add(p);
-            Float precio = (ticket.getVuelo().getPrecio()) * (seats.length); 
+            Float precio = (ticket.getVuelo().getPrecio()) * (seats.length);
             p = new Paragraph("COSTO TOTAL: " + precio.toString());
             p.setTextAlignment(TextAlignment.RIGHT);
             p.setBold();
