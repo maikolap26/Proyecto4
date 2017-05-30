@@ -76,6 +76,15 @@ getAsientos1: function(){
         Proxy.getAsientos(avion,function(result){
             model.asientosUsados = result;
         });
+},
+cambioDolar:function(){
+    var model = this.model;
+    var view = this.view;
+    Proxy.cambioDolar(function(result){
+        model.cambioDolar = result;
+        view.colones(result);
+    });
 }
     
 };
+

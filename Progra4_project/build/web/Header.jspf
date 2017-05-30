@@ -16,7 +16,7 @@
                                         <input class="campoUs" name="user" id="user" type="text">
                                         <br>
                                         Contraseña:
-                                        <input class="campoUs" name="pass" id="pass" type="text"/>
+                                        <input class="campoUs" name="pass" id="pass" type="password"/>
                                         </br>
                                         </input>
                                     </span>

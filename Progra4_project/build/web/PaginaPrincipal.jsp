@@ -84,6 +84,9 @@
                                         <td class="fila">
                                             Cantidad:
                                         </td>
+                                        <td class="fila">
+                                            Moneda
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="cantidad">
@@ -117,6 +120,16 @@
                                                 </option>
                                                 <option value="10">
                                                     10
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td class="cantidad">
+                                            <select class="bo" id="moneda" name="combo">
+                                                <option value="Colones">
+                                                    Colones
+                                                </option>
+                                                <option value="Dolares">
+                                                    Dolares
                                                 </option>
                                             </select>
                                         </td>

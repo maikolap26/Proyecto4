@@ -36,11 +36,11 @@ public class AAMAirlineModel {
         return ciudades;
     }
     
-    public int saveTicket(Tiquete ticket, String[] seats) throws SQLException {
+    public int saveTicket(Tiquete ticket, String[] seats) throws SQLException, Exception {
         String delimiter=": ";
         String[] temp;
         temp = ticket.getCliente().getCedula().split(delimiter);
-        String cedula= temp[1];
+        String cedula= clientGet(temp[1]).getCedula();
         String sql = "insert into tiquete values ('%s','%s','%s')";
         int rs2=0;
         sql = String.format(sql, cedula,ticket.getVuelo().getCodigo_Vuelo(),ticket.getCodigo_Tiquete());

@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
+import indicadoresEconomicosBCCR.TipoCambio;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.ProcessBuilder.Redirect.Type;
@@ -55,6 +56,9 @@ public class AAMAirlinesService extends HttpServlet {
             request.getSession().removeAttribute("error1");
             request.getSession().removeAttribute("error");
             switch (accion) {
+                case "cambioDolar":
+                    Double dolar = new TipoCambio().getVenta();
+                    out.write(dolar.toString());
                 case "getAsientos":
                     String codigo_avion = request.getParameter("codigo");
                     asientos = model.getAsientos(codigo_avion);

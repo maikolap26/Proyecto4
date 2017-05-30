@@ -1,5 +1,3 @@
-/* global Proxy */
-
 var model;
 var controller;
 var vuelos;
@@ -13,6 +11,7 @@ var cantidad = 0;
 var orden = [];
 var map;
 var markers = [];
+var cambio =0;
 
 function pageLoad(event) {
 
@@ -27,6 +26,7 @@ function pageLoad(event) {
       $("#goTi").click(function(){
         controller.getAsientos();
     });
+    controller.cambioDolar();
     var a = document.getElementById("cancelOrder");
     var b = document.getElementById("goTi");
     var c = document.getElementById("goTi");
@@ -48,6 +48,10 @@ function pageLoad(event) {
 function deshabilitarRegreso() {
     normalizar();
     document.getElementById("datepicker2").disabled = true;
+}
+
+function colones(cambio){
+    this.cambio= cambio;
 }
 
 function habilitarRegreso() {
@@ -247,7 +251,17 @@ function ordenCompletada(){
     document.getElementById("origenC2").innerHTML = ori;
     document.getElementById("destinoC2").innerHTML = dest;
     document.getElementById("cantidad2").innerHTML = cantidad.toString();
-    document.getElementById("price2").innerHTML = " $ " + orden[0].precio;
+    var moneda = document.getElementById("moneda");
+    var simbolo = "₡";
+    if(moneda.value === "Dolares"){
+        simbolo = "$";
+    }
+    else{
+        var precio = orden[0].precio;
+        precio = precio * cambio;
+        orden[0].precio= precio;
+    }
+    document.getElementById("price2").innerHTML = simbolo + " " + orden[0].precio;
     var array= orden[1];
     for (var i = 0;i < array.length; i++){
         document.getElementById("estosSon").innerHTML = document.getElementById("estosSon").textContent + "  " + array[i].id.toString();
@@ -371,7 +385,17 @@ function openInfo() {
     document.getElementById("destinoC").innerHTML = dest;
     document.getElementById("cantidad").innerHTML = document.getElementById("combo").value;
     cantidad=parseInt(document.getElementById("combo").value);
-    document.getElementById("price").innerHTML = " $ " + model.buscados[index].precio;
+    var moneda = document.getElementById("moneda");
+    var simbolo = "₡";
+    if(moneda.value === "Dolares"){
+        simbolo = "$";
+    }
+    else{
+        var precio = orden[0].precio;
+        precio = precio * model.cambioDolar;
+        orden[0].precio= precio;
+    }
+    document.getElementById("price").innerHTML = simbolo + " " + orden[0].precio;
     var plane = model.buscados[index].avion;
     var variable = plane.cant_filas * plane.cant_asiento_fila;
     if((model.asientosUsados.length >=  (variable - 1)) 
@@ -379,6 +403,7 @@ function openInfo() {
                 >
                 ((variable - 1) - model.asientosUsados.length))
             ){
+        var salida = orden.pop();
         alert("Avion lleno !!");
         return;
     }
