@@ -583,36 +583,42 @@ function doSubmitAvion() {
     var cantPas = document.getElementById("cant_Pasa");
     var marca = document.getElementById("marca");
     var modelo = document.getElementById("modelo");
-
-    var av1 = new Avion(codigo.value, modelo.value, marca.value, cantPas.value, cantFil.value, cantAsF.value);
-    Proxy.guardar1(av1, function (result) {
-        switch(result){
-            case 0: 
-                window.alert("Datos agregados");
-                break;
-            case 1:
-                window.alert("Error en el registro");
-                break;
-        }
-    });
+    if (codigo.value != "" && cantASF.value != "" && cantFil.value != "" && cantPas.value != "") {
+        var av1 = new Avion(codigo.value, modelo.value, marca.value, cantPas.value, cantFil.value, cantAsF.value);
+        Proxy.guardar1(av1, function (result) {
+            switch (result) {
+                case 0:
+                    window.alert("Datos agregados");
+                    break;
+                case 1:
+                    window.alert("Error en el registro");
+                    break;
+            }
+        });
+    } else {
+        window.alert("Complete los campos en blanco");
+    }
 }
 
 function doSubmitCiudades() {
     var codigo = document.getElementById("codigo");
     var nombre = document.getElementById("nombre");
     var pais = document.getElementById("pais");
-
-    var ciudad = new Ciudad(codigo.value, nombre.value, pais.value);
-    Proxy.guardar2(ciudad, function (result) {
-        switch(result){
-            case 0: 
-                window.alert("Datos agregados");
-                break;
-            case 1:
-                window.alert("Error en el registro");
-                break;
-        }
-    });
+    if (codigo.value != "" && nombre.value != "" && pais.value != "") {
+        var ciudad = new Ciudad(codigo.value, nombre.value, pais.value);
+        Proxy.guardar2(ciudad, function (result) {
+            switch (result) {
+                case 0:
+                    window.alert("Datos agregados");
+                    break;
+                case 1:
+                    window.alert("Error en el registro");
+                    break;
+            }
+        });
+    } else {
+        window.alert("Complete todos los campos");
+    }
 }
 
 function doSubmitRutas() {
@@ -620,19 +626,23 @@ function doSubmitRutas() {
     var origen = document.getElementById("origen");
     var destino = document.getElementById("destino");
     var duracion = document.getElementById("duracion");
-    var ciudadO= new Ciudad(origen.value,"","");
-    var ciudadD= new Ciudad(destino.value,"","");
-    var rutas = new Ruta(codigo.value, ciudadO, ciudadD, duracion.value);
-    Proxy.guardar3(rutas, function (result) {
-        switch(result){
-            case 0: 
-                window.alert("Datos agregados");
-                break;
-            case 1:
-                window.alert("Error en el registro");
-                break;
-        }
-    });
+    var ciudadO = new Ciudad(origen.value, "", "");
+    var ciudadD = new Ciudad(destino.value, "", "");
+    if (codigo.value != "" && origen.value != "" && destino.value != "") {
+        var rutas = new Ruta(codigo.value, ciudadO, ciudadD, duracion.value);
+        Proxy.guardar3(rutas, function (result) {
+            switch (result) {
+                case 0:
+                    window.alert("Datos agregados");
+                    break;
+                case 1:
+                    window.alert("Error en el registro");
+                    break;
+            }
+        });
+    } else {
+        window.alert("Complete todos los campos");
+    }
 }
 
 function doSubmitVuelos() {
@@ -643,20 +653,23 @@ function doSubmitVuelos() {
     var horaS = document.getElementById("horaS");
     var horaL = document.getElementById("horaL");
     var precio = document.getElementById("precio");
-    var ruta= new Ruta(codigo1.value,new Ciudad("","",""),new Ciudad("","",""),"");
-    var avion= new Avion(codigo2.value,"","",0,0,0);
-
-    var vuelos = new Vuelo(codigo.value, salida.value, horaS.value, horaL.value, ruta, avion, parseFloat(precio.value));
-    Proxy.guardar4(vuelos, function (result) {
-        switch(result){
-            case 0: 
-                window.alert("Datos agregados");
-                break;
-            case 1:
-                window.alert("Error en el registro");
-                break;
-        }
-    });
+    var ruta = new Ruta(codigo1.value, new Ciudad("", "", ""), new Ciudad("", "", ""), "");
+    var avion = new Avion(codigo2.value, "", "", 0, 0, 0);
+    if (codigo.value != "" && codigo1.value != "" && salida.value != "" && precio.value != "") {
+        var vuelos = new Vuelo(codigo.value, salida.value, horaS.value, horaL.value, ruta, avion, parseFloat(precio.value));
+        Proxy.guardar4(vuelos, function (result) {
+            switch (result) {
+                case 0:
+                    window.alert("Datos agregados");
+                    break;
+                case 1:
+                    window.alert("Error en el registro");
+                    break;
+            }
+        });
+    } else {
+        window.alert("Complete todos los campos");
+    }
 }
 
 function listAvion(listado, av) {
@@ -897,7 +910,22 @@ function enableInput(){
 /* ------------------------------------------------------------------- */
 
  function saveGeolocation(position) {
-    positionGeoMarker({ lat: position.coords.latitude, lng: position.coords.longitude });   
+   positionGeoMarker({lat: position.coords.latitude, lng: position.coords.longitude});
+    var geocoder = new google.maps.Geocoder;
+    geocoder.geocode({
+        'location': {lat: position.coords.latitude, lng: position.coords.longitude}
+    }, function (results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+                var ad= document.getElementById("dir");
+                ad.value=results[1].formatted_address;
+            } else {
+                window.alert('No hay resultados');
+            }
+        } else {
+            window.alert('Geocoder failed due to: ' + status);
+        }
+    });   
 }
 
 function getLocation() {
