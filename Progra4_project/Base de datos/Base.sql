@@ -10,7 +10,7 @@ CREATE TABLE `usuario` (
   `telefono` varchar(45) NOT NULL,
   `usuario` varchar(45) NOT NULL,
   `contraseña` varchar(45) NOT NULL,
-  'direccion' varchar(1000) NOT NULL,
+  `direccion` varchar(1000) NOT NULL,
   PRIMARY KEY (`cedula`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -79,9 +79,8 @@ CREATE TABLE `asiento` (
   `numero` varchar(20) NOT NULL,
   `codigo_tiquete` varchar(45) NOT NULL,
   `codigo_avion` varchar(45) NOT NULL,
-  PRIMARY KEY (`numero`),
   KEY `fkcodigo_avion_idx` (`codigo_avion`),
   CONSTRAINT `fkcodigo_avion` FOREIGN KEY (`codigo_avion`) REFERENCES `avion` (`codigo_avion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fkcodigo_tiquete` FOREIGN KEY (`numero`) REFERENCES `tiquete` (`codigo_tiquete`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fkcodigo_tiquete` FOREIGN KEY (`codigo_tiquete`) REFERENCES `tiquete` (`codigo_tiquete`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

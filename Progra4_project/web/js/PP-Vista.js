@@ -12,7 +12,11 @@ var orden = [];
 var map;
 var markers = [];
 var cambio = 0;
+<<<<<<< HEAD
 var pasajeros=[];
+=======
+var avion;
+>>>>>>> origin/master
 
 function pageLoad(event) {
 
@@ -149,7 +153,8 @@ function goAsientos() {
 function mostrarAsientos() {
     document.getElementById("fotos").style.display="none";
     var numero = numeroVuelo;
-    var avion = model.buscados[numero].avion;
+    avion = model.buscados[numero].avion;
+    
     document.getElementById("info").style.display = "none";
     crearBotones();
     var avionAsi = document.getElementById("avionAsientos");
@@ -298,6 +303,7 @@ function cancelOrden() {
 
 function showBuscados() {
     //controller.buscar();
+    
     if (!fechaVacia())
         return;
     else {
@@ -328,7 +334,7 @@ function showBuscados() {
         t.appendChild(t1);
         var t2 = document.createElement("td");
         var boton = document.createElement("input");
-        boton.id = i;
+        boton.id = "i";
         boton.type = "button";
         boton.value = " Comprar ";
         boton.addEventListener("click", datos);
@@ -373,15 +379,22 @@ function normalizar() {
 }
 
 function datos() {
+    /* EL ERROR ESTA AQUI.... QUE ES this.id !!!!!!*/
     numeroVuelo = this.id;
     var index = this.id;
+    
     if (document.getElementById("usr") === null) {
         alert("Debe iniciar sesión para hacer una compra");
         return;
     }
+<<<<<<< HEAD
 
+=======
+    /* DESCOMENTAR CUANDO SE ARREGLE EL this.id !!!!!!!!!!!
+>>>>>>> origin/master
     orden.push(model.buscados[index]);
     controller.getAsientos1();
+     */
     var datos = document.getElementById("datos");
     var tr;
     var td;
@@ -424,8 +437,10 @@ function datos() {
                 datos.appendChild(tr);
             }
         }
+        /*  DESCOMENTAR CUANDO SE ARREGLE EL this.id !!!!!!!!!!!
         var plane = model.buscados[index].avion;
         var variable = plane.cant_filas * plane.cant_asiento_fila;
+<<<<<<< HEAD
         if (model.asientosUsados != null)
             if ((model.asientosUsados.length >= (variable - 1))
                     || (parseInt(document.getElementById("combo").value)
@@ -442,6 +457,28 @@ function datos() {
         document.getElementById("tabla").style.display = "none";
         document.getElementById("fotos").style.display="none";
         document.getElementById("busqueda").style.display="none";
+=======
+        if ((model.asientosUsados.length >= (variable - 1))
+                || (parseInt(document.getElementById("combo").value)
+                        >
+                        ((variable - 1) - model.asientosUsados.length))
+                ) {
+            //var salida = orden.pop();
+            alert("Avion lleno !!");
+            return;
+        }*/
+                
+        /*--- ESTO IBA EN MOSTRAR ASIENTOS ---*/
+        /*var numero = numeroVuelo;
+        avion = model.buscados[numero].avion;*/
+        /*------------------------------------*/
+                
+        var busc = document.getElementById("info");
+        busc.style.display = "block";
+        document.getElementById("busc").style.display = "none";
+        document.getElementById("carousel-1").style.display = "none";
+        document.getElementById("tablaBusqueda").style.display = "none";
+>>>>>>> origin/master
     }
      $('html,body').animate({
         scrollTop: $("#info").offset().top
@@ -451,12 +488,15 @@ function datos() {
 function openInfo() {
     numeroVuelo = this.id;
     var index = this.id;
+    
     if (document.getElementById("usr") === null) {
         alert("Debe iniciar sesión para hacer una compra");
         return;
     }
+    
     orden.push(model.buscados[index]);
     controller.getAsientos1();
+    
     var compra = document.getElementById("info");
     var fecPar = document.getElementById("datepicker1").value;
     var fecLle = document.getElementById("datepicker2").value;
@@ -493,6 +533,7 @@ function openInfo() {
         alert("Avion lleno !!");
         return;
     }
+    
     var busc = document.getElementById("busc");
     busc.style.display = "none";
     compra.style.display = "block";
@@ -652,8 +693,9 @@ function doSubmit() {
     var telefono = document.getElementById("telefono");
     var celular = document.getElementById("celular");
     var fecha = document.getElementById("fechaNacimiento");
+	var dir=document.getElementById("dir");
 
-    usuario = new Usuario(user.value, cedula.value, nombre.value, apellido.value, correo.value, telefono.value, celular.value, fecha.value, contraseña.value);
+    usuario = new Usuario(user.value, cedula.value, nombre.value, apellido.value, correo.value, telefono.value, celular.value, fecha.value, contraseña.value, dir.value);
     var formulario = document.getElementById("formulario");
     if (formulario != null) {
         formulario.addEventListener("submit", doValidate);
