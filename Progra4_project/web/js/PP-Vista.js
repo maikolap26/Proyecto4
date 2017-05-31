@@ -12,6 +12,7 @@ var orden = [];
 var map;
 var markers = [];
 var cambio = 0;
+var pasajeros=[];
 
 function pageLoad(event) {
 
@@ -36,11 +37,10 @@ function pageLoad(event) {
     document.getElementById("idaYvuelta").addEventListener("click", habilitarRegreso);
 
     if (a != null) {
-        e.addEventListener("click", doSubmitTiquete);
-        d.addEventListener("click", cancelarOrden);
         a.addEventListener("click", cancelOrden);
     }
-
+    e.addEventListener("click", doSubmitTiquete);
+    d.addEventListener("click", cancelarOrden);
     document.getElementById("terminarOrden2").addEventListener("click", cancelarOrden);
 
 }
@@ -147,6 +147,7 @@ function goAsientos() {
 }
 
 function mostrarAsientos() {
+    document.getElementById("fotos").style.display="none";
     var numero = numeroVuelo;
     var avion = model.buscados[numero].avion;
     document.getElementById("info").style.display = "none";
@@ -188,9 +189,17 @@ function mostrarAsientos() {
         avionAsi.appendChild(fila);
     }
     llenarAsientos();
+    var j=0;
+    for(i=1; i< cantidad + 1; i++){
+        var nombre = document.getElementById("campoN"+i).value;
+        var pasaporte = document.getElementById("campoP"+i).value;
+        pasajeros[j] = nombre + "," +pasaporte;
+        j++;
+    }
 }
 
 function llenarAsientos() {
+    controller.getAsientos1();
     var usados = model.asientosUsados;
     for (var i = 0; i < usados.length; i++) {
         var as = document.getElementById(usados[i].numero);
@@ -238,9 +247,7 @@ function ordenCompletada() {
     orden.push(asientos);
     document.getElementById("avionAsientos").style.display = "none";
     var compra = document.getElementById("aquiOrden");
-    compra.classList.add("popupComprar");
     compra.style.display = "block";
-    document.getElementById("cuerpo").style.opacity = .70;
     var fecPar = document.getElementById("datepicker1").value;
     var fecLle = document.getElementById("datepicker2").value;
     document.getElementById("partida2").innerHTML = fecPar;
@@ -260,11 +267,12 @@ function ordenCompletada() {
         precio = precio * cambio;
         document.getElementById("price2").innerHTML = simbolo + " " + precio;
     }
-
     var array = orden[1];
     for (var i = 0; i < array.length; i++) {
-        document.getElementById("estosSon").innerHTML = document.getElementById("estosSon").textContent + "  " + array[i].id.toString();
+        asientos[i] = asientos[i].id.toString() + "," + pasajeros[i];
+        document.getElementById("estosSon").innerHTML = document.getElementById("estosSon").textContent + "  " + asientos[i] + " / ";
     }
+    orden[1]= asientos;
 
 }
 
@@ -335,6 +343,10 @@ function showBuscados() {
         t.innerHTML = "Sin resultados...";
         s.appendChild(t);
     }
+    document.getElementById("busqueda").style.display="block";
+    $('html,body').animate({
+        scrollTop: $("#busqueda").offset().top
+    }, 2000);
 }
 
 function fechaVacia() {
@@ -367,15 +379,16 @@ function datos() {
         alert("Debe iniciar sesión para hacer una compra");
         return;
     }
+
     orden.push(model.buscados[index]);
     controller.getAsientos1();
     var datos = document.getElementById("datos");
     var tr;
     var td;
     var inp;
-    var cant = parseInt(document.getElementById("combo").value);
-    if (document.getElementById("tdDatos" + cant) == null) {
-        for (i = 1; i < cant + 1; i++) {
+    cantidad = parseInt(document.getElementById("combo").value);
+    if (document.getElementById("tdDatos" + cantidad) == null) {
+        for (i = 1; i < cantidad + 1; i++) {
             tr = document.createElement("tr");
             td = document.createElement("td");
             td.id = "tdDatos" + i;
@@ -398,14 +411,14 @@ function datos() {
             td.appendChild(inp);
             tr.appendChild(td);
             datos.appendChild(tr);
-            if (i == cant) {
+            if (i == cantidad) {
                 var tr = document.createElement("tr");
                 var td = document.createElement("td");
                 var btn = document.createElement("input");
                 btn.type = "button";
                 btn.id = "btnDatos";
                 btn.value = "Continuar";
-                btn.addEventListener("click", mostrarAsientos);
+                btn.addEventListener("click", validarCampos);
                 td.appendChild(btn);
                 tr.appendChild(td);
                 datos.appendChild(tr);
@@ -413,19 +426,26 @@ function datos() {
         }
         var plane = model.buscados[index].avion;
         var variable = plane.cant_filas * plane.cant_asiento_fila;
-        if ((model.asientosUsados.length >= (variable - 1))
-                || (parseInt(document.getElementById("combo").value)
-                        >
-                        ((variable - 1) - model.asientosUsados.length))
-                ) {
-            var salida = orden.pop();
-            alert("Avion lleno !!");
-            return;
-        }
+        if (model.asientosUsados != null)
+            if ((model.asientosUsados.length >= (variable - 1))
+                    || (parseInt(document.getElementById("combo").value)
+                            >
+                            ((variable - 1) - model.asientosUsados.length))
+                    ) {
+                var salida = orden.pop();
+                alert("Avion lleno !!");
+                return;
+            }
+
         var busc = document.getElementById("info");
         busc.style.display = "block";
-        document.getElementById("busc").style.display = "none";
+        document.getElementById("tabla").style.display = "none";
+        document.getElementById("fotos").style.display="none";
+        document.getElementById("busqueda").style.display="none";
     }
+     $('html,body').animate({
+        scrollTop: $("#info").offset().top
+    }, 1000);
 }
 
 function openInfo() {
@@ -479,6 +499,18 @@ function openInfo() {
     return true;
 }
 
+function validarCampos(){
+    for(i=1; i < cantidad +1;i++ ){
+        var campoN = document.getElementById("campoN"+i).value;
+        var campoP = document.getElementById("campoP"+i).value;
+        if(campoP === "" || campoN === ""){
+            alert("Hay campos vacios !!");
+            return;
+        }     
+    }
+    mostrarAsientos();
+}
+
 function doSubmitTiquete() {
     var fecha = new Date();
     var vuelo = orden[0];
@@ -493,9 +525,9 @@ function doSubmitTiquete() {
     var seats = "";
     for (var i = 0; i < asientos.length; i++) {
         if (i === 0)
-            seats = asientos[i].id;
+            seats = asientos[i];
         else
-            seats = seats + "-" + asientos[i].id;
+            seats = seats + "-" + asientos[i];
     }
     Proxy.saveTicket(tiquete, seats, function (result) {
         if (result === "1")
@@ -504,7 +536,6 @@ function doSubmitTiquete() {
             alert("se ha guardado con exito !!");
     });
     Proxy.generarPDF(tiquete, seats, function (result) {
-
     });
     location.reload(true);
 }
@@ -717,11 +748,12 @@ function doSubmitVuelos() {
     var horaS = document.getElementById("horaS");
     var horaL = document.getElementById("horaL");
     var precio = document.getElementById("precio");
+    var imagen= document.getElementById("image1").files[0];
     var ruta = new Ruta(codigo1.value, new Ciudad("", "", ""), new Ciudad("", "", ""), "");
     var avion = new Avion(codigo2.value, "", "", 0, 0, 0);
     if (codigo.value != "" && codigo1.value != "" && salida.value != "" && precio.value != "") {
         var vuelos = new Vuelo(codigo.value, salida.value, horaS.value, horaL.value, ruta, avion, parseFloat(precio.value));
-        Proxy.guardar4(vuelos, function (result) {
+        Proxy.guardar4(vuelos,imagen, function (result) {
             switch (result) {
                 case 0:
                     window.alert("Datos agregados");

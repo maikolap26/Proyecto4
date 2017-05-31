@@ -107,7 +107,16 @@
                             </div>
                         </div>
                     </div>
-
+                    
+                    <div class="row" id="claro">
+                        <div class="form-group">
+                            <label for="ti" class="control-label col-md-12" id="claro">Imagen</label>
+                            <div class="col-md-5">
+                                <input type="file" class="form-control" id="image1">
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="row" id="claro">&nbsp;</div>
 
                     <div class="row" id="claro">

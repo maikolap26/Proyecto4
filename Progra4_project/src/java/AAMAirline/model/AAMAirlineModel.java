@@ -46,8 +46,14 @@ public class AAMAirlineModel {
         sql = String.format(sql, cedula,ticket.getVuelo().getCodigo_Vuelo(),ticket.getCodigo_Tiquete());
         int rs = BD.executeUpdate(sql);
         for (String seat : seats) {
-            String sql2 = "insert into asiento values ('%s', '%s', '%s')";
-            sql2 = String.format(sql2, seat, ticket.getCodigo_Tiquete(), ticket.getVuelo().getAvion().getCodigo_Avion());
+            String delimiter2=",";
+            String[] temp2;
+            temp2 = seat.split(delimiter2);
+            String numero = temp2[0];
+            String nombre = temp2[1];
+            String pasa = temp2[2];
+            String sql2 = "insert into asiento values ('%s', '%s', '%s','%s','%s')";
+            sql2 = String.format(sql2, numero, ticket.getCodigo_Tiquete(), ticket.getVuelo().getAvion().getCodigo_Avion(),nombre,pasa);
             rs2 = BD.executeUpdate(sql2);
         }
         if(rs==1 && rs2==1)
@@ -179,7 +185,7 @@ public class AAMAirlineModel {
         for (Vuelo v : this.getVuelos1()) {
             if (v.getRuta().getCiudadO().getNombre().contains(origen)
                     && v.getRuta().getCiudadD().getNombre().contains(destino)
-                    && v.getDia_salida().contains(diaIda)) {
+                    && v.getDia_salida().equals(diaIda)) {
                 result.add(v);
             }
         }
@@ -359,12 +365,9 @@ public class AAMAirlineModel {
                 av.getModelo(), av.getMarca());
         ResultSet rs = BD.executeUpdateWithKeys(sql);
         if (rs != null) {
-            if (rs.next()) {
-                return 0;
-            } else {
-                return 1;
-            }
-        } else {
+            return 0;
+        }
+            else {
             return 1;
         }
 
@@ -376,11 +379,7 @@ public class AAMAirlineModel {
         sql = String.format(sql, ciu.getCodigo_ciudad(), ciu.getNombre(), ciu.getPais());
         ResultSet rs = BD.executeUpdateWithKeys(sql);
         if (rs != null) {
-            if (rs.next()) {
-                return 0;
-            } else {
-                return 1;
-            }
+            return 0;
         } else {
             return 1;
         }
@@ -393,11 +392,8 @@ public class AAMAirlineModel {
             sql = String.format(sql, ru.getCodigo_ruta(), ru.getCiudadO().getCodigo_ciudad(), ru.getCiudadD().getCodigo_ciudad(), ru.getDuracion());
             ResultSet rs = BD.executeUpdateWithKeys(sql);
             if (rs != null) {
-                if (rs.next()) {
                     return 0;
-                } else {
-                    return 1;
-                }
+                
             } else {
                 return 1;
             }
@@ -411,11 +407,7 @@ public class AAMAirlineModel {
         sql = String.format(sql, vu.getCodigo_Vuelo(), vu.getRuta().getCodigo_ruta(), vu.getAvion().getCodigo_Avion(), vu.getDia_salida(), vu.getHora_llegada(), vu.getHora_salida(), vu.getPrecio());
         ResultSet rs = BD.executeUpdateWithKeys(sql);
         if (rs != null) {
-            if (rs.next()) {
-                return 0;
-            } else {
-                return 1;
-            }
+           return 0;
         } else {
             return 1;
         }
