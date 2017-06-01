@@ -342,3 +342,15 @@ Proxy.productAddImagen = function(codigo,imagen,callback){
     formdata.append("imagen", imagen); 
     AJAX_req.send(formdata);    
 };
+
+Proxy.getDir= function(dir){
+    var AJAX_req = new XMLHttpRequest();  
+    url="/Progra4_project/ProductoUpload";
+    AJAX_req.open( "POST", url, true );
+    AJAX_req.onreadystatechange = function(){
+        if( AJAX_req.readyState === 4 && AJAX_req.status === 200 ){
+           callback(0);
+        }
+    }
+    AJAX_req.send("dir="+1);
+};
