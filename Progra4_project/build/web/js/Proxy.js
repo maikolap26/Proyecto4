@@ -113,8 +113,15 @@ Proxy.getPromo = function (callback) {
     url = "/Progra4_project/AAMAirlinesService?action=vueloListPromo";
     AJAX_req.open("GET", url, true);
     AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    AJAX_req.onreadystatechange = function () {
+        if (AJAX_req.readyState === 4 && AJAX_req.status === 200) {
+            var object = JSON.parse(AJAX_req.responseText, JsonUtils.revive);
+            callback(object);
+        }
+    };
     AJAX_req.send();
 };
+
 Proxy.vuelosSearch = function (origen, destino,diaIda, callback) {
     var AJAX_req = new XMLHttpRequest();
     url = "/Progra4_project/AAMAirlinesService?action=vueloListSearch";
@@ -221,7 +228,7 @@ Proxy.guardar3 = function (rutas, callback) {
     AJAX_req.send("ruta=" + env);
 };
 
-Proxy.guardar4 = function (vuelos, callback) {
+Proxy.guardar4 = function (vuelos,image, callback) {
     var env;
     var AJAX_req = new XMLHttpRequest();
     url = "/Progra4_project/AAMAirlinesService?action=guardar4";
@@ -233,7 +240,7 @@ Proxy.guardar4 = function (vuelos, callback) {
             if (parseInt(AJAX_req.responseText) == 1) {
                 callback(1);
             } else {
-                callback(0);
+                Proxy.productAddImagen(vuelos.codigo_vuelo, image,callback);
             }
         }
     };
@@ -325,4 +332,34 @@ Proxy.perfil2 = function (user, callBack) {
         }
     };
     AJAX_req.send("us2=" + enviar);
-}
+};
+
+Proxy.productAddImagen = function(codigo,imagen,callback){
+    var AJAX_req = new XMLHttpRequest();  
+    url="/Progra4_project/ProductoUpload";
+    AJAX_req.open( "POST", url, true );
+    AJAX_req.onreadystatechange = function(){
+        if( AJAX_req.readyState === 4 && AJAX_req.status === 200 ){
+           callback(0);
+        }
+
+    };
+    var formdata = new FormData();
+    formdata.append("codigo", codigo);
+    formdata.append("imagen", imagen); 
+    AJAX_req.send(formdata);    
+};
+
+Proxy.getDescuentos = function (callback) {
+    var AJAX_req = new XMLHttpRequest();
+    url = "/Progra4_project/AAMAirlinesService?action=getDescuentos";
+    AJAX_req.open("GET", url, true);
+    AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    AJAX_req.onreadystatechange = function () {
+        if (AJAX_req.readyState == 4 && AJAX_req.status === 200) {
+            var object = JSON.parse(AJAX_req.responseText, JsonUtils.revive);
+            callback(object);
+        }
+    };
+    AJAX_req.send();
+};

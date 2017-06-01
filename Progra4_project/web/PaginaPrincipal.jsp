@@ -274,7 +274,7 @@
                 </div>
                 
                 <!-- ----------------------------- SLIDES DE DESCUENTOS ----------------------------- -->
-                <div class="der" id="fotos">
+                <div class="der" id="fotos" style="display: none;">
                     <div class="container">
                         <div class="row" id="row1">
                             <div class="slider" id="fondo">
@@ -292,27 +292,27 @@
                                         </li>
                                     </ol>
                                     <div class="carousel-inner" role="listbox">                                
-                                        <div class="item active" id="div1">
+                                        <div class="item active" id="div1" style="display:none;">
                                             <div class="carousel-caption hidden-xs hidden-sm" id="COMPRAR"> 
                                                 <input class="COMPRAR" id="Comprar1" type="button" value="COMPRAR">
                                             </div>
                                         </div>
-                                        <div class="item" id="div2">
+                                        <div class="item" id="div2" style="display:none;">
                                             <div class="carousel-caption hidden-xs hidden-sm" id="COMPRAR"> 
                                                 <input class="COMPRAR" id="Comprar2" type="button" value="COMPRAR">
                                             </div>
                                         </div>
-                                        <div class="item" id="div3">    
+                                        <div class="item" id="div3" style="display:none;">    
                                             <div class="carousel-caption hidden-xs hidden-sm" id="COMPRAR"> 
                                                 <input class="COMPRAR" id="Comprar3" type="button" value="COMPRAR">
                                             </div>
                                         </div>
-                                        <div class="item" id="div4">
+                                        <div class="item" id="div4" style="display:none;">
                                             <div class="carousel-caption hidden-xs hidden-sm" id="COMPRAR"> 
                                                 <input class="COMPRAR" id="Comprar4" type="button" value="COMPRAR">
                                             </div>
                                         </div>
-                                        <div class="item" id="div5">
+                                        <div class="item" id="div5" style="display:none;">
                                             <div class="carousel-caption hidden-xs hidden-sm" id="COMPRAR">
                                                 <input class="COMPRAR" id="Comprar5" type="button" value="COMPRAR">
                                             </div>

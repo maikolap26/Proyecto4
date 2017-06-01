@@ -12,8 +12,8 @@ var orden = [];
 var map;
 var markers = [];
 var cambio = 0;
-
-var pasajeros=[];
+var vs;
+var pasajeros = [];
 
 var avion;
 
@@ -24,7 +24,6 @@ function pageLoad(event) {
     vuelos = model.vuelos;
     ciudades = model.ciudades;
     controller = new AAMController(model, window);
-    llenarDescuentos();
     $("#buscar").click(function () {
         controller.buscar();
     });
@@ -46,7 +45,7 @@ function pageLoad(event) {
     e.addEventListener("click", doSubmitTiquete);
     d.addEventListener("click", cancelarOrden);
     document.getElementById("terminarOrden2").addEventListener("click", cancelarOrden);
-
+    llenarDescuentos();
 }
 
 function deshabilitarRegreso() {
@@ -62,19 +61,35 @@ function habilitarRegreso() {
     normalizar();
     document.getElementById("datepicker2").disabled = false;
 }
-
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds) {
+            break;
+        }
+    }
+}
+function vuelos() {
+    Proxy.getPromo(function (result) {
+        vs = result;
+    });
+}
 function llenarDescuentos() {
-    for (var i = 1; i < 6; i++) {
-        var imagen = document.createElement("img");
-        var image = "img/d" + i + ".jpg";
-        imagen.src = image;//direccion de la imagen 
-        imagen.class = 'img-responsive';
-        imagen.name = "img" + i;
-        imagen.alt = '';
-        var id = "div" + i;
-        var actual = document.getElementById(id);
-        if (actual != null)
+    for (var i = 0; i < vs.length; i++) {
+        if (vs[i].descuento === "1") {
+            var imagen = document.createElement("img");
+            var image = "img/" + vs[i].codigo_vuelo + ".jpg";
+            imagen.src = image;//direccion de la imagen 
+            imagen.class = 'img-responsive';
+            imagen.name = "img" + i;
+            imagen.alt = '';
+            var id = "div" + i;
+            var actual = document.getElementById(id);
+            if (actual != null)
+                document.getElementById("fotos").style.display = "block";
+            actual.style.display = "block";
             actual.appendChild(imagen);
+        }
     }
 }
 
@@ -151,10 +166,10 @@ function goAsientos() {
 }
 
 function mostrarAsientos() {
-    document.getElementById("fotos").style.display="none";
+    document.getElementById("fotos").style.display = "none";
     var numero = numeroVuelo;
     avion = model.buscados[numero].avion;
-    
+
     document.getElementById("info").style.display = "none";
     crearBotones();
     var avionAsi = document.getElementById("avionAsientos");
@@ -194,11 +209,11 @@ function mostrarAsientos() {
         avionAsi.appendChild(fila);
     }
     llenarAsientos();
-    var j=0;
-    for(i=1; i< cantidad + 1; i++){
-        var nombre = document.getElementById("campoN"+i).value;
-        var pasaporte = document.getElementById("campoP"+i).value;
-        pasajeros[j] = nombre + "," +pasaporte;
+    var j = 0;
+    for (i = 1; i < cantidad + 1; i++) {
+        var nombre = document.getElementById("campoN" + i).value;
+        var pasaporte = document.getElementById("campoP" + i).value;
+        pasajeros[j] = nombre + "," + pasaporte;
         j++;
     }
 }
@@ -277,7 +292,7 @@ function ordenCompletada() {
         asientos[i] = asientos[i].id.toString() + "," + pasajeros[i];
         document.getElementById("estosSon").innerHTML = document.getElementById("estosSon").textContent + "  " + asientos[i] + " / ";
     }
-    orden[1]= asientos;
+    orden[1] = asientos;
 
 }
 
@@ -303,7 +318,7 @@ function cancelOrden() {
 
 function showBuscados() {
     //controller.buscar();
-    
+
     if (!fechaVacia())
         return;
     else {
@@ -349,7 +364,7 @@ function showBuscados() {
         t.innerHTML = "Sin resultados...";
         s.appendChild(t);
     }
-    document.getElementById("busqueda").style.display="block";
+    document.getElementById("busqueda").style.display = "block";
     $('html,body').animate({
         scrollTop: $("#busqueda").offset().top
     }, 2000);
@@ -446,10 +461,10 @@ function datos() {
         var busc = document.getElementById("info");
         busc.style.display = "block";
         document.getElementById("tabla").style.display = "none";
-        document.getElementById("fotos").style.display="none";
-        document.getElementById("busqueda").style.display="none";
+        document.getElementById("fotos").style.display = "none";
+        document.getElementById("busqueda").style.display = "none";
     }
-     $('html,body').animate({
+    $('html,body').animate({
         scrollTop: $("#info").offset().top
     }, 1000);
 }
@@ -457,15 +472,15 @@ function datos() {
 function openInfo() {
     numeroVuelo = this.id;
     var index = this.id;
-    
+
     if (document.getElementById("usr") === null) {
         alert("Debe iniciar sesión para hacer una compra");
         return;
     }
-    
+
     orden.push(model.buscados[index]);
     controller.getAsientos1();
-    
+
     var compra = document.getElementById("info");
     var fecPar = document.getElementById("datepicker1").value;
     var fecLle = document.getElementById("datepicker2").value;
@@ -502,21 +517,21 @@ function openInfo() {
         alert("Avion lleno !!");
         return;
     }
-    
+
     var busc = document.getElementById("busc");
     busc.style.display = "none";
     compra.style.display = "block";
     return true;
 }
 
-function validarCampos(){
-    for(i=1; i < cantidad +1;i++ ){
-        var campoN = document.getElementById("campoN"+i).value;
-        var campoP = document.getElementById("campoP"+i).value;
-        if(campoP === "" || campoN === ""){
+function validarCampos() {
+    for (i = 1; i < cantidad + 1; i++) {
+        var campoN = document.getElementById("campoN" + i).value;
+        var campoP = document.getElementById("campoP" + i).value;
+        if (campoP === "" || campoN === "") {
             alert("Hay campos vacios !!");
             return;
-        }     
+        }
     }
     mostrarAsientos();
 }
@@ -662,7 +677,7 @@ function doSubmit() {
     var telefono = document.getElementById("telefono");
     var celular = document.getElementById("celular");
     var fecha = document.getElementById("fechaNacimiento");
-	var dir=document.getElementById("dir");
+    var dir = document.getElementById("dir");
 
     usuario = new Usuario(user.value, cedula.value, nombre.value, apellido.value, correo.value, telefono.value, celular.value, fecha.value, contraseña.value, dir.value);
     var formulario = document.getElementById("formulario");
@@ -759,12 +774,18 @@ function doSubmitVuelos() {
     var horaS = document.getElementById("horaS");
     var horaL = document.getElementById("horaL");
     var precio = document.getElementById("precio");
-    var imagen= document.getElementById("image1").files[0];
+    var imagen = document.getElementById("image1").files[0];
+    var desc = document.getElementById("desc");
     var ruta = new Ruta(codigo1.value, new Ciudad("", "", ""), new Ciudad("", "", ""), "");
     var avion = new Avion(codigo2.value, "", "", 0, 0, 0);
+    var vuelos1;
     if (codigo.value != "" && codigo1.value != "" && salida.value != "" && precio.value != "") {
-        var vuelos = new Vuelo(codigo.value, salida.value, horaS.value, horaL.value, ruta, avion, parseFloat(precio.value));
-        Proxy.guardar4(vuelos,imagen, function (result) {
+        if (desc.checked == true)
+            vuelos1 = new Vuelo(codigo.value, salida.value, horaS.value, horaL.value, ruta, avion, parseFloat(precio.value), "1");
+        else
+            vuelos1 = new Vuelo(codigo.value, salida.value, horaS.value, horaL.value, ruta, avion, parseFloat(precio.value), "0");
+
+        Proxy.guardar4(vuelos1, imagen, function (result) {
             switch (result) {
                 case 0:
                     window.alert("Datos agregados");

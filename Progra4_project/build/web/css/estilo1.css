@@ -120,7 +120,7 @@ ul.MyMenu {
 	    background-color: #ffffe6;
 	    font-family: "Comic Sans MS", cursive, sans-serif;
 	    background-image: url(../fonts/fondo1.png);
-	    color: white;
+	    color: black;
 	}
 	
 	.pagina {
@@ -249,10 +249,11 @@ ul.MyMenu {
 	.derAv {
 	    position: relative;
 	    margin: 1%;
-	    display: block;
-	    float: center;
-	    width: 50%;
+	    display: none;
+	    float: right;
+	    width: 100%;
 	    background: black;
+            
 	}
 	
 	#imagen {
@@ -355,7 +356,7 @@ ul.MyMenu {
 	    margin-top: 5%;
 	    margin-bottom: 5%;
 	    width: 100%;
-            color: white;
+            color: black;
 	}
         
 	.formulario {
@@ -468,6 +469,7 @@ ul.MyMenu {
 	    margin-top: 6%;
 	    margin-left: 20%;
 	    text-align: center;
+            color: #204d74;
 	}
         .seleccionado{
             background-color: greenyellow;

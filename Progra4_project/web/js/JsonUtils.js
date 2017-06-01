@@ -8,7 +8,7 @@ JsonUtils.revive = function (k, v) {
         return new Ruta(v.codigo_ruta, v.ciudadO, v.ciudadD, v.duracion);
     }
     if (v instanceof Object && v._class === 'Vuelo') {
-        return new Vuelo(v.codigo_vuelo, v.dia_salida, v.hora_salida, v.hora_llegada, v.ruta, v.avion, v.precio);
+        return new Vuelo(v.codigo_vuelo, v.dia_salida, v.hora_salida, v.hora_llegada, v.ruta, v.avion, v.precio,v.descuento);
     }
     if (v instanceof Object && v._class === 'Login') {
         return new Login(v.usuario, v.contraseña, v.tipo);

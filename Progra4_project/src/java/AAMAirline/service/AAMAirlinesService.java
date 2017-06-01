@@ -105,7 +105,7 @@ public class AAMAirlinesService extends HttpServlet {
                     out.write(json);
                     break;
                 case "vueloListPromo":
-                    vuelos = model.getVuelos();
+                    vuelos = model.getVuelos1();
                     json = gson.toJson(vuelos);
                     out.write(json);
                     break;

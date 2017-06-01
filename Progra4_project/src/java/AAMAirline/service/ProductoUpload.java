@@ -40,27 +40,22 @@ public class ProductoUpload extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       try {
-            String accion = request.getParameter("dir");
-            if(accion == "1"){
-                PrintWriter out = response.getWriter();
-                response.setContentType("text/xml");
-                out.write(getServletContext().getRealPath("/"));
-            }
-            final String codigo = new BufferedReader(new InputStreamReader(request.getPart("codigo").getInputStream())).readLine();
-            final Part filePart = request.getPart("imagen");
-            OutputStream out = null;
-            InputStream filecontent = null;
-            final PrintWriter writer = response.getWriter();
-            out = new FileOutputStream(new File(getServletContext().getRealPath("/")+"img/"+codigo+".jpg"));
-            filecontent = filePart.getInputStream();
-            int read = 0;
-            final byte[] bytes = new byte[1024];
+        try {
+                final String codigo = new BufferedReader(new InputStreamReader(request.getPart("codigo").getInputStream())).readLine();
+                final Part filePart = request.getPart("imagen");
+                OutputStream out = null;
+                InputStream filecontent = null;
+                final PrintWriter writer = response.getWriter();
+                out = new FileOutputStream(new File(getServletContext().getRealPath("/") + "img/" + codigo + ".jpg"));
+                filecontent = filePart.getInputStream();
+                int read = 0;
+                final byte[] bytes = new byte[1024];
+
+                while ((read = filecontent.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+                out.close();
             
-            while ((read = filecontent.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-            out.close();                    
         } catch (Exception e) {
             System.out.println(e);
         }

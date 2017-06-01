@@ -107,9 +107,25 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row" id="claro">&nbsp;</div>
-
+                    
+                    <div class="row" id="claro">
+                        <div class="form-group">
+                            <label for="ti" class="control-label col-md-12" id="claro">Imagen</label>
+                            <div class="col-md-5">
+                                <input type="file" class="form-control" id="image1">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row" id="claro">
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <label for="ti" class="control-label col-md-12" id="claro">Descuento</label>
+                                <input class="btn btn-primary form-control ui-button ui-widget ui-corner-all" id="desc" type="radio" value="desc">
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="row" id="claro">
                         <div class="form-group">
                             <div class="col-md-2">
@@ -118,6 +134,8 @@
                         </div>
                     </div>
 
+                    
+                    
                     <div class="row" id="claro">&nbsp;</div>
                     <div class="row" id="claro">&nbsp;</div>
                 </form>
