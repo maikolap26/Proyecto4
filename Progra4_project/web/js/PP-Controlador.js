@@ -60,16 +60,54 @@ buscar: function () {
             model.buscados = [];
         }
     },
-getAsientos: function(){
+    
+buscarVenida: function () {
+
+        var esIdaVenida = $("#idaYvuelta").is(":checked");
+        if(!esIdaVenida){
+            return;
+        }
+        var origen = this.view.document.getElementById("destino").value;
+        var destino = this.view.document.getElementById("origen").value;
+        var fecha = this.view.document.getElementById("datepicker2").value;
+        //var dia= fecha[0] + fecha[1];
+        //var mes= fecha[3] + fecha[4];
+        //var año= fecha[6] + fecha[7] + fecha[8] + fecha[9];
+        //var diaIda= this.view.diaSemana(parseInt(dia),parseInt(mes),parseInt(año));
         var model = this.model;
         var view = this.view;
-        var avion= view.orden[0].avion.codigo_avion;
+        if ((origen.length > 0) && (destino.length > 0)) {
+            Proxy.vuelosSearch(origen, destino,fecha, function (result) {
+                model.buscadosVenida = result;
+                view.showBuscadosVenida();
+            });
+        } else {
+            model.buscados = [];
+        }
+    },
+    
+ getAsientos: function(avion){
+        var model = this.model;
+        var view = this.view;
         Proxy.getAsientos(avion,function(result){
             model.asientosUsados = result;
             view.mostrarAsientos();
+            view.usadosAsi();
         });
 },
-getAsientos1: function(){
+ getAsientosVenida: function(avion){
+        var model = this.model;
+        var view = this.view;
+        if(!view.esidaYVuela){
+            return;
+        }
+        Proxy.getAsientos(avion,function(result){
+            model.asientosUsadosV = result;
+            view.mostrarAsientosVuelta();
+            view.usadosAsiV();
+        });
+},
+ getAsientos1: function(){
         var model = this.model;
         var view = this.view;
         var avion= view.orden[0].avion.codigo_avion;
@@ -77,12 +115,50 @@ getAsientos1: function(){
             model.asientosUsados = result;
         });
 },
-cambioDolar:function(){
+ cambioDolar:function(){
     var model = this.model;
     var view = this.view;
     Proxy.cambioDolar(function(result){
         model.cambioDolar = result;
         view.colones(result);
+    });
+},
+ saveTicket:function(tiquete,seats,asientosCompletos){
+     var view = this.view;
+     var model = this.model;
+     var s = seats.split("-");
+     for(var i =0; i < s.length ; i++){
+         asientosCompletos = asientosCompletos + "-"+ s[i];  
+     }
+    Proxy.saveTicket(tiquete, seats, function (result) {
+        var selogro = result;
+        if (selogro === 0)
+            alert("no se pudo guardar el tiquete");
+        else{
+            if(asientosCompletos === "nada"){
+                Proxy.generarPDF(tiquete, seats, function (result) {
+                    var retorno = result;
+                    location.reload(true);
+                    view. alert("se ha guardado con exito !!");
+                });
+            }
+            else{
+                Proxy.generarPDF(tiquete, asientosCompletos, function (result) {
+                    var retorno = result;
+                    location.reload(true);
+                    view. alert("se ha guardado con exito !!");
+                });
+            }
+        }
+    });
+},
+saveTicketV:function(tiquete,seats){
+     var view = this.view;
+     var model = this.model;
+    Proxy.saveTicket(tiquete, seats, function (result) {
+        var selogro = result;
+        if (selogro === 0)
+            alert("no se pudo guardar el tiquete");
     });
 }
     

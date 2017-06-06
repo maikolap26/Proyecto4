@@ -74,11 +74,11 @@ public class AAMAirlinesService extends HttpServlet {
                     tem = sea.split(limiter);
                     String[] seats = tem;
                     Tiquete ticket = gson.fromJson(aux, Tiquete.class);
-                    if (model.saveTicket(ticket, seats) == 1) {
-                        out.write("1");
-                    } else {
+                    int salida = model.saveTicket(ticket, seats);
+                    if(salida == 0)
                         out.write("0");
-                    }
+                    else
+                        out.write("1");
                     break;
                 case "ciudadListAll":
                     ciudades = model.getCiudades1();

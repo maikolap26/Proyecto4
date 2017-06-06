@@ -36,7 +36,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
                         </tbody>
                     </table>
                 </div>
@@ -119,25 +118,84 @@
                                     </label>
                                 </td>
                             </tr>
+                             <tr>
+                                <td class="fila">
+                                    <label class="bo" id="tarjetaL">
+                                        Número de tarjeta
+                                    </label>
+                                </td>
+                                <td class="fila">
+                                    <input id="tarjeta" type="text" class="form-group-sm">
+                                </td>
+                            </tr>
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td class="fila">
-                                    <input class="boton" id="terminarOrden2" type="button" value="Cancelar">
+                                    <input class="btn btn-danger" id="terminarOrden2" type="button" value="Cancelar">
                                     </input>
                                 </td>
                                 <td class="fila" colspan="2">
-                                    <input class="boton" id="terminarOrden" type="button" value="Continuar">
+                                    <input class="btn btn-success" id="terminarOrden" type="button" value="Continuar">
                                     </input>
                                 </td>
                             </tr>
                         </tfoot>
                     </table>
                      </div>
-                        
                     <div class="derAv" id="avionAsientos">
-                    </div>
+                        <h2> Vuelo de ida</h2>
+                        <div>
+                            <span style="float: left;" >
+                                <div id="asientosdelavion">
+                                    
+                                </div>
+                                <div style=" vertical-align: middle;">
+                                    <input type="button" 
+                                   class="btn btn-danger" 
+                                   value="cancelar" id="cancelarAsientosIda">
+                                    <input type="button" 
+                                   class="btn btn-success" 
+                                   value="Continuar" id="continuarAsientosIda">
+                                </div>
+                            </span>
+                            <span style=" float: right;">
+                                <div>
+                                    <label class="ocupado"> Ocupado</label>
+                                </div>
+                                <div>
+                                    <label class="seleccionado"> Selección</label>
+                                </div>
+                            </span>
+                        </div>
                         
+                    </div>
+                    <div class="derAv" id="avionAsientos1">
+                        <h2> Vuelo de regreso</h2>
+                        <div>
+                            <span style="float: left;" >
+                                <div id="asientosdelavion1">
+                                    
+                                </div>
+                                <div style=" vertical-align: middle;">
+                                    <input type="button" 
+                                   class="btn btn-danger" 
+                                   value="cancelar" id="cancelarAsientosIdaVuelta">
+                                    <input type="button" 
+                                   class="btn btn-success" 
+                                   value="Continuar" id="continuarAsientosIdaVuelta">
+                                </div>
+                            </span>
+                            <span style=" float: right;">
+                                <div>
+                                    <label class="ocupado"> Ocupado</label>
+                                </div>
+                                <div>
+                                    <label class="seleccionado"> Selección</label>
+                                </div>
+                            </span>
+                        </div>
+                    </div>    
                     <section id="section1">
                         <table class="grid" id="tabla">
                             <thead>
@@ -252,21 +310,11 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        &nbsp;&nbsp;
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td colspan="6">
-                                       <input class="boton" id="buscar" type="button" value="Buscar" align="center">
+                                       <input class="btn btn-success btn-lg btn-block" id="buscar" type="button" value="Buscar" align="center">
                                         </input
                                     </td>                                        
                                 </tr>
-                                <tr>
-                                    <td>
-                                        &nbsp;&nbsp;
-                                    </td>
-                                </tr>   
                             </tbody>                                
                         </table>
                     </section>
@@ -339,14 +387,25 @@
                 <table class="grid" id="tablaBusqueda">
                     <thead>
                         <tr>
-                            <th colspan="6" > &nbsp;&nbsp;Resultados de la busqueda&nbsp;&nbsp; </th> 
+                            <th colspan="6" >Seleccione el vuelo de ida </th> 
                         </tr>
                     </thead>
                     <tbody id="tablaBusqueda"> </tbody>
                 </table>
             </div>
-            
-            
+            <div class="tableVuelos" id="busqueda1" style="display: none;">
+                <table class="grid" id="tablaBusqueda" >
+                    <thead>
+                        <tr>
+                            <th colspan="6" >Seleccione el vuelo de regreso </th> 
+                        </tr>
+                    </thead>
+                    <tbody id="tablaBusquedaVuelta"> </tbody>
+                </table>
+            </div>
+                <div class="col-md-10 col-md-offset-2" id="botonComprarV">
+                    <input type="button" class="btn btn-success btn-lg btn-block" value="Comprar" style="display: none;" id="botonComprar">
+                </div>
             </div>
             <!-- ---------------------- PIE DE PAGINA ---------------------- -->
 

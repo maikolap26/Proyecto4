@@ -5,39 +5,56 @@
 <div class="container-fluid">
                 <div class="row encabezado">
                     <div class="col-md-12">
+                        <div class="col-md-9">  
                         <img alt="" class="image1" src="img/Captura.PNG" style="float:left;">
                         <img alt="" class="image" src="img/Header.PNG" style="float:left;">
+                        </div>
                         <% Login user = (Login) request.getSession().getAttribute("user"); %>
                         <% String error = (String) request.getSession().getAttribute("error1"); %>
                         <% if (user == null) {%>
-                            <form method="post" action="/Progra4_project/AAMAirlinesService?action=userLogin"><span class="inicioSesion" id="inicioSesion">
+                        <div class="col-md-3" style="float: top; ">    
+                        <form method="post" action="/Progra4_project/AAMAirlinesService?action=userLogin">
+                            <span class="" id="inicioSesion" >
                                     <span class="campoUs1">
-                                        Usuario:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <input class="campoUs" name="user" id="user" type="text">
-                                        <br>
-                                        Contraseña:
-                                        <input class="campoUs" name="pass" id="pass" type="password"/>
-                                        </br>
-                                        </input>
+                                        <table>
+                                        <tr>
+                                            <td>
+                                            <label>Usuario:</label>
+                                            </td>
+                                            <td>
+                                            <input class="campoUs" name="user" id="user" type="text">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            <label>Contraseña:</label>
+                                            </td>
+                                            <td>
+                                            <input class="campoUs" name="pass" id="pass" type="password">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <input class="btn btn-success" id="login" type="submit" value="Login">
+                                                <input class="btn btn-success" id="signup" type="button" value="SignUp" onclick="redireccionar()" >
+                                            </td>
+                                        </tr>
+                                        </table>    
                                     </span>
                                     <div>
-                                        <br>
-                                        <span class="boton1">
-                                            <input class="boton" id="login" type="submit" value="Login">
-                                            <input class="boton" id="signup" type="button" value="SignUp" onclick="redireccionar()">
-                                            </input>
-                                            </input>
-                                        </span>
-                                        </br>
                                         <% if (error != null){ %>
-                                        <p> <h3 style="color: red;text-align: center;"> Error usuario o contraseña incorrecto</h3> </p>
+                                        <p> <h3 style="color: red;text-align: center;" script="window.alert('Error usuario o contraseña incorrecto')">  </h3> </p>
                                         <%}%>
                                     </div>
-                                </span>
-                            </form>                            
+                            </span>
+                        </form>
+                        </div>
                         <%}%> 
                             <!-- ---------------------- USUARIO LOGUEADO ----------------------- -->
-                        <% if (user != null) {%>                            
+                        <% if (user != null) {%> 
+                        <div class="col-md-3">  
                             <form method="post" action="/Progra4_project/AAMAirlinesService?action=userLogout">
                                 <div class="Log">
                                     <div id="Log" style="font-family:Papyrus,fantasy; font-size:15px; font-weight:700; color:white;">
@@ -47,47 +64,65 @@
                                 </div>
                             </form>                           
                         <%}%>   
+                        </div>
                             <!-- --------------------------------------------------------------- -->
                     </div>
                 </div>
             </div>
             <!-- ---------------------- NAVEGACION ----------------------- -->
-            <div class="menuP">
-                <ul class="MyMenu">
-                    <li>
-                        <a href="PaginaPrincipal.jsp" title="Inicio">
-                            <image border="0" src="">
-                            Inicio
-                            </image>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="QuienesSomos.jsp" title="Quienes Somos">
-                            <image border="0" src="">
-                            Quienes somos
-                            </image>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Cousine.jsp" title="Cousine a bordo">
-                            <image border="0" src="">
-                            Cousine a bordo
-                            </image>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="ExperienciaABordo.jsp" title="Experiencia">
-                            <image border="0" src="">
-                            Experiencia
-                            </image>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Consultas.jsp" title="Consultas">
-                            <image border="0" src="">
-                            Consultas
-                            </image>
-                        </a>
-                    </li>
-                </ul>
+            
+<div class="navbar-default" >
+    <div class="container-fluid">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="">
+                            <a href="PaginaPrincipal.jsp" title="Inicio">
+                                    <image border="0" src="">
+                                    Inicio
+                                    </image>
+                                </a>
+                        </li>
+                        <li>
+                                <a href="QuienesSomos.jsp" title="Quienes Somos">
+                                    <image border="0" src="">
+                                    Quienes somos
+                                    </image>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="Cousine.jsp" title="Cousine a bordo">
+                                    <image border="0" src="">
+                                    Cousine a bordo
+                                    </image>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ExperienciaABordo.jsp" title="Experiencia">
+                                    <image border="0" src="">
+                                    Experiencia
+                                    </image>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="Consultas.jsp" title="Consultas">
+                                    <image border="0" src="">
+                                    Consultas
+                                    </image>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+    </div>
+</div>

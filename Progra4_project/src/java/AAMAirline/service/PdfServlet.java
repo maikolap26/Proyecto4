@@ -89,7 +89,7 @@ public class PdfServlet extends HttpServlet {
             document.add(p);
             String asientos = "";
             for (String seat : seats) {
-                asientos = seat + "\n";
+                asientos =asientos + seat + "\n";
             }
             p = new Paragraph("------------- Asientos ------------- \n"
                     + asientos);

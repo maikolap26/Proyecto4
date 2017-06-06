@@ -15,8 +15,6 @@ Proxy.getCiudades = function (callback) {
     AJAX_req.send();
 };
 
-
-
 Proxy.getAsientos = function (codigo_avion, callback) {
     var AJAX_req = new XMLHttpRequest();
     url = "/Progra4_project/AAMAirlinesService?action=getAsientos";
@@ -38,7 +36,12 @@ Proxy.saveTicket = function (tiquete,seats, callBack) {
     AJAX_req.open("POST", url, true);
     AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     enviar = JsonUtils.enviar(tiquete);
-
+    AJAX_req.onreadystatechange = function () {
+        if (AJAX_req.readyState === 4 && AJAX_req.status === 200) {
+            var object = AJAX_req.responseText;
+            callBack(object);
+        }
+    };
     AJAX_req.send("tiquete=" + enviar +"&seats="+seats);
 };
 
@@ -58,12 +61,9 @@ Proxy.cambioDolar = function (callback) {
 
 Proxy.generarPDF = function (tiquete,seats, callBack) {
     var enviar;
-    var AJAX_req = new XMLHttpRequest();
-    url = "/Progra4_project/PdfServlet";
-    AJAX_req.open("POST", url, true);
-    AJAX_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     enviar = JsonUtils.enviar(tiquete);
-    window.location="/Progra4_project/PdfServlet?"+"tiquete=" + enviar +"&seats="+seats;
+    window.open("/Progra4_project/PdfServlet?"+"tiquete=" + enviar +"&seats="+seats);
+    callBack(true);
 };
 
 Proxy.getCiudad = function (cod, callback) {
