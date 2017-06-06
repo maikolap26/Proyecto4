@@ -85,6 +85,17 @@ buscarVenida: function () {
             model.buscados = [];
         }
     },
+
+buscarVPromo: function(codigo){
+    var model = this.model;
+    var view = this.view;
+    model.buscados=[];
+    model.buscados.push( model.vs.find(function(e){
+        return e.codigo_vuelo === codigo;
+    }));
+    view.showBuscados();
+    view.esidaYVuela = false;
+},    
     
  getAsientos: function(avion){
         var model = this.model;
@@ -159,6 +170,14 @@ saveTicketV:function(tiquete,seats){
         var selogro = result;
         if (selogro === 0)
             alert("no se pudo guardar el tiquete");
+    });
+},
+getPromos: function(){
+    var model= this.model;
+    var view = this.view;
+    Proxy.getPromo( function (result) {
+        model.vs = result;
+        view.llenarDescuentos();
     });
 }
     

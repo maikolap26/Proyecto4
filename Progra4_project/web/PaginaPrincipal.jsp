@@ -322,7 +322,7 @@
                 </div>
                 
                 <!-- ----------------------------- SLIDES DE DESCUENTOS ----------------------------- -->
-                <div class="der" id="fotos" style="display: none;">
+                <div class="der" id="fotos">
                     <div class="container">
                         <div class="row" id="row1">
                             <div class="slider" id="fondo">

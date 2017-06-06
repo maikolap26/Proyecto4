@@ -20,6 +20,7 @@ var vuelaSelect;
 var avionIda;
 var esidaYVuela;
 var asientosV= [];
+var esPromo = false;
 
 
 function pageLoad(event) {
@@ -51,7 +52,10 @@ function pageLoad(event) {
     e.addEventListener("click", doSubmitTiquete);
     d.addEventListener("click", cancelarOrden);
     document.getElementById("terminarOrden2").addEventListener("click", cancelarOrden);
-    llenarDescuentos();
+    //llenarDescuentos();
+    controller.getPromos();
+    $("#datepicker1").datepicker({ minDate: 0 });
+    $("#datepicker2").datepicker({ minDate: 0 });
 }
 
 function deshabilitarRegreso() {
@@ -85,22 +89,35 @@ function vuelos() {
 }
 
 function llenarDescuentos() {
-    for (var i = 0; i < vs.length; i++) {
-        if (vs[i].descuento === "1") {
+    var j=1;
+    for (var i = 0; i < model.vs.length; i++) {
+        if (model.vs[i].descuento === "1") {
             var imagen = document.createElement("img");
-            var image = "img/" + vs[i].codigo_vuelo + ".jpg";
+            var image = "img/" + model.vs[i].codigo_vuelo + ".jpg";
             imagen.src = image;//direccion de la imagen 
             imagen.class = 'img-responsive';
             imagen.name = "img" + i;
             imagen.alt = '';
-            var id = "div" + i;
+            //document.getElementById("Comprar"+j).addEventListener("click",buscarVPromo);
+            var botonPrueba =$( "#"+"Comprar"+j );
+            var numerito = i;
+            botonPrueba.click(function() {
+                esPromo = true;
+                buscarVPromo(model.vs[numerito].codigo_vuelo);
+            });
+            var id = "div" + j;
+            j++;
             var actual = document.getElementById(id);
-            if (actual != null)
+            if (actual !== null)
                 document.getElementById("fotos").style.display = "block";
             actual.style.display = "block";
             actual.appendChild(imagen);
         }
     }
+}
+
+function buscarVPromo(codigo){
+    controller.buscarVPromo(codigo);
 }
 
 function llenarSelects() {
@@ -429,7 +446,7 @@ function cancelOrden() {
 }
 
 function showBuscados() {
-
+    
     if (!fechaVacia())
         return;
     else {
@@ -564,6 +581,8 @@ function asignaNumbers2(){
 } 
 
 function fechaVacia() {
+    if(esPromo)
+        return true;
     var fecPar = document.getElementById("datepicker1").value;
     var fecLle = document.getElementById("datepicker2").value;
     if ((fecPar === "" || fecLle === "") && (document.getElementById("datepicker2").disabled === false)) {
