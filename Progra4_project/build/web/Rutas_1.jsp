@@ -31,7 +31,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="Rutas_2.jsp" title="Administrar">
+                        <a href="Rutas_2.jsp" title="Consultar">
                             <image border="0" src="">
                             Administrar
                             </image>
@@ -58,7 +58,9 @@
                         <div class="form-group">
                             <label for="Email" class="control-label col-md-12" id="claro">Ciudad de origen</label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control" id="origen">
+                                <select class="form-control" id="origen" type="text">
+                                </select>
+                                <!--<input type="text" class="form-control" id="origen">-->
                             </div>
                         </div>
                     </div>
@@ -67,7 +69,9 @@
                         <div class="form-group">
                             <label for="tel" class="control-label col-md-12" id="claro">Ciudad destino</label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control" id="destino">
+                                 <select class="form-control" id="destino" type="text">
+                                </select>
+                                <!--<input type="text" class="form-control" id="destino">-->
                             </div>
                         </div>
                     </div>
