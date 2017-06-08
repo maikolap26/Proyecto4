@@ -31,7 +31,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="Vuelos_2.jsp" title="Administrar">
+                        <a href="Vuelos_2.jsp" title="Consultar">
                             <image border="0" src="">
                             Administrar
                             </image>
@@ -58,7 +58,9 @@
                         <div class="form-group">
                             <label for="Email" class="control-label col-md-12" id="claro">Codigo de la ruta</label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control" id="codigo_ruta">
+                                <select class="form-control" id="codigo_ruta" type="text">
+                                </select>
+                                <!--<input type="text" class="form-control" id="codigo_ruta">-->
                             </div>
                         </div>
                     </div>
@@ -67,7 +69,9 @@
                         <div class="form-group">
                             <label for="tel" class="control-label col-md-12" id="claro">Codigo del avion</label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control" id="codigo_avion">
+                                <select class="form-control" id="codigo_avion" type="text">
+                                </select>
+                                <!--<input type="text" class="form-control" id="codigo_avion">-->
                             </div>
                         </div>
                     </div>

@@ -32,7 +32,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="Aviones_2.jsp" title="Administrar">
+                        <a href="Aviones_2.jsp" title="Consultar">
                             <image border="0" src="">
                             Administrar
                             </image>

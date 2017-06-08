@@ -38,6 +38,22 @@ AAMController.prototype = {
                 view.llenarVuelos();
             });
         }
+        if(window.location.pathname === "/Progra4_project/Rutas_1.jsp"){
+            Proxy.getCiudades(function(result){
+                model.ciudades= result;
+                view.llenarSelects();
+            });
+        }
+        if(window.location.pathname === "/Progra4_project/Vuelos_1.jsp"){
+            Proxy.rutaSearch(function (result) {
+                model.buscados1 = result;
+                Proxy.avionSearch(function (result) {
+                    model.buscados = result;
+                    view.llenarSelectsVuelo();
+            });
+            });
+             
+        }
         
     },
 buscar: function () {

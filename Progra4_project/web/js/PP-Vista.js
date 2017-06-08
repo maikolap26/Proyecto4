@@ -19,7 +19,7 @@ var idaSelect;
 var vuelaSelect;
 var avionIda;
 var esidaYVuela;
-var asientosV= [];
+var asientosV = [];
 var esPromo = false;
 
 
@@ -36,6 +36,8 @@ function pageLoad(event) {
     $("#goTi").click(function () {
         controller.getAsientos();
     });
+
+
     controller.cambioDolar();
     var a = document.getElementById("cancelOrder");
     var b = document.getElementById("goTi");
@@ -54,14 +56,16 @@ function pageLoad(event) {
     document.getElementById("terminarOrden2").addEventListener("click", cancelarOrden);
     //llenarDescuentos();
     controller.getPromos();
-    $("#datepicker1").datepicker({ minDate: 0 });
-    $("#datepicker2").datepicker({ minDate: 0 });
+    $("#datepicker1").datepicker({minDate: 0});
+    $("#datepicker2").datepicker({minDate: 0});
+
+
 }
 
 function deshabilitarRegreso() {
     normalizar();
     document.getElementById("datepicker2").disabled = true;
-    esidaYVuelta= false;
+    esidaYVuelta = false;
 }
 
 function colones(cambio) {
@@ -89,34 +93,30 @@ function vuelos() {
 }
 
 function llenarDescuentos() {
-    var j=1;
+    var j = 1;
     for (var i = 0; i < model.vs.length; i++) {
         if (model.vs[i].descuento === "1") {
             var imagen = document.createElement("img");
             var image = "img/" + model.vs[i].codigo_vuelo + ".jpg";
             imagen.src = image;//direccion de la imagen 
             imagen.class = 'img-responsive';
-            imagen.name = "img" + i;
-            imagen.alt = '';
-            //document.getElementById("Comprar"+j).addEventListener("click",buscarVPromo);
-            var botonPrueba =$( "#"+"Comprar"+j );
-            var numerito = i;
-            botonPrueba.click(function() {
+            var botonPrueba = $("#" + "Comprar" + j);
+            botonPrueba.name = model.vs[i].codigo_vuelo;
+            botonPrueba.click(function () {
                 esPromo = true;
-                buscarVPromo(model.vs[numerito].codigo_vuelo);
+                buscarVPromo(botonPrueba.name);
             });
             var id = "div" + j;
             j++;
             var actual = document.getElementById(id);
-            if (actual !== null)
-                document.getElementById("fotos").style.display = "block";
-            actual.style.display = "block";
-            actual.appendChild(imagen);
+            if (actual !== null) {
+                actual.appendChild(imagen);
+            }
         }
     }
 }
 
-function buscarVPromo(codigo){
+function buscarVPromo(codigo) {
     controller.buscarVPromo(codigo);
 }
 
@@ -313,7 +313,7 @@ function llenarAsientos() {
     controller.getAsientos(orden[0].avion.codigo_avion);
 }
 
-function usadosAsi(){
+function usadosAsi() {
     var usados = model.asientosUsados;
     for (var i = 0; i < usados.length; i++) {
         var as = document.getElementById(usados[i].numero + "ida");
@@ -322,7 +322,7 @@ function usadosAsi(){
     }
 }
 
-function usadosAsiV(){
+function usadosAsiV() {
     var usados = model.asientosUsadosV;
     for (var i = 0; i < usados.length; i++) {
         var as = document.getElementById(usados[i].numero + "vuelta");
@@ -331,21 +331,19 @@ function usadosAsiV(){
     }
 }
 
-function llenarAsientosV(){
-    if(!esidaYVuela){
+function llenarAsientosV() {
+    if (!esidaYVuela) {
         return;
-    }
-    else
+    } else
         controller.getAsientosVenida(orden[1].avion.codigo_avion);
 }
 
 function crearBotones() {
     var boton1 = document.getElementById("continuarAsientosIda");
     var boton2 = document.getElementById("cancelarAsientosIda");
-    if(esidaYVuela){
+    if (esidaYVuela) {
         boton1.addEventListener("click", llenarAsientosV);
-    }
-    else{
+    } else {
         boton1.addEventListener("click", ordenCompletada);
     }
     boton2.addEventListener("click", cancelarOrden);
@@ -367,11 +365,11 @@ function ordenCompletada() {
         alert("Selecciones los " + cantidad + " asiento(s).");
         return;
     }
-    if(esidaYVuela){
+    if (esidaYVuela) {
         if (asientosV.length < cantidad) {
-        alert("Selecciones los " + cantidad + " asiento(s).");
-        return;
-    }
+            alert("Selecciones los " + cantidad + " asiento(s).");
+            return;
+        }
     }
     document.getElementById("avionAsientos").style.display = "none";
     document.getElementById("avionAsientos1").style.display = "none";
@@ -399,13 +397,13 @@ function ordenCompletada() {
     for (var i = 0; i < asientos.length; i++) {
         asientos[i] = asientos[i].value.toString() + "," + pasajeros[i];
         var parrafo = document.createElement("p");
-        parrafo.innerHTML ="Asientos de ida: " + asientos[i];
+        parrafo.innerHTML = "Asientos de ida: " + asientos[i];
         document.getElementById("estosSon").appendChild(parrafo);
     }
     for (var i = 0; i < asientosV.length; i++) {
         asientosV[i] = asientosV[i].value.toString() + "," + pasajeros[i];
         var parrafo = document.createElement("p");
-        parrafo.innerHTML ="Asientos de vuelta: " + asientosV[i];
+        parrafo.innerHTML = "Asientos de vuelta: " + asientosV[i];
         document.getElementById("estosSon").appendChild(parrafo);
     }
 
@@ -446,7 +444,7 @@ function cancelOrden() {
 }
 
 function showBuscados() {
-    
+
     if (!fechaVacia())
         return;
     else {
@@ -477,9 +475,9 @@ function showBuscados() {
         t.appendChild(t1);
         var t2 = document.createElement("td");
         var boton = document.createElement("input");
-        boton.id = "ida,"+i;
+        boton.id = "ida," + i;
         boton.type = "radio";
-        boton.name= "radio";
+        boton.name = "radio";
         idaSelect = i;
         boton.classList.add("radios");
         boton.checked = true;
@@ -496,9 +494,9 @@ function showBuscados() {
         s.appendChild(t);
     }
     var esIdaVenida = $("#idaYvuelta").is(":checked");
-      if(!esIdaVenida){
-          botonComprar();
-      }
+    if (!esIdaVenida) {
+        botonComprar();
+    }
     document.getElementById("busqueda").style.display = "block";
     $('html,body').animate({
         scrollTop: $("#busqueda").offset().top
@@ -507,7 +505,7 @@ function showBuscados() {
 
 function showBuscadosVenida() {
 
-   if (!fechaVacia())
+    if (!fechaVacia())
         return;
     else {
         normalizar();
@@ -532,17 +530,17 @@ function showBuscadosVenida() {
         var t = document.createElement("tr");
         t.id = "filabusq";
         var t1 = document.createElement("td");
-        t1.innerHTML = i + 1 + ". Desde: " 
-                + model.buscadosVenida[i].ruta.ciudadO.nombre 
-                + " hasta " + model.buscadosVenida[i].ruta.ciudadD.nombre 
+        t1.innerHTML = i + 1 + ". Desde: "
+                + model.buscadosVenida[i].ruta.ciudadO.nombre
+                + " hasta " + model.buscadosVenida[i].ruta.ciudadD.nombre
                 + "      $ " + model.buscadosVenida[i].precio;
         t.id = "buscado2";
         t.appendChild(t1);
         var t2 = document.createElement("td");
         var boton = document.createElement("input");
-        boton.id = "vuelta,"+i;
+        boton.id = "vuelta," + i;
         boton.type = "radio";
-        boton.name= "radio2";
+        boton.name = "radio2";
         vuelaSelect = i;
         boton.classList.add("radios");
         boton.checked = true;
@@ -562,26 +560,26 @@ function showBuscadosVenida() {
     document.getElementById("busqueda1").style.display = "block";
 }
 
-function botonComprar(){
+function botonComprar() {
     var boton = document.getElementById("botonComprar");
-    boton.addEventListener("click",datos);
+    boton.addEventListener("click", datos);
     boton.style.display = "block";
 }
 
-function asignaNumbers1(){
+function asignaNumbers1() {
     var str = this.id;
     var temp = str.split(",");
     idaSelect = temp[1];
-} 
+}
 
-function asignaNumbers2(){
+function asignaNumbers2() {
     var str = this.id;
     var temp = str.split(",");
     vuelaSelect = temp[1];
-} 
+}
 
 function fechaVacia() {
-    if(esPromo)
+    if (esPromo)
         return true;
     var fecPar = document.getElementById("datepicker1").value;
     var fecLle = document.getElementById("datepicker2").value;
@@ -614,8 +612,8 @@ function datos() {
         return;
     }
     orden.push(model.buscados[index]);
-    if(esidaYVuela){
-       orden.push(model.buscadosVenida[index2]); 
+    if (esidaYVuela) {
+        orden.push(model.buscadosVenida[index2]);
     }
     var datos = document.getElementById("datos");
     var tr;
@@ -741,12 +739,12 @@ function openInfo() {
 }
 
 function doSubmitTiquete() {
-    if(document.getElementById("tarjeta").value === ""){
+    if (document.getElementById("tarjeta").value === "") {
         alert("Debe ingresar el numero de tarjeta para poder hacer la compra");
         return;
     }
     var asientosCompletos = "nada";
-    if(esidaYVuela){
+    if (esidaYVuela) {
         asientosCompletos = doSubmitTiqueteVuelta();
     }
     var fecha = new Date();
@@ -768,9 +766,10 @@ function doSubmitTiquete() {
     }
     model.tiquete = tiquete;
     controller.saveTicket(tiquete,seats,asientosCompletos);
+
 }
 
-function doSubmitTiqueteVuelta(){
+function doSubmitTiqueteVuelta() {
     var fecha = new Date();
     var vuelo = orden[1];
     var cliente = new Usuario("", $("#usr").html(), "", "", "", "", "", "", "");
@@ -790,6 +789,7 @@ function doSubmitTiqueteVuelta(){
     }
     model.tiqueteV = tiquete;
     controller.saveTicketV(tiquete,seats);
+
     return seats;
 }
 
@@ -972,8 +972,8 @@ function doSubmitCiudades() {
 
 function doSubmitRutas() {
     var codigo = document.getElementById("codigo");
-    var origen = document.getElementById("origen");
-    var destino = document.getElementById("destino");
+    var origen = document.getElementById("origen").value;
+    var destino = document.getElementById("destino").value;
     var duracion = document.getElementById("duracion");
     var ciudadO = new Ciudad(origen.value, "", "");
     var ciudadD = new Ciudad(destino.value, "", "");
@@ -1352,6 +1352,28 @@ function deleteMarkers() {
 /* ******************************************************************************************************** */
 /* ******************************************************************************************************** */
 /* ******************************************************************************************************** */
+
+function llenarSelectsVuelo() {
+    var ruta = document.getElementById("codigo_ruta");
+    var avion = document.getElementById("codigo_avion");
+
+    for (var i = 0; i < model.buscados1.length; i++) {
+        var option = document.createElement("option");
+        option.value = model.buscados1[i].codigo_ruta;
+        option.innerHTML = model.buscados1[i].codigo_ruta;
+        ruta.appendChild(option);
+    }
+    for (var i = 0; i < model.buscados.length; i++) {
+        var option = document.createElement("option");
+        option.value = model.buscados[i].codigo_avion;
+        option.innerHTML = model.buscados[i].codigo_avion;
+        avion.appendChild(option);
+    }
+
+}
+
+
+
 
 document.addEventListener("DOMContentLoaded", pageLoad);
 
