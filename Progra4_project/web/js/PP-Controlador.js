@@ -147,14 +147,14 @@ buscarVPromo: function(codigo){
             alert("no se pudo guardar el tiquete");
         else{
             if(asientosCompletos === "nada"){
-                Proxy.generarPDF(tiquete, seats, function (result) {
+                Proxy.generarPDF(model.tiquete, null, function (result) {
                     var retorno = result;
                     location.reload(true);
                     view. alert("se ha guardado con exito !!");
                 });
             }
             else{
-                Proxy.generarPDF(tiquete, asientosCompletos, function (result) {
+                Proxy.generarPDF(model.tiquete, model.tiqueteV, function (result) {
                     var retorno = result;
                     location.reload(true);
                     view. alert("se ha guardado con exito !!");

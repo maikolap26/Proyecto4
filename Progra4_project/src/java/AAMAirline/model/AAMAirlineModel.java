@@ -21,6 +21,29 @@ public class AAMAirlineModel {
         BD = new Database(null, null, null);
     }
 
+    public static ArrayList<String> getAsientosPDF(String t1){
+        ArrayList<String> asientos = new ArrayList();
+        try
+        {
+            String sql = "SELECT numero,nombre_pasajero,pasaporte_pasajero "
+                    + "FROM asiento "
+                    + "where codigo_tiquete = '%s'";
+            sql = String.format(sql, t1);
+            ResultSet rs = BD.executeQuery(sql);
+            while(rs.next()){
+                String numero = rs.getString("numero");
+                String nombre = rs.getString("nombre_pasajero");
+                String pasaporte = rs.getString("pasaporte_pasajero");
+                String asiento = " Asiento: "+ numero+" pasajero "+nombre + " pasaporte "+pasaporte; 
+                asientos.add(asiento);
+            }
+        }
+        catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        return asientos;
+    }
+    
     public static List<Ciudad> getCiudades1() {
         List<Ciudad> ciudades;
         ciudades = new ArrayList();

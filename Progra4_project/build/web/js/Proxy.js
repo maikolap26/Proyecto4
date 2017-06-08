@@ -59,10 +59,15 @@ Proxy.cambioDolar = function (callback) {
     AJAX_req.send();
 };
 
-Proxy.generarPDF = function (tiquete,seats, callBack) {
-    var enviar;
-    enviar = JsonUtils.enviar(tiquete);
-    window.open("/Progra4_project/PdfServlet?"+"tiquete=" + enviar +"&seats="+seats);
+Proxy.generarPDF = function (tiquete,tiquete2, callBack) {
+    var enviar1;
+    enviar1 = JsonUtils.enviar(tiquete);
+    var enviar2;
+    if(tiquete2 !== null)
+        enviar2 = JsonUtils.enviar(tiquete2);
+    else
+        enviar2 = "nada";
+    window.open("/Progra4_project/PdfServlet?"+"tiquete=" + enviar1 +"&tiquete2="+enviar2);
     callBack(true);
 };
 

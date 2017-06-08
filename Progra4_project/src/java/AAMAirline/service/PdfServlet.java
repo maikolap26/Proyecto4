@@ -5,6 +5,7 @@
  */
 package AAMAirline.service;
 
+import AAMAirline.model.AAMAirlineModel;
 import AAMAirline.model.Asiento;
 import AAMAirline.model.Avion;
 import AAMAirline.model.Ciudad;
@@ -29,6 +30,7 @@ import com.itextpdf.layout.property.TextAlignment;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -66,12 +68,16 @@ public class PdfServlet extends HttpServlet {
             document.add(p);
             String h = "Vuelo %s, %s - %s, %s %s";
             String aux = request.getParameter("tiquete");
-            String sea = request.getParameter("seats");
-            String limiter = "-";
-            String[] tem;
-            tem = sea.split(limiter);
-            String[] seats = tem;
+            
+            String aux2 = request.getParameter("tiquete2");
+            Tiquete ticket2 = null;
+            ArrayList asientos2 = null;
+            if(!aux.equals("nada")){
+                ticket2 = gson.fromJson(aux2, Tiquete.class);
+                asientos2 = AAMAirlineModel.getAsientosPDF(ticket2.getCodigo_Tiquete());
+            }   
             Tiquete ticket = gson.fromJson(aux, Tiquete.class);
+            ArrayList asientos1 = AAMAirlineModel.getAsientosPDF(ticket.getCodigo_Tiquete());
             String hora = ticket.getVuelo().getHora_salida();
             String algo = "am";
             int valor = Integer.parseInt(hora);
@@ -88,14 +94,23 @@ public class PdfServlet extends HttpServlet {
             p.setBold();
             document.add(p);
             String asientos = "";
-            for (String seat : seats) {
-                asientos =asientos + seat + "\n";
+            for(int i=0; i< asientos1.size() ; i++){
+                asientos = "Ida \n";
+                asientos = asientos + asientos1.get(i)+ "\n";
+            }
+            if(!"nada".equals(aux2)){
+                asientos= asientos + "Vuelta \n";
+                for(int i=0; i< asientos2.size() ; i++){
+                    asientos = asientos + asientos2.get(i) + "\n";
+            }
             }
             p = new Paragraph("------------- Asientos ------------- \n"
                     + asientos);
             document.add(p);
-            Float precio = (ticket.getVuelo().getPrecio()) * (seats.length);
-            p = new Paragraph("COSTO TOTAL: " + precio.toString());
+            Float precio = (ticket.getVuelo().getPrecio()) * (asientos1.size());
+            if(!"nada".equals(aux2))
+                precio = precio + (ticket2.getVuelo().getPrecio() * (asientos2.size()));
+            p = new Paragraph("COSTO TOTAL: $ " + precio.toString());
             p.setTextAlignment(TextAlignment.RIGHT);
             p.setBold();
             p.setBackgroundColor(Color.PINK);

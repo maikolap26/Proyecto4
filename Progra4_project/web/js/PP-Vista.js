@@ -224,7 +224,7 @@ function mostrarAsientos() {
             } else {
                 b.type = "button";
                 b.value = x[i] + j.toString();
-                b.id = x[i] + j.toString();
+                b.id = x[i] + j.toString()+"ida";
                 b.classList.add("asiento");
                 columna.id = j.toString();
                 b.addEventListener("click", agregaAsiento);
@@ -277,7 +277,7 @@ function mostrarAsientosVuelta() {
             } else {
                 b.type = "button";
                 b.value = x[i] + j.toString();
-                b.id = x[i] + j.toString();
+                b.id = x[i] + j.toString() + "vuelta";
                 b.classList.add("asiento");
                 columna.id = j.toString();
                 b.addEventListener("click", agregaAsientoV);
@@ -316,7 +316,7 @@ function llenarAsientos() {
 function usadosAsi(){
     var usados = model.asientosUsados;
     for (var i = 0; i < usados.length; i++) {
-        var as = document.getElementById(usados[i].numero);
+        var as = document.getElementById(usados[i].numero + "ida");
         as.classList.add("ocupado");
         as.disabled = true;
     }
@@ -325,7 +325,7 @@ function usadosAsi(){
 function usadosAsiV(){
     var usados = model.asientosUsadosV;
     for (var i = 0; i < usados.length; i++) {
-        var as = document.getElementById(usados[i].numero);
+        var as = document.getElementById(usados[i].numero + "vuelta");
         as.classList.add("ocupado");
         as.disabled = true;
     }
@@ -397,13 +397,13 @@ function ordenCompletada() {
         document.getElementById("price2").innerHTML = simbolo + " " + precio;
     }
     for (var i = 0; i < asientos.length; i++) {
-        asientos[i] = asientos[i].id.toString() + "," + pasajeros[i];
+        asientos[i] = asientos[i].value.toString() + "," + pasajeros[i];
         var parrafo = document.createElement("p");
         parrafo.innerHTML ="Asientos de ida: " + asientos[i];
         document.getElementById("estosSon").appendChild(parrafo);
     }
     for (var i = 0; i < asientosV.length; i++) {
-        asientosV[i] = asientosV[i].id.toString() + "," + pasajeros[i];
+        asientosV[i] = asientosV[i].value.toString() + "," + pasajeros[i];
         var parrafo = document.createElement("p");
         parrafo.innerHTML ="Asientos de vuelta: " + asientosV[i];
         document.getElementById("estosSon").appendChild(parrafo);
@@ -766,6 +766,7 @@ function doSubmitTiquete() {
         else
             seats = seats + "-" + asientos[i];
     }
+    model.tiquete = tiquete;
     controller.saveTicket(tiquete,seats,asientosCompletos);
 }
 
@@ -787,6 +788,7 @@ function doSubmitTiqueteVuelta(){
         else
             seats = seats + "-" + asientosV[i];
     }
+    model.tiqueteV = tiquete;
     controller.saveTicketV(tiquete,seats);
     return seats;
 }
