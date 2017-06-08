@@ -21,7 +21,7 @@ var avionIda;
 var esidaYVuela;
 var asientosV = [];
 var esPromo = false;
-
+var c1,c2,c3,c4,c5;
 
 function pageLoad(event) {
 
@@ -100,12 +100,9 @@ function llenarDescuentos() {
             var image = "img/" + model.vs[i].codigo_vuelo + ".jpg";
             imagen.src = image;//direccion de la imagen 
             imagen.class = 'img-responsive';
-            var botonPrueba = $("#" + "Comprar" + j);
-            botonPrueba.name = model.vs[i].codigo_vuelo;
-            botonPrueba.click(function () {
-                esPromo = true;
-                buscarVPromo(botonPrueba.name);
-            });
+            var botonPrueba = document.getElementById("Comprar"+j)
+            botonPrueba.name=model.vs[i].codigo_vuelo;
+            botonPrueba.addEventListener("click",buscarVPromo);
             var id = "div" + j;
             j++;
             var actual = document.getElementById(id);
@@ -116,8 +113,9 @@ function llenarDescuentos() {
     }
 }
 
-function buscarVPromo(codigo) {
-    controller.buscarVPromo(codigo);
+function buscarVPromo() {
+    esPromo=true;
+    controller.buscarVPromo(this.name);
 }
 
 function llenarSelects() {
@@ -447,6 +445,7 @@ function showBuscados() {
 
     if (!fechaVacia())
         return;
+        
     else {
         normalizar();
     }
@@ -501,6 +500,10 @@ function showBuscados() {
     $('html,body').animate({
         scrollTop: $("#busqueda").offset().top
     }, 2000);
+    if (esPromo)
+        esPromo=false;
+    
+        
 }
 
 function showBuscadosVenida() {
@@ -594,7 +597,7 @@ function fechaVacia() {
         alert("Debe indicar la fecha de ida!!");
         return false;
     }
-
+    
     return true;
 }
 
