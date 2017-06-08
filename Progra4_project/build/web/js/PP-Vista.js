@@ -100,13 +100,13 @@ function llenarDescuentos() {
             var image = "img/" + model.vs[i].codigo_vuelo + ".jpg";
             imagen.src = image;//direccion de la imagen 
             imagen.class = 'img-responsive';
-            var botonPrueba = document.getElementById("Comprar"+j)
+            var botonPrueba = document.getElementById("Comprar"+j);
             botonPrueba.name=model.vs[i].codigo_vuelo;
             botonPrueba.addEventListener("click",buscarVPromo);
             var id = "div" + j;
             j++;
             var actual = document.getElementById(id);
-            if (actual !== null) {
+            if (actual !== null) {    
                 actual.appendChild(imagen);
             }
         }
@@ -1251,7 +1251,9 @@ function redireccionar1() {
 function redireccionar2() {
     location = "UsuarioAdmin.jsp";
 }
-
+function redireccionarH() {
+    location = "Historial.jsp";
+}
 // ------------------------------- HABILITA LOS CAMPOS A MODIFICAR -------------------------------
 function enableInput() {
     document.getElementById("correo").disabled = false;
