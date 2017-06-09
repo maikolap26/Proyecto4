@@ -31,7 +31,8 @@ function pageLoad(event) {
     controller = new AAMController(model, window);
     $("#buscar").click(function () {
         controller.buscar();
-        controller.buscarVenida();
+        if(esidaYVuela)
+            controller.buscarVenida();
     });
     $("#goTi").click(function () {
         controller.getAsientos();
@@ -748,15 +749,18 @@ function doSubmitTiquete() {
         asientosCompletos = doSubmitTiqueteVuelta();
     }
     var fecha = new Date();
-    var vuelo = orden[0];
+    var vueloida = orden[0];
+    var vueloVuelta = null;
+    if(esidaYVuela)
+        vueloVuelta = orden[1];
     var cliente = new Usuario("", $("#usr").html(), "", "", "", "", "", "", "");
-    var codigo_tiquete = vuelo.codigo_vuelo.toString()
-            + vuelo.avion.codigo_avion.toString()
+    var codigo_tiquete = vueloida.codigo_vuelo.toString()
+            + vueloida.avion.codigo_avion.toString()
             + fecha.getDay().toString()
             + fecha.getHours().toString()
             + fecha.getMinutes().toString()
             + fecha.getSeconds().toString();
-    var tiquete = new Tiquete(codigo_tiquete, cliente, vuelo);
+    var tiquete = new Tiquete(codigo_tiquete, cliente, vueloida, vueloVuelta);
     var seats = "";
     for (var i = 0; i < asientos.length; i++) {
         if (i === 0)
@@ -788,8 +792,7 @@ function doSubmitTiqueteVuelta() {
             seats = seats + "-" + asientosV[i];
     }
     model.tiqueteV = tiquete;
-    controller.saveTicketV(tiquete,seats);
-
+    //controller.saveTicketV(tiquete,seats);
     return seats;
 }
 

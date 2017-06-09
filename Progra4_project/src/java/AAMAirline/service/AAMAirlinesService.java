@@ -69,7 +69,7 @@ public class AAMAirlinesService extends HttpServlet {
                 case "saveTicket":
                     String aux = request.getParameter("tiquete");
                     String sea = request.getParameter("seats");
-                    String limiter = "-";
+                    String limiter = "/";
                     String[] tem;
                     tem = sea.split(limiter);
                     String[] seats = tem;

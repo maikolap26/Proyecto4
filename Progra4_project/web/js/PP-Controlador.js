@@ -155,27 +155,22 @@ buscarVPromo: function(codigo){
      var model = this.model;
      var s = seats.split("-");
      for(var i =0; i < s.length ; i++){
-         asientosCompletos = asientosCompletos + "-"+ s[i];  
+         if(i === 0)
+             asientosCompletos = asientosCompletos + "/"+ s[i];
+         else
+            asientosCompletos = asientosCompletos + "-"+ s[i];
      }
-    Proxy.saveTicket(tiquete, seats, function (result) {
+    Proxy.saveTicket(tiquete, asientosCompletos, function (result) {
         var selogro = result;
         if (selogro === 0)
             alert("no se pudo guardar el tiquete");
         else{
-            if(asientosCompletos === "nada"){
-                Proxy.generarPDF(model.tiquete, null, function (result) {
-                    var retorno = result;
-                    location.reload(true);
-                    view. alert("se ha guardado con exito !!");
-                });
-            }
-            else{
-                Proxy.generarPDF(model.tiquete, model.tiqueteV, function (result) {
-                    var retorno = result;
-                    location.reload(true);
-                    view. alert("se ha guardado con exito !!");
-                });
-            }
+            Proxy.generarPDF(tiquete.codigo_Tiquete, function (result) {
+                var retorno = result;
+                location.reload(true);
+                view. alert("se ha guardado con exito !!");
+            });
+            
         }
     });
 },

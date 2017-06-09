@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AAMAirlineModel {
 
@@ -21,14 +23,14 @@ public class AAMAirlineModel {
         BD = new Database(null, null, null);
     }
 
-    public static ArrayList<String> getAsientosPDF(String t1){
+    public static ArrayList<String> getAsientosPDF(String t1,String vuelo){
         ArrayList<String> asientos = new ArrayList();
         try
         {
             String sql = "SELECT numero,nombre_pasajero,pasaporte_pasajero "
                     + "FROM asiento "
-                    + "where codigo_tiquete = '%s'";
-            sql = String.format(sql, t1);
+                    + "where codigo_tiquete = '%s' and codigo_avion = '%s'";
+            sql = String.format(sql, t1,vuelo);
             ResultSet rs = BD.executeQuery(sql);
             while(rs.next()){
                 String numero = rs.getString("numero");
@@ -64,11 +66,21 @@ public class AAMAirlineModel {
         String[] temp;
         temp = ticket.getCliente().getCedula().split(delimiter);
         String cedula= clientGet(temp[1]).getCedula();
-        String sql = "insert into tiquete values ('%s','%s','%s')";
+        String sql = "insert into tiquete values ('%s','%s','%s','%s')";
         int rs2=0;
-        sql = String.format(sql, cedula,ticket.getVuelo().getCodigo_Vuelo(),ticket.getCodigo_Tiquete());
+        int rs3 =0;
+        sql = String.format(sql
+                , cedula
+                ,ticket.getVueloida().getCodigo_Vuelo()
+                ,ticket.getCodigo_Tiquete()
+                ,ticket.getVueloVuelta().getCodigo_Vuelo()
+        );
         int rs = BD.executeUpdate(sql);
-        for (String seat : seats) {
+        String[] seatsIda;
+        seatsIda = seats[1].split("-");
+        String[] seatsVuelta;
+        seatsVuelta = seats[0].split("-");
+        for (String seat : seatsIda) {
             String delimiter2=",";
             String[] temp2;
             temp2 = seat.split(delimiter2);
@@ -76,10 +88,21 @@ public class AAMAirlineModel {
             String nombre = temp2[1];
             String pasa = temp2[2];
             String sql2 = "insert into asiento values ('%s', '%s', '%s','%s','%s')";
-            sql2 = String.format(sql2, numero, ticket.getCodigo_Tiquete(), ticket.getVuelo().getAvion().getCodigo_Avion(),nombre,pasa);
+            sql2 = String.format(sql2, numero, ticket.getCodigo_Tiquete(), ticket.getVueloida().getAvion().getCodigo_Avion(),nombre,pasa);
             rs2 = BD.executeUpdate(sql2);
         }
-        if(rs==1 && rs2==1)
+        for (String seat : seatsVuelta) {
+            String delimiter2=",";
+            String[] temp2;
+            temp2 = seat.split(delimiter2);
+            String numero = temp2[0];
+            String nombre = temp2[1];
+            String pasa = temp2[2];
+            String sql2 = "insert into asiento values ('%s', '%s', '%s','%s','%s')";
+            sql2 = String.format(sql2, numero, ticket.getCodigo_Tiquete(), ticket.getVueloVuelta().getAvion().getCodigo_Avion(),nombre,pasa);
+            rs3 = BD.executeUpdate(sql2);
+        }
+        if(rs==1 && rs2==1 && rs3 ==1)
             return 1;
         else
             return 0; 
@@ -120,19 +143,33 @@ public class AAMAirlineModel {
         return asientos;
     }
     
-    private Tiquete toTiquete(ResultSet rs) throws SQLException{
+    public static Tiquete consultaTiquete(String codigo) throws SQLException{
+        Tiquete tiquete = new Tiquete();
+        String sql = "select * from tiquete where codigo_tiquete = %s ";
+        sql = String.format(sql, codigo);
+        ResultSet rs = BD.executeQuery(sql);
+            while(rs.next()) 
+                tiquete = toTiquete(rs);
+        return tiquete;
+    }
+    
+    public static Tiquete toTiquete(ResultSet rs) throws SQLException{
         Tiquete tiquete = new Tiquete();
         String cliente = rs.getString("cedula_cliente");
-        String codigo_vuelo = rs.getString("codigo_vuelo");
+        String codigo_vueloIda = rs.getString("codigo_vueloIda");
+        String codigo_vueloVuelta = rs.getString("codigo_vueloVuelta");
         String codigo_tiquete = rs.getString("codigo_tiquete");
         String sql = "select * from usuario where cedula = '%s'";
         sql = String.format(sql, cliente);
         ResultSet rs1 = BD.executeQuery(sql);
-        List<Vuelo> vuelos = this.getVuelos1();
-        Vuelo vuelo = new Vuelo();
+        List<Vuelo> vuelos = getVuelos1();
+        Vuelo vuelo1 = new Vuelo();
+        Vuelo vuelo2 = new Vuelo();
         for(int i=0; i < vuelos.size() ; i++){
-            if(vuelos.get(i).getCodigo_Vuelo().contains(codigo_vuelo))
-                vuelo = vuelos.get(i);
+            if(vuelos.get(i).getCodigo_Vuelo().contains(codigo_vueloIda))
+                vuelo1 = vuelos.get(i);
+            if(vuelos.get(i).getCodigo_Vuelo().contains(codigo_vueloVuelta))
+                vuelo2 = vuelos.get(i);
         }
         while(rs1.next()){
             try {
@@ -144,7 +181,8 @@ public class AAMAirlineModel {
                 System.err.println(ex.getMessage());
             }
         }
-        tiquete.setVuelo(vuelo);
+        tiquete.setVueloida(vuelo1);
+        tiquete.setVueloVuelta(vuelo2);
         tiquete.setCodigo_Tiquete(codigo_tiquete);
         return tiquete;
     }
@@ -215,7 +253,7 @@ public class AAMAirlineModel {
         return result;
     }
 
-    public List<Vuelo> getVuelos1() {
+    public static List<Vuelo> getVuelos1() {
         List<Vuelo> vuelos;
         vuelos = new ArrayList();
         try {

@@ -23,7 +23,7 @@ JsonUtils.revive = function (k, v) {
         return new Asiento(v.numero, v.tiquete, v.avion);
     } 
     if (v instanceof Object && v._class === 'Tiquete') {
-        return new Tiquete(v.codigo_Tiquete,v.cliente,v.vuelo);
+        return new Tiquete(v.codigo_Tiquete,v.cliente,v.vueloida,v.vueloVuelta);
     }
 
     return v;

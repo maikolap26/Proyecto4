@@ -30,7 +30,11 @@ import com.itextpdf.layout.property.TextAlignment;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -66,57 +70,61 @@ public class PdfServlet extends HttpServlet {
             p.setBold();
             p.setBackgroundColor(Color.PINK);
             document.add(p);
-            String h = "Vuelo %s, %s - %s, %s %s";
-            String aux = request.getParameter("tiquete");
+            String h = "Vuelo %s, %s - %s, %s %s %s";
+            String codigo_tiquete = request.getParameter("tiquete");
+//            String aux2 = request.getParameter("tiquete2");
+//            Tiquete ticket2 = null;
+//            ArrayList asientos2 = null;
+//            if(!aux.equals("nada")){
+//                ticket2 = gson.fromJson(aux2, Tiquete.class);
+//                asientos2 = AAMAirlineModel.getAsientosPDF(ticket2.getCodigo_Tiquete());
+//            }   
             
-            String aux2 = request.getParameter("tiquete2");
-            Tiquete ticket2 = null;
-            ArrayList asientos2 = null;
-            if(!aux.equals("nada")){
-                ticket2 = gson.fromJson(aux2, Tiquete.class);
-                asientos2 = AAMAirlineModel.getAsientosPDF(ticket2.getCodigo_Tiquete());
-            }   
-            Tiquete ticket = gson.fromJson(aux, Tiquete.class);
-            ArrayList asientos1 = AAMAirlineModel.getAsientosPDF(ticket.getCodigo_Tiquete());
-            String hora = ticket.getVuelo().getHora_salida();
-            String algo = "am";
-            int valor = Integer.parseInt(hora);
-            if (valor >= 12) {
-                algo = "pm";
+            Tiquete ticket = AAMAirlineModel.consultaTiquete(codigo_tiquete);
+            ArrayList<String> asientosIda = AAMAirlineModel.getAsientosPDF(
+                                    ticket.getCodigo_Tiquete(),ticket.getVueloida().getAvion().getCodigo_Avion());
+            ArrayList asientosVuelta ;
+            String asientos = "";
+            String horaVuelta="";
+            Float precio = (ticket.getVueloida().getPrecio()) * (asientosIda.size());
+            if(ticket.getVueloVuelta() != null){
+                asientosVuelta = AAMAirlineModel.getAsientosPDF(
+                                    ticket.getCodigo_Tiquete(),ticket.getVueloVuelta().getAvion().getCodigo_Avion());
+                horaVuelta = " / salida vuelo Vuelta " + ticket.getVueloVuelta().getHora_salida() + " horas ";
+                asientos= asientos + "Vuelta \n";
+                for(int i=0; i< asientosVuelta.size() ; i++){
+                    asientos = asientos + asientosVuelta.get(i) + "\n";
+                }
+                precio += (ticket.getVueloVuelta().getPrecio() * asientosVuelta.size());
             }
-            h = String.format(h, ticket.getVuelo().getCodigo_Vuelo(),
-                     ticket.getVuelo().getRuta().getCiudadO().getNombre(),
-                     ticket.getVuelo().getRuta().getCiudadD().getNombre(),
-                     ticket.getVuelo().getDia_salida(),
-                     hora + algo);
+            String horaida = ticket.getVueloida().getHora_salida();
+            String algo = " horas ";
+            h = String.format(h, ticket.getVueloida().getCodigo_Vuelo(),
+                     ticket.getVueloida().getRuta().getCiudadO().getNombre(),
+                     ticket.getVueloida().getRuta().getCiudadD().getNombre(),
+                     ticket.getVueloida().getDia_salida(),
+                     " salida vuelo ida :" + horaida + algo, horaVuelta);
             p = new Paragraph(h);
             p.setTextAlignment(TextAlignment.LEFT);
             p.setBold();
             document.add(p);
-            String asientos = "";
-            for(int i=0; i< asientos1.size() ; i++){
-                asientos = "Ida \n";
-                asientos = asientos + asientos1.get(i)+ "\n";
-            }
-            if(!"nada".equals(aux2)){
-                asientos= asientos + "Vuelta \n";
-                for(int i=0; i< asientos2.size() ; i++){
-                    asientos = asientos + asientos2.get(i) + "\n";
-            }
+            
+            for(int i=0; i< asientosIda.size() ; i++){
+                asientos = asientos + "Ida: \n";
+                asientos = asientos + asientosIda.get(i)+ "\n";
             }
             p = new Paragraph("------------- Asientos ------------- \n"
                     + asientos);
             document.add(p);
-            Float precio = (ticket.getVuelo().getPrecio()) * (asientos1.size());
-            if(!"nada".equals(aux2))
-                precio = precio + (ticket2.getVuelo().getPrecio() * (asientos2.size()));
-            p = new Paragraph("COSTO TOTAL: $ " + precio.toString());
+            
+            p = new Paragraph("COSTO TOTAL: $ " + precio);
             p.setTextAlignment(TextAlignment.RIGHT);
             p.setBold();
             p.setBackgroundColor(Color.PINK);
             document.add(p);
-        }
-    }
+        } catch (SQLException ex) {
+            Logger.getLogger(PdfServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
