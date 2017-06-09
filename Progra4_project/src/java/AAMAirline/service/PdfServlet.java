@@ -71,15 +71,7 @@ public class PdfServlet extends HttpServlet {
             p.setBackgroundColor(Color.PINK);
             document.add(p);
             String h = "Vuelo %s, %s - %s, %s %s %s";
-            String codigo_tiquete = request.getParameter("tiquete");
-//            String aux2 = request.getParameter("tiquete2");
-//            Tiquete ticket2 = null;
-//            ArrayList asientos2 = null;
-//            if(!aux.equals("nada")){
-//                ticket2 = gson.fromJson(aux2, Tiquete.class);
-//                asientos2 = AAMAirlineModel.getAsientosPDF(ticket2.getCodigo_Tiquete());
-//            }   
-            
+            String codigo_tiquete = request.getParameter("tiquete");       
             Tiquete ticket = AAMAirlineModel.consultaTiquete(codigo_tiquete);
             ArrayList<String> asientosIda = AAMAirlineModel.getAsientosPDF(
                                     ticket.getCodigo_Tiquete(),ticket.getVueloida().getAvion().getCodigo_Avion());
